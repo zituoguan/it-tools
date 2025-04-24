@@ -1,26 +1,26 @@
-## BREAKING CHANGE for Docker Image
+## Docker 镜像重大变更
 
-Since *Docker base image* is now `nginx-unpriviledged`, docker image now listen to **8080** and no more 80. So you need to update your port mapping, ie from `8080:80` to `8080:8080`.
+由于 *Docker 基础镜像* 现在为 `nginx-unpriviledged`，Docker 镜像现在监听 **8080** 端口，不再是 80。因此你需要更新端口映射，例如从 `8080:80` 改为 `8080:8080`。
 
-### Check out these change here: <https://sharevb-it-tools.vercel.app/>
+### 查看这些变更：<https://sharevb-it-tools.vercel.app/>
 
-You can use my image in your docker-compose file if you want an update to date version of it-tools (with my PR and some of others) until the main branch has been updated.
+如果你想要使用包含我 PR 及其他更新的最新版 it-tools，可以在 docker-compose 文件中使用我的镜像，直到主分支更新为止。
 
-- github action triggers on every push to this branch - [view package here](https://github.com/sharevb/it-tools/pkgs/container/it-tools)
+- GitHub Action 会在每次推送到此分支时触发 - [查看包](https://github.com/sharevb/it-tools/pkgs/container/it-tools)
 
-(Thanks to [gitmotion](https://github.com/gitmotion/it-tools) for this model of README fork)
+（感谢 [gitmotion](https://github.com/gitmotion/it-tools) 提供的 README 模板）
 
-## Added features
+## 新增功能
 
-Almost [all tools PR of it-tools](https://github.com/sharevb/it-tools/pulls).
+几乎包含 [it-tools 所有 PR](https://github.com/sharevb/it-tools/pulls)。
 
-## Docker images
+## Docker 镜像
 
-[GitHub Container Registry](https://github.com/sharevb/it-tools/pkgs/container/it-tools): `ghcr.io/sharevb/it-tools:latest`
+[GitHub Container Registry](https://github.com/sharevb/it-tools/pkgs/container/it-tools)：`ghcr.io/sharevb/it-tools:latest`
 
-[Docker Hub](https://hub.docker.com/r/sharevb/it-tools): `sharevb/it-tools:latest`
+[Docker Hub](https://hub.docker.com/r/sharevb/it-tools)：`sharevb/it-tools:latest`
 
-## Use in Docker Compose file
+## 在 Docker Compose 文件中使用
 
 ```yml
 services:
@@ -33,11 +33,11 @@ services:
       - 8080:8080
 ```
 
-## Filter tools and add home custom content
+## 过滤工具并添加主页自定义内容
 
-You can add custom content in Home page by mounting a `home.custom.md` in `/usr/share/nginx/html`.
+你可以通过挂载 `home.custom.md` 到 `/usr/share/nginx/html`，在主页添加自定义内容。
 
-You can filter available tools by mounting `tools-filter.json` in `/usr/share/nginx/html`. It can contains the following filtering regex:
+你也可以通过挂载 `tools-filter.json` 到 `/usr/share/nginx/html`，过滤可用工具。内容示例：
 ```json
 {
   "excludeCategoryFilterRegex": "",
@@ -46,38 +46,38 @@ You can filter available tools by mounting `tools-filter.json` in `/usr/share/ng
   "includeToolsFilterRegex": ""
 }
 ```
-Category matches on category (English) names ; Tools matches on tools path/url.
+Category 匹配英文分类名；Tools 匹配工具路径/URL。
 
-See (docker-tools-filter-and-home-content)[https://github.com/sharevb/it-tools]
+详见 [docker-tools-filter-and-home-content](https://github.com/sharevb/it-tools)
 
-## To build using a custom folder:
+## 使用自定义文件夹构建
 
 ```
 docker build -t it-tools-fr --build-arg BVITE_LANGUAGE=fr .
 docker run -d --name it-tools-fr --restart unless-stopped -p 8080:8080 it-tools-fr
 ```
 
-## Build docker image for a custom subfolder
+## 为自定义子文件夹构建 Docker 镜像
 
-According to https://github.com/sharevb/it-tools/pull/461#issuecomment-1602506049 and https://github.com/CorentinTh/it-tools/pull/461:
+参考 https://github.com/sharevb/it-tools/pull/461#issuecomment-1602506049 和 https://github.com/CorentinTh/it-tools/pull/461：
 ```
 docker build -t it-tools  --build-arg BASE_URL="/my-folder/" .
 docker run -d --name it-tools --restart unless-stopped -p 8080:8080 it-tools
 ```
 
-Then if you go to `http://localhost:8080` you'll get a blank page, but opening the DevTools (& refreshing) you'll notice in the Network tab that the app is trying to fetch assets from `/my-folder/...`
+然后访问 `http://localhost:8080` 会看到空白页，但在 DevTools 的 Network 标签页会发现应用尝试从 `/my-folder/...` 加载资源。
 
-So you would need to put another server in front of it, like [Nginx Proxy Manager](https://nginxproxymanager.com/), [Traefik](https://traefik.io/traefik/), [caddy](https://caddyserver.com/) etc. Then setup a reverse proxy pass using `/my-folder`
+因此你需要在前面加一层服务器，如 [Nginx Proxy Manager](https://nginxproxymanager.com/)、[Traefik](https://traefik.io/traefik/)、[caddy](https://caddyserver.com/) 等，并设置 `/my-folder` 的反向代理。
 
-## Docker compose for hosting in a `/it-tools/` subfolder
+## Docker Compose 以 `/it-tools/` 子文件夹托管
 
-For `/it-tools/` subfolder, you can use `baseurl-it-tools` tag.
+对于 `/it-tools/` 子文件夹，可以使用 `baseurl-it-tools` 标签。
 
-See [sample of docker-compose.yml and nginx.conf](https://github.com/sharevb/it-tools/docker-subfolder-sample), this docker image needs to have another reverse proxy in front of it, like [Nginx Proxy Manager](https://nginxproxymanager.com/), [Traefik](https://traefik.io/traefik/), [caddy](https://caddyserver.com/) etc. 
+参见 [docker-compose.yml 和 nginx.conf 示例](https://github.com/sharevb/it-tools/docker-subfolder-sample)，此镜像需要前置反向代理，如 [Nginx Proxy Manager](https://nginxproxymanager.com/)、[Traefik](https://traefik.io/traefik/)、[caddy](https://caddyserver.com/) 等。
 
-Setup a reverse proxy pass using `/it-tools/`. And you should be able to access it-tools in `/it-tools/` of your server.
+设置 `/it-tools/` 的反向代理后，即可通过服务器的 `/it-tools/` 访问 it-tools。
 
-To run the sample:
+运行示例：
 
 ```bash
 git clone https://github.com/sharevb/it-tools
@@ -85,44 +85,43 @@ cd it-tools/docker-subfolder-sample/
 docker compose up
 ```
 
-Then navigate to http://localhost:8080/it-tools/
+然后访问 http://localhost:8080/it-tools/
 
-## To build using a custom folder:
+## 使用自定义文件夹构建
 
 1. `BASE_URL="/it-tools/" pnpm build`
-2. Rename the generated `dist` folder to `it-tools` and serve on `https://your-domain.com/it-tools`
+2. 将生成的 `dist` 文件夹重命名为 `it-tools`，并部署到 `https://your-domain.com/it-tools`
 
-## To build for GitHub Pages:
+## 为 GitHub Pages 构建
 
-1. Enable GitHub Pages build and deployment option in your fork, under **Settings** > **Pages** and select **GitHub Actions** as the source
-2. Add the following GitHub action to your repo:
+1. 在你的 fork 下，**Settings** > **Pages** 启用 GitHub Pages 构建和部署选项，并选择 **GitHub Actions** 作为来源
+2. 在仓库添加以下 GitHub Action：
 
 .github/workflows/deploy-pages.yaml
 ```yaml
 name: Deploy static content to Pages
 
 on:
-  # Runs on pushes targeting the default branch
+  # 仅在推送到默认分支时运行
   push:
     branches: ["main"]
 
-  # Allows you to run this workflow manually from the Actions tab
+  # 允许从 Actions 标签页手动运行
   workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+# 设置 GITHUB_TOKEN 权限以允许部署到 GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+# 只允许一个并发部署，跳过排队的旧任务
 concurrency:
   group: "pages"
   cancel-in-progress: false
 
 jobs:
-  # Single deploy job since we're just deploying
+  # 单一部署任务
   deploy:
     environment:
       name: github-pages
@@ -162,15 +161,15 @@ jobs:
         uses: actions/deploy-pages@v2
 ```
 
-## Installation methods
+## 安装方式
 
-Local installation required installing first: `python3 make g++`
+本地安装需先安装：`python3 make g++`
 
-| Docker Image                            | Local Installation                                                                                                          |
-|-----------------------------------------|-----------------------------------------------------------------------------------------------------------------------------|
+| Docker 镜像                            | 本地安装                                                                                                          |
+|----------------------------------------|-------------------------------------------------------------------------------------------------------------------|
 | GitHub Container Registry: <span title="triple click me!">`ghcr.io/sharevb/it-tools:latest`</span><br/>Docker Hub: <span title="triple click me!">`sharevb/it-tools:latest`</span> | <span title="triple click me!">`sudo apt-get install python3 make g++ && git clone -b chore/all-my-stuffs https://github.com/sharevb/it-tools.git && cd it-tools/ && pnpm i && pnpm dev`</span> |
-| replace your current image with this image | copy & paste oneliner (from github repo) |
-| You may need to clear cache and hard reload to get new features loading | Installing packages for the first time may take some time; please wait until it finishes |
+| 替换你当前的镜像为此镜像 | 复制粘贴一键安装命令（来自 github 仓库） |
+| 可能需要清除缓存并强制刷新以加载新功能 | 首次安装依赖包可能需要一些时间，请耐心等待 |
 
 <picture>
     <source srcset="./.github/logo-dark.png" media="(prefers-color-scheme: light)">
@@ -180,48 +179,48 @@ Local installation required installing first: `python3 make g++`
 
 <details>
 
-Useful tools for developer and people working in IT. [Have a look !](https://sharevb-it-tools.vercel.app).
+为开发者和 IT 从业者提供实用工具。[点此体验！](https://sharevb-it-tools.vercel.app)。
 
-## Functionalities and roadmap
+## 功能与路线图
 
-Please check the [issues](https://github.com/sharevb/it-tools/issues) to see if some feature listed to be implemented.
+请查看 [issues](https://github.com/sharevb/it-tools/issues) 了解待实现的功能。
 
-You have an idea of a tool? Submit a [feature request](https://github.com/sharevb/it-tools/issues/new/choose)!
+有新工具想法？欢迎提交 [功能请求](https://github.com/sharevb/it-tools/issues/new/choose)！
 
-## Self host
+## 自托管
 
-Self host solutions for your homelab
+适合你的 homelab 的自托管方案
 
-**From docker hub:**
+**Docker Hub 镜像：**
 
 ```sh
 docker run -d --name it-tools --restart unless-stopped -p 8080:8080 corentinth/it-tools:latest
 ```
 
-**From github packages:**
+**GitHub Packages 镜像：**
 
 ```sh
 docker run -d --name it-tools --restart unless-stopped -p 8080:8080 ghcr.io/corentinth/it-tools:latest
 ```
 
-**Other solutions:**
+**其他方案：**
 
 - [Cloudron](https://www.cloudron.io/store/tech.ittools.cloudron.html)
 - [Tipi](https://www.runtipi.io/docs/apps-available)
 - [Unraid](https://unraid.net/community/apps?q=it-tools)
 
-## Contribute
+## 贡献
 
-### Recommended IDE Setup
+### 推荐的 IDE 设置
 
-[VSCode](https://code.visualstudio.com/) with the following extensions:
+建议使用 [VSCode](https://code.visualstudio.com/) 并安装以下扩展：
 
-- [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur)
-- [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+- [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)（并禁用 Vetur）
+- [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin)
 - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 - [i18n Ally](https://marketplace.visualstudio.com/items?itemName=lokalise.i18n-ally)
 
-with the following settings:
+推荐设置如下：
 
 ```json
 {
@@ -234,76 +233,76 @@ with the following settings:
 }
 ```
 
-### Type Support for `.vue` Imports in TS
+### `.vue` 文件在 TS 中的类型支持
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+TypeScript 默认无法处理 `.vue` 导入的类型信息，因此需用 `vue-tsc` 替代 `tsc` 进行类型检查。编辑器中需安装 [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) 以支持 `.vue` 类型。
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+如果独立 TypeScript 插件速度不够快，Volar 还实现了更高效的 [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669)。启用方法：
 
-1. Disable the built-in TypeScript Extension
-   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+1. 禁用内置 TypeScript 扩展
+   1. 在命令面板运行 `Extensions: Show Built-in Extensions`
+   2. 找到 `TypeScript and JavaScript Language Features`，右键选择 `Disable (Workspace)`
+2. 在命令面板运行 `Developer: Reload Window` 重载窗口
 
-### Project Setup
+### 项目初始化
 
 ```sh
 pnpm install
 ```
 
-### Compile and Hot-Reload for Development
+### 开发环境编译与热重载
 
 ```sh
 pnpm dev
 ```
 
-### Type-Check, Compile and Minify for Production
+### 生产环境类型检查、编译与压缩
 
 ```sh
 pnpm build
 ```
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+### 使用 [Vitest](https://vitest.dev/) 运行单元测试
 
 ```sh
 pnpm test
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+### 使用 [ESLint](https://eslint.org/) 进行代码检查
 
 ```sh
 pnpm lint
 ```
 
-### Create a new tool
+### 创建新工具
 
-To create a new tool, there is a script that generate the boilerplate of the new tool, simply run:
+可通过脚本生成新工具模板，命令如下：
 
 ```sh
 pnpm run script:create:tool my-tool-name
 ```
 
-It will create a directory in `src/tools` with the correct files, and a the import in `src/tools/index.ts`. You will just need to add the imported tool in the proper category and develop the tool.
+会在 `src/tools` 下创建对应目录和文件，并自动导入到 `src/tools/index.ts`。你只需将其添加到合适的分类并开发即可。
 
-## Contributors
+## 贡献者
 
-Big thanks to all the people who have already contributed!
+感谢所有已参与贡献的朋友！
 
 [![contributors](https://contrib.rocks/image?repo=corentinth/it-tools&refresh=1)](https://github.com/sharevb/it-tools/graphs/contributors)
 
-## Credits
+## 鸣谢
 
-Coded with ❤️ by [Corentin Thomasset](https://corentin.tech?utm_source=it-tools&utm_medium=readme).
+由 [Corentin Thomasset](https://corentin.tech?utm_source=it-tools&utm_medium=readme) ❤️ 编写。
 
-This project is continuously deployed using [vercel.com](https://vercel.com).
+本项目通过 [vercel.com](https://vercel.com) 持续部署。
 
-Contributor graph is generated using [contrib.rocks](https://contrib.rocks/preview?repo=corentinth/it-tools).
+贡献者图由 [contrib.rocks](https://contrib.rocks/preview?repo=corentinth/it-tools) 生成。
 
 <a href="https://www.producthunt.com/posts/it-tools?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-it&#0045;tools" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=345793&theme=light" alt="IT&#0032;Tools - Collection&#0032;of&#0032;handy&#0032;online&#0032;tools&#0032;for&#0032;devs&#0044;&#0032;with&#0032;great&#0032;UX | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
 <a href="https://www.producthunt.com/posts/it-tools?utm_source=badge-top-post-badge&utm_medium=badge&utm_souce=badge-it&#0045;tools" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/top-post-badge.svg?post_id=345793&theme=light&period=daily" alt="IT&#0032;Tools - Collection&#0032;of&#0032;handy&#0032;online&#0032;tools&#0032;for&#0032;devs&#0044;&#0032;with&#0032;great&#0032;UX | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
 
-## License
+## 许可证
 
-This project is under the [GNU GPLv3](LICENSE).
+本项目采用 [GNU GPLv3](LICENSE) 协议。
 
 </details>
