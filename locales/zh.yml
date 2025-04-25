@@ -22,6 +22,7 @@ home:
     p2: 关注我们的
     twitterXAccount: IT-Tools X 账号
     thankYou: 感谢您的支持！
+    twitterAccount: ''
   nav:
     github: GitHub 仓库
     githubRepository: GitHub 仓库
@@ -32,6 +33,8 @@ home:
     darkMode: 深色模式
     lightMode: 浅色模式
     mode: 颜色模式
+    twitterAccount: ''
+    twitter: ''
 about:
   content: >
     # 关于 IT-Tools
@@ -91,6 +94,8 @@ tools:
     text: 文本
     data: 数据
     images and videos: 图像
+    math: 数学
+    converter: 转换器
   password-strength-analyser:
     title: 密码强度分析仪
     description: 使用此密码强度分析器和破解时间估计工具来发现密码的强度。
@@ -359,5 +364,55 @@ tools:
     sucess: 成功
     failure: 失败
   csv-to-json:
-    title: CSV 到 JSON
+    title: CSV 转 JSON
     description: 使用自动标头检测将 CSV 转换为 JSON。
+  image-resizer:
+    description: 转换图像文件的宽度和高度，预览并下载为所需格式（.jpg、.jpeg、.png、.bmp、.ico、.svg）
+    title: 图像大小调整
+  floating-point-converter:
+    description: 将十进制数转换为 IEEE 754 二进制浮点数，反之亦然。
+    title: 浮点数转换器
+  json-string-converter:
+    description: 将纯文本或 JavaScript 对象转换为 JSON 字符串格式，反之亦然。
+    title: JSON 字符串转换器
+  json-to-object:
+    description: 解析 JSON 并将其转换为对象。
+    title: JSON 转对象
+  mic-tester:
+    description: 回放和可视化麦克风中的声音，增加一秒钟的延迟
+    start-button-text: 开始重放麦克风
+    stop-button-text: 停止重放麦克风
+    title: 麦克风测试仪
+  multi-link-downloader:
+    description: 从多个链接异步下载到 zip 文件中，而单个链接直接下载。（需要互联网连接）
+    title: 多链接下载器
+  nanoid-generator:
+    button:
+      copy: 复制
+      refresh: 刷新
+    copied: NanoID 已复制到剪贴板
+    description: 为您的应用程序生成随机、唯一和 URL 友好的 ID。
+    length: 长
+    lowercase: 小写字母
+    numbers: 数字
+    symbols: 符号
+    quantity: 数量
+    title: NanoID 生成器
+    uppercase: 大写
+    excludeLookalikes: 排除相似
+  qr-contact-info-generator:
+    description: 生成并下载联系人信息二维码（vCard），并自定义背景和前景颜色。
+    title: QR 联系人信息生成器
+  unicode-to-java-entities:
+    description: Unicode 到 Java 实体转换器，反之亦然
+    title: Unicode 字符到 Java 实体转换器
+  uuid-converter:
+    input:
+      label: 您的输入
+      placeholder: 带/不带连字符的 UUID
+    description: 将带连字符和不带连字符的 UUID 转换为其他常见的 SQL 表示法，然后再转换回来。
+    uuid: UUID
+    uuidhexlower: 十六进制表示法（下）
+    uuidversion: RFC 版本
+    title: UUID 转换器
+    uuidhexupper: 十六进制表示法（上）

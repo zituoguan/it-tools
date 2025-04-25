@@ -10,7 +10,7 @@ home:
     newestTools: Neueste Tools
     favoriteTools: Deine Lieblingstools
     allTools: Alle Tools
-    favoritesDndToolTip: 'Ziehen und Ablegen, um Favoriten neu zu ordnen'
+    favoritesDndToolTip: Ziehen und Ablegen, um Favoriten neu zu ordnen
   subtitle: Praktische Tools für Entwickler
   toggleMenu: Menü umschalten
   home: Startseite
@@ -24,6 +24,7 @@ home:
     p2: oder folge uns auf
     twitterXAccount: IT-Tools X-Konto
     thankYou: Vielen Dank!
+    twitterAccount: ''
   nav:
     github: GitHub-Repository
     githubRepository: IT-Tools GitHub-Repository
@@ -34,19 +35,21 @@ home:
     darkMode: Dunkelmodus
     lightMode: Hellmodus
     mode: Wechseln zwischen dunklem/hellem Modus
+    twitterAccount: ''
+    twitter: ''
 about:
   content: >
     # Über IT-Tools
 
     Diese wunderbare Website, erstellt mit ❤ von [Corentin
-    Thomasset](https://corentin.tech?utm_source=it-tools&utm_medium=about), sammelt nützliche Tools für
-    Entwickler und Menschen, die in der IT arbeiten. Wenn du sie nützlich
-    findest, teile sie gerne mit Personen, von denen du denkst, dass sie sie
-    ebenfalls nützlich finden könnten, und vergiss nicht, sie in deiner
-    Lesezeichenleiste zu speichern!
+    Thomasset](https://corentin.tech?utm_source=it-tools&utm_medium=about),
+    sammelt nützliche Tools für Entwickler und Menschen, die in der IT arbeiten.
+    Wenn du sie nützlich findest, teile sie gerne mit Personen, von denen du
+    denkst, dass sie sie ebenfalls nützlich finden könnten, und vergiss nicht,
+    sie in deiner Lesezeichenleiste zu speichern!
 
-    IT-Tools ist Open Source (unter der GPL-3.0-Lizenz) und kostenlos und wird es
-    immer sein, aber es kostet mich Geld, die Website zu hosten und den
+    IT-Tools ist Open Source (unter der GPL-3.0-Lizenz) und kostenlos und wird
+    es immer sein, aber es kostet mich Geld, die Website zu hosten und den
     Domainnamen zu erneuern. Wenn du meine Arbeit unterstützen möchtest und mich
     ermutigen möchtest, mehr Tools hinzuzufügen, überlege bitte, mich durch
     [Sponsoring](https://www.buymeacoffee.com/cthmsst) zu unterstützen.
@@ -65,13 +68,13 @@ about:
     Wenn du ein Tool benötigst, das hier noch nicht vorhanden ist, und du
     denkst, dass es nützlich sein könnte, bist du herzlich eingeladen, einen
     Feature-Request im
-    [Issues-Bereich](https://github.com/sharevb/it-tools/issues/new/choose)
-    im GitHub-Repository einzureichen.
+    [Issues-Bereich](https://github.com/sharevb/it-tools/issues/new/choose) im
+    GitHub-Repository einzureichen.
 
     Und wenn du einen Fehler gefunden hast oder etwas nicht wie erwartet
     funktioniert, melde bitte einen Fehler im
-    [Issues-Bereich](https://github.com/sharevb/it-tools/issues/new/choose)
-    im GitHub-Repository.
+    [Issues-Bereich](https://github.com/sharevb/it-tools/issues/new/choose) im
+    GitHub-Repository.
 favoriteButton:
   remove: Aus Favoriten entfernen
   add: Zu Favoriten hinzufügen
@@ -92,6 +95,13 @@ tools:
     measurement: Messung
     text: Text
     data: Daten
+    pdf: ''
+    xml: ''
+    yaml: ''
+    datetime: ''
+    maths: ''
+    json: JSON
+    cheatsheets: Cheatsheets
   password-strength-analyser:
     title: Passwortstärken-Analysator
     description: >-
@@ -284,7 +294,9 @@ tools:
     description: Konvertiere MIME-Typen in Erweiterungen und umgekehrt.
   mic-tester:
     title: Mikrofonprufung
-    description: Wiedergabe und Visualisierung des Tons von Ihrem Mikrofon, mit einer Sekunde Verzögerung hinzugefügt
+    description: >-
+      Wiedergabe und Visualisierung des Tons von Ihrem Mikrofon, mit einer
+      Sekunde Verzögerung hinzugefügt
     start-button-text: Mikrofon-Wiedergabe Starten
     stop-button-text: Mikrofon-Wiedergabe Stoppen
   toml-to-json:
@@ -408,7 +420,8 @@ tools:
   floating-point-converter:
     title: Konverter für Fließkommazahlen
     description: >-
-      Konvertiere eine Dezimalzahl in eine IEEE-754 binäre Fließkommazahl oder umgekehrt.
+      Konvertiere eine Dezimalzahl in eine IEEE-754 binäre Fließkommazahl oder
+      umgekehrt.
   yaml-to-json-converter:
     title: YAML zu JSON
     description: Konvertiere YAML einfach in JSON mit diesem Live-Online-Konverter.
@@ -453,8 +466,8 @@ tools:
   otp-generator:
     title: OTP-Code-Generator
     description: >-
-      Generiere und validiere zeitbasierte und ereignisgesteuertes OTPs (Einmalpasswörter) für
-      Multi-Faktor-Authentifizierung.
+      Generiere und validiere zeitbasierte und ereignisgesteuertes OTPs
+      (Einmalpasswörter) für Multi-Faktor-Authentifizierung.
   url-encoder:
     title: Kodieren/Decodieren von URL-formatierten Zeichenfolgen
     description: >-
@@ -463,3 +476,59 @@ tools:
   text-to-binary:
     title: Text zu ASCII-Binär
     description: Konvertiere Text in seine ASCII-Binärrepräsentation und umgekehrt.
+  image-resizer:
+    description: >-
+      Konvertieren Sie die Breite und Höhe einer Bilddatei, sehen Sie eine
+      Vorschau an und laden Sie sie in einem gewünschten Format herunter (.jpg,
+      .jpeg, .png, .bmp, .ico, .svg)
+    title: Bildgröße ändern
+  json-string-converter:
+    description: >-
+      Konvertieren Sie Ihre Klartext- oder JavaScript-Objekte in
+      JSON-Zeichenfolgenformat und umgekehrt.
+    title: JSON String Converter
+  json-to-object:
+    description: Analysieren und konvertieren JSON in Objekt.
+    title: JSON zum Objekt
+  multi-link-downloader:
+    description: >-
+      Lädt asynchron von mehreren Links in eine Zip-Datei herunter, während ein
+      einzelner Link direkt heruntergeladen wird. (erfordert eine
+      Internetverbindung)
+    title: Multilink-Downloader
+  nanoid-generator:
+    button:
+      copy: Kopieren
+      refresh: Aktualisieren
+    copied: NanoID in die Zwischenablage kopiert
+    description: >-
+      Generieren Sie zufällige, eindeutige und URL-freundliche IDs für Ihre
+      Anwendungen.
+    length: Länge
+    lowercase: Kleinschreibung
+    numbers: Zahlen
+    symbols: Symbole
+    quantity: Menge
+    title: NanoIDs-Generator
+    uppercase: Großbuchstaben
+    excludeLookalikes: Lookalikes ausschließen
+  qr-contact-info-generator:
+    description: >-
+      Generieren und herunterladen Sie QR-Codes für Kontaktinformationen (vCard)
+      und passen Sie die Hintergrund- und Vordergrundfarben an.
+    title: QR Kontakt Info Generator
+  unicode-to-java-entities:
+    description: Unicode Characters to Java Entities Converter und umgekehrt
+    title: Unicode Characters to Java Entities Converter
+  uuid-converter:
+    input:
+      label: Ihre Eingabe
+      placeholder: Ihre UUID mit/ohne Bindestrich
+    description: >-
+      Konvertiert eine UUID mit und ohne Bindestrich in andere gängige
+      SQL-Notationen und zurück.
+    uuid: UUID
+    uuidhexlower: HEX-Notation (niedriger)
+    uuidversion: RFC Version
+    title: UUID-Konverter
+    uuidhexupper: HEX-Notation (oben)

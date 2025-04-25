@@ -1,4 +1,4 @@
-import { ShortTextRound } from '@vicons/material';
+import { Lock } from '@vicons/tabler';
 import { defineTool } from '../tool';
 import { translate } from '@/plugins/i18n.plugin';
 
@@ -6,9 +6,8 @@ export const tool = defineTool({
   name: translate('tools.hmac-generator.title'),
   path: '/hmac-generator',
   description: translate('tools.hmac-generator.description'),
-  keywords: ['hmac', 'generator', 'MD5', 'SHA1', 'SHA256', 'SHA224', 'SHA512', 'SHA384', 'SHA3', 'RIPEMD160'],
+  keywords: ['hmac', 'generator', 'md5', 'sha1', 'sha256', 'sha512'],
   component: () => import('./hmac-generator.vue'),
-  icon: ShortTextRound,
-  npmPackages: ['crypto-js'],
+  icon: Lock,
   category: 'Crypto',
 });

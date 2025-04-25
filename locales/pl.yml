@@ -1,74 +1,94 @@
+'404':
+  notFound: 404 Nie znaleziono
+  sorry: Przepraszamy, ta strona nie istnieje
+  maybe: Może to problem z cachem, spróbuj wymusić odświeżenie?
+  backHome: Powrót na stronę główną
 home:
   categories:
-    newestTools: 'Najnowsze narzędzia'
-    favoriteTools: 'Twoje ulubione narzędzia'
-    allTools: 'Wszystkie narzędzia'
-  subtitle: 'Narzędzia dla programistów'
-  toggleMenu: 'Menu'
+    newestTools: Najnowsze narzędzia
+    favoriteTools: Twoje ulubione narzędzia
+    allTools: Wszystkie narzędzia
+  subtitle: Narzędzia dla programistów
+  toggleMenu: Menu
   home: Strona główna
-  uiLib: 'UI Lib'
-  buyMeACoffee: 'Wesprzyj IT-Tools'
+  uiLib: UI Lib
+  buyMeACoffee: Wesprzyj IT-Tools
   follow:
-    title: 'Podoba Ci się it-tools?'
-    p1: 'Wesprzyj nas gwiazdką na'
-    githubRepository: "repozytorium GitHub IT-Tools"
-    p2: 'lub śledź nas na'
-    twitterAccount: "koncie Twitter IT-Tools"
-    thankYou: 'Dziękujemy!'
+    title: Podoba Ci się it-tools?
+    p1: Wesprzyj nas gwiazdką na
+    githubRepository: repozytorium GitHub IT-Tools
+    p2: lub śledź nas na
+    twitterAccount: koncie Twitter IT-Tools
+    thankYou: Dziękujemy!
   nav:
-    github: 'Repozytorium GitHub'
-    githubRepository: "Repozytorium GitHub IT-Tools"
-    twitter: 'Konto Twitter'
-    twitterAccount: "Konto Twitter IT-Tools"
-    about: "O IT-Tools"
-    aboutLabel: 'O nas'
-    darkMode: 'Tryb ciemny'
-    lightMode: 'Tryb jasny'
-    mode: 'Przełącz tryb ciemny/jasny'
+    github: Repozytorium GitHub
+    githubRepository: Repozytorium GitHub IT-Tools
+    twitter: Konto Twitter
+    twitterAccount: Konto Twitter IT-Tools
+    about: O IT-Tools
+    aboutLabel: O nas
+    darkMode: Tryb ciemny
+    lightMode: Tryb jasny
+    mode: Przełącz tryb ciemny/jasny
 about:
   content: >
     # O IT-Tools
 
-    Ta wspaniała strona, stworzona z ❤ przez [Corentina Thomasseta](https://corentin.tech?utm_source=it-tools&utm_medium=about), zbiera przydatne narzędzia dla programistów i osób pracujących w IT. Jeśli uznasz ją za pomocną, nie zapomnij się nią podzielić i dodać do ulubionych!
+    Ta wspaniała strona, stworzona z ❤ przez [Corentina
+    Thomasseta](https://corentin.tech?utm_source=it-tools&utm_medium=about),
+    zbiera przydatne narzędzia dla programistów i osób pracujących w IT. Jeśli
+    uznasz ją za pomocną, nie zapomnij się nią podzielić i dodać do ulubionych!
 
-    IT Tools jest open-source (na licencji MIT) i darmowe, i takie pozostanie, ale koszty związane z jego hostingiem i odnawianiem domeny spoczywają na mnie. Jeśli chcesz wesprzeć moją pracę i zmotywować mnie do dodania kolejnych narzędzi, zachęcam do [wsparcia](https://www.buymeacoffee.com/cthmsst).
+    IT Tools jest open-source (na licencji MIT) i darmowe, i takie pozostanie,
+    ale koszty związane z jego hostingiem i odnawianiem domeny spoczywają na
+    mnie. Jeśli chcesz wesprzeć moją pracę i zmotywować mnie do dodania
+    kolejnych narzędzi, zachęcam do
+    [wsparcia](https://www.buymeacoffee.com/cthmsst).
 
     ## Technologie
 
-    IT Tools zostało stworzone w Vue.js (Vue 3) z wykorzystaniem biblioteki komponentów Naive UI i jest hostowane oraz ciągle wdrażane przez Vercel. Niektóre narzędzia korzystają z zewnętrznych bibliotek open-source, pełną listę znajdziesz w pliku [package.json](https://github.com/sharevb/it-tools/blob/main/package.json) repozytorium.
+    IT Tools zostało stworzone w Vue.js (Vue 3) z wykorzystaniem biblioteki
+    komponentów Naive UI i jest hostowane oraz ciągle wdrażane przez Vercel.
+    Niektóre narzędzia korzystają z zewnętrznych bibliotek open-source, pełną
+    listę znajdziesz w pliku
+    [package.json](https://github.com/sharevb/it-tools/blob/main/package.json)
+    repozytorium.
 
     ## Znalazłeś błąd? Brakuje jakiegoś narzędzia?
 
-    Jeśli potrzebujesz narzędzia, które nie jest jeszcze dostępne, a uważasz, że mogłoby być przydatne, zapraszam do zgłoszenia propozycji funkcji w [sekcji issue](https://github.com/sharevb/it-tools/issues/new/choose) repozytorium GitHub.
-
-404:
-  notFound: '404 Nie znaleziono'
-  sorry: "Przepraszamy, ta strona nie istnieje"
-  maybe: 'Może to problem z cachem, spróbuj wymusić odświeżenie?'
-  backHome: "Powrót na stronę główną"
+    Jeśli potrzebujesz narzędzia, które nie jest jeszcze dostępne, a uważasz, że
+    mogłoby być przydatne, zapraszam do zgłoszenia propozycji funkcji w [sekcji
+    issue](https://github.com/sharevb/it-tools/issues/new/choose) repozytorium
+    GitHub.
 toolCard:
   new: Nowe
 search:
   label: Szukaj
 tools:
   categories:
-    favorite-tools: 'Twoje ulubione narzędzia'
+    favorite-tools: Twoje ulubione narzędzia
     crypto: Kryptografia
     converter: Konwerter
     web: Web
-    images and videos: 'Obrazy i wideo'
+    images and videos: Obrazy i wideo
     development: Programowanie
     network: Sieć
     math: Matematyka
     measurement: Pomiary
     text: Tekst
     data: Dane
-
+    pdf: ''
+    xml: ''
+    yaml: ''
+    datetime: ''
+    maths: ''
+    json: JSON
+    cheatsheets: Arkusze oszukujące
   token-generator:
     title: Generator tokenów
     description: >-
-      Generuje losowy ciąg znaków z wybranych przez Ciebie znaków: wielkie
-      lub małe litery, cyfry i/lub symbole.
+      Generuje losowy ciąg znaków z wybranych przez Ciebie znaków: wielkie lub
+      małe litery, cyfry i/lub symbole.
     uppercase: Wielkie litery (ABC...)
     lowercase: Małe litery (abc...)
     numbers: Cyfry (123...)
@@ -79,9 +99,69 @@ tools:
     copied: Token został skopiowany
     length: Długość
     tokenPlaceholder: Token...
-
   mic-tester:
     title: Tester mikrofonu
-    description: Odtwórz i wizualizuj dźwięk z Twojego mikrofonu, z dodaną jedną sekundą opóźnienia
+    description: >-
+      Odtwórz i wizualizuj dźwięk z Twojego mikrofonu, z dodaną jedną sekundą
+      opóźnienia
     start-button-text: Odtwarzaj mikrofonu
     stop-button-text: Zatrzymaj odtwarzanie mikrofonu
+  image-resizer:
+    description: >-
+      Konwertuj szerokość i wysokość pliku obrazu, podgląd i pobierz go w
+      żądanym formacie (.jpg, .jpeg, .png, .bmp, .ico, .svg)
+    title: Zmiana rozmiaru obrazu
+  floating-point-converter:
+    description: >-
+      Konwertuj liczbę dziesiętną na binarną liczbę zmiennoprzecinkową IEEE 754
+      lub odwrotnie.
+    title: Konwerter liczb zmiennych punktów
+  json-string-converter:
+    description: >-
+      Konwertuj zwykły tekst lub obiekty JavaScript do formatu łańcucha JSON i
+      odwrotnie.
+    title: Konwerter ciągów JSON
+  json-to-object:
+    description: Paryzuj i konwertuj JSON na obiekt.
+    title: JSON do obiektu
+  multi-link-downloader:
+    description: >-
+      Asynchronicznie pobiera z wielu łączy do pliku zip, podczas gdy pojedyncze
+      łącze pobiera bezpośrednio. (Wymaga połączenia internetowego)
+    title: Pobieranie wielu linków
+  nanoid-generator:
+    button:
+      copy: Kopiuj
+      refresh: Odśwież
+    copied: NanoID skopiowane do schowka
+    description: >-
+      Generuj losowe, unikalne i przyjazne adresom URL identyfikatory dla
+      aplikacji.
+    length: Długość
+    lowercase: Dolny skrót
+    numbers: Liczby
+    symbols: Symbole
+    quantity: Ilość
+    title: Generator nanoID
+    uppercase: Duża litera
+    excludeLookalikes: Wyklucz wyglądacze
+  qr-contact-info-generator:
+    description: >-
+      Generuj i pobieraj kody QR dla informacji kontaktowych (vCard) oraz
+      dostosuj kolory tła i pierwszego planu.
+    title: Generator informacji kontaktowych QR
+  unicode-to-java-entities:
+    description: Unicode Characters to Java Entities Converter i vice versa
+    title: Konwerter znaków Unicode do Java Entities
+  uuid-converter:
+    input:
+      label: Twój wkład
+      placeholder: Twój identyfikator UUID z/bez łącznika
+    description: >-
+      Konwertuje identyfikator UUID z i bez łącznika do innych popularnych
+      notacji SQL i z powrotem.
+    uuid: UUID
+    uuidhexlower: Notacja HEX (niższa)
+    uuidversion: Wersja RFC
+    title: Konwerter UUID
+    uuidhexupper: Notacja HEX (górna)
