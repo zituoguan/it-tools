@@ -103,3 +103,5 @@ tools:
   json-sort-master:
     title: JSON сортувальник
     description: Сортуйте ваш JSON за ключами та значеннями.
+  extract-text-from-html:
+    description: ''

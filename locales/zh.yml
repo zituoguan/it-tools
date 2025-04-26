@@ -9,7 +9,7 @@ home:
     favoriteTools: 我的收藏
     allTools: 全部工具
     favoritesDndToolTip: 拖放重新排列收藏夹
-  subtitle: 开发者实用工具
+  subtitle: 助力开发人员和 IT 工作者
   toggleMenu: 切换菜单
   home: 主页
   uiLib: UI 库
@@ -35,9 +35,10 @@ home:
     mode: 颜色模式
     twitterAccount: ''
     twitter: ''
+  title: 机器里 IT-Tools
 about:
   content: >
-    # 关于 IT-Tools
+    # 关于
 
     IT-Tools 由 [Corentin
     Thomasset](https://corentin.tech?utm_source=it-tools&utm_medium=about) 用 ❤
@@ -416,3 +417,558 @@ tools:
     uuidversion: RFC 版本
     title: UUID 转换器
     uuidhexupper: 十六进制表示法（上）
+  extract-text-from-html:
+    description: >-
+      将 HTML 粘贴到左侧的输入表单中，您将立即获得文本。有时，您可能需要从 CSS 属性（如
+      user-select:none；）阻止文本选择的HTML页面中提取纯文本。典型的解决方法是使用 DevTools（F12）选择“复制”→
+      所提出的工具将通过直接从复制的 HTML 中提取“内部文本”来简化这一过程。
+    title: 从 HTML 中提取文本
+  ad-ldap-searcher:
+    description: 在 LDAP 属性和 ActiveDirectory UI 的映射中搜索
+    title: ActiveDirectory LDAP 属性搜索器
+  ai-prompt-splitter:
+    description: 将长文档拆分为多个聊天（例如 ChatGPT、Claude、Gemini、Grok ）提示词
+    title: AI 提示拆分器
+  angle-converter:
+    description: 在角度单位之间转换值
+    title: 角度单位转换器
+  ansible-vault-crypt-decrypt:
+    description: 加密和解密 Ansible Vault 密钥
+    title: Ansible Vault 加密解密
+  api-tester:
+    description: HTTP API 测试
+    title: API 测试
+  area-converter:
+    title: 面积单位转换器
+    description: 在面积单位之间转换值
+  ascii-text-drawer:
+    description: 创建具有多种字体和样式的 ASCII 艺术文本。
+    title: ASCII 艺术文本生成器
+  aspect-ratio-calculator:
+    title: 纵横比计算器
+    description: 使用此比率计算器在调整图像大小时检查尺寸。
+  barcode-generator:
+    description: 条码生成器
+    title: 条码生成器
+  barcode-reader:
+    description: 条码扫描识别
+    title: 条形码扫描识别
+  base64-hex-converter:
+    description: 将十六进制数组编码和解码为 base64 表示。
+    title: Base64 十六进制阵列编码器/解码器
+  bounce-parser:
+    description: 解析 SMTP 退信电子邮件
+    title: Bounce 电子邮件解析器
+  card-picker:
+    description: 生成一副扑克牌
+    title: 扑克牌卡片选取器
+  certificate-key-parser:
+    description: 解析密钥和证书
+    title: 证书/密钥解析器
+  cidr-in-cidr:
+    description: 给定一个 CIDR/IP 范围/通配符 IP/IP 掩码，判断给定的 IPv4-6 /范围/CIDR/通配符 IP/IP 掩码是否在子网范围内
+    title: 检查 IPRange/CIDR/IPMask 中的 IPv4-6/IPRange/CIR/CIDR
+  code-highlighter:
+    description: 突出显示编程代码片段
+    title: 代码/脚本高亮显示
+  coin-flipper:
+    description: 抛硬币
+    title: 抛硬币
+  color-contrast-checker:
+    description: 检查两种颜色之间的 WCAG 对比度
+    title: 颜色对比度检查器
+  color-wheel:
+    description: 使用控制盘和模式选择调色板/主题
+    title: 色轮色环调色板
+  common-regex-memo:
+    description: 常见正则表达式模式的速查表
+    title: 常见正则表达式速查表
+  countdown:
+    description: 在经过的时间内进行倒计时和报警
+    title: 倒计时
+  crc-calculator:
+    description: >-
+      计算文本或文件 CRC（CRC1、CRC8、CRC8 1-Wire、CRC8
+      DVB-S2、CRC16、CRC16CCITT、CRC16Modbus、CRC16Kermit、CRC16XModem、CRC24、CRC32、CRC32-MPEG-2、CRCJAM）
+    title: CRC 计算器
+  csr-generator:
+    description: 证书签名请求生成器（PEM 格式）
+    title: |
+      CSR 生成器
+  css-prettifier:
+    description: CSS 美化
+    title: CSS 美化器
+  css-selectors-memo:
+    description: CSS 选择器语法速查表
+    title: CSS 选择器速查表
+  css-xpath-converter:
+    description: 将 CSS 选择器转换为 XPath 表达式或从 XPath 表达式转换 CSS 选择器
+    title: CSS/XPath 转换器
+  curl-converter:
+    description: 生成所提供curl命令行的通用编码语言版本
+    title: CURL 转换器
+  currency-converter:
+    description: 使用转换货币值 https://github.com/fawazahmed0/exchange-api
+    title: 货币转换器
+  data-storage-unit-converter:
+    description: 转换数据存储或传输单位（字节、双字节、位、千字节…）
+    title: 数据存储单位转换器
+  data-transfer-rate-converter:
+    description: 计算数据传输时间、速率和数据量
+    title: 数据传输速率计算器
+  date-duration-calculator:
+    description: 从特定日期添加/减去持续时间
+    title: 日期 + 持续时间计算器
+  days-calculator:
+    description: 计算天数间隔、假期、差异、营业时间
+    title: 天数计算器
+  dice-roller:
+    description: 使用骰子符号的 RPG 骰子滚轮
+    title: 摇骰子
+  dmarc-report-analyzer:
+    description: 读取并显示 DMARC XML报告
+    title: DMARC报告分析器
+  dns-queries:
+    description: 执行 DNS 查询（通过 HTTPS）
+    title: 在线 DNS 查询
+  docker-compose-converter:
+    description: 在 V1、2.x、3.x 或 CommonSpec 之间转换 Docker Compose 文件，并可能扩展端口/卷语法
+    title: Docker Compose 格式转换器
+  docker-compose-to-docker-run-converter:
+    description: 将 Docker Compose 文件转换为 Docker run 命令！
+    title: Docker Compose 到 Docker run 转换器
+  docker-compose-to-kubernetes:
+    description: Docker Compose 到 Kubernetes Manifests 转换器
+    title: Docker Compose 到 kubernetes
+  docker-compose-validator:
+    description: 根据 CommonSpec 模式验证 Docker Compose 文件
+    title: Docker Compose 验证器
+  docker-memo:
+    description: Docker 命令速查表
+    title: Docker 速查表
+  docker-run-to-kubernetes:
+    description: Docker run 命令到 Kubernetes manifests
+    title: Docker run 到 kubernetes
+  duplicate-line-finder:
+    description: 查找并列出重复的行
+    title: 重复行查找器
+  duration-calculator:
+    description: 计算/解析持续时间
+    title: 持续时间计算器
+  ecdsa-key-pair-generator:
+    description: 生成新的随机 ECDSA 私钥和公钥（有或没有密码）。
+    title: ECDSA 密钥对生成器
+  ed25519-key-pair-generator:
+    description: 生成新的随机 Ed25519 私钥和公钥（有或没有密码）。
+    title: Ed25519 密钥对生成器
+  email-normalizer:
+    description: 将电子邮件地址标准化为标准格式，以便于比较。可用于重复数据删除和数据清理。
+    title: 标准化和规范化电子邮件地址
+  email-parser:
+    description: 从原始电子邮件内容中解析和提取信息
+    title: 电子邮件解析器
+  energy-computer:
+    description: 计算能耗和费用
+    title: 能耗和费用计算器
+  energy-converter:
+    description: 在能量单位之间转换值
+    title: 能量单位转换器
+  file-hasher:
+    description: 计算文件哈希
+    title: 文件哈希计算器
+  file-type:
+    description: 识别文件的类型
+    title: 文件类型检测器
+  folder-structure-diagram:
+    description: 用于生成 ASCII  文件夹结构图的树状实用程序
+    title: 文件夹结构图
+  force-converter:
+    description: 在力单位之间转换值
+    title: 力单位转换器
+  fortune-wheel:
+    description: 旋转轮子以随机选取一个项目
+    title: 幸运转盘
+  geo-distance-calculator:
+    description: 计算两个地理位置之间的距离（并显示当前用户位置信息）
+    title: 地理距离计算器
+  gpt-token-estimator:
+    description: OpenAI GPT Token 模拟器
+    title: GPT Token 模拟器
+  gzip-converter:
+    description: 将文本和 gzip/deflate 相互转换
+    title: GZip/Deflate 转换器
+  har-sanitizer:
+    description: HAR 文件分析器
+    title: HAR 分析器
+  hdd-calculator:
+    description: >-
+      存储设备制造商以十进制形式（如
+      GB）报告容量，而操作系统和其他软件使用二进制形式（GiB），尽管仍然错误地使用了十进制单位（GiB）。此工具将十进制容量转换为各种二进制形式。
+    title: HDD 容量计算器
+  heic-converter:
+    description: HEIC 转换为 JPEG 或 PNG 格式
+    title: HEIC 转换器
+  html-cleaner:
+    description: HTML 清理工具（清除 JS 和 CSS）
+    title: HTML 清理工具
+  html-prettifier:
+    description: 美化 HTML 代码
+    title: HTML 美化器
+  html-to-markdown:
+    description: 将 HTML（从剪贴板）转换为 Markdown
+    title: HTML 到 Markdown
+  htpasswd-generator:
+    description: htpassword/htaccess 用户/密码生成器
+    title: Htpasswd/htaccess 生成器
+  ical-generator:
+    description: 根据事件信息生成 ICAL/ICS 文件
+    title: ICAL 生成器
+  ical-merger:
+    description: 将多个 iCal 文件合并为一个
+    title: iCal 合并
+  ical-parser:
+    description: 将 ICAL/ICS 文件解析为事件显示
+    title: ICAL 文件解析器
+  ico-converter:
+    description: 从 PNG/JPEG 转换到 ICO
+    title: ICO/PNG 转换器
+  ies-lighting-guidelines:
+    description: 搜索照明工程学会（IES）当前的照度建议。
+    title: IES 照明指南
+  illuminance-converter:
+    description: 照度单位转换器（勒克斯、脚烛、氮氧化物、荧光、火焰）
+    title: 照度转换器
+  image-converter:
+    description: 将图像从一种格式转换为另一种格式
+    title: 图像格式转换器
+  image-exif-reader:
+    description: 从图像文件中读取 EXIF、IPTC、XMP、GPS 和其他元数据、JPEG 质量和其他信息
+    title: 图像 EXIF/元数据/GPS/JPEG 质量阅读器
+  image-to-ascii-art:
+    description: 图像到 ASCII 艺术生成器
+    title: 图像到 ASCII 艺术
+  image-to-css:
+    description: 将图像转换为 CSS（url、背景等）
+    title: 图片到 CSS
+  integers-to-ip:
+    description: 将整数转换为 IP
+    title: IPv4/IPv6 到整数
+  ip-cidr-to-range:
+    description: 从 CIDR 计算 IP 范围（IPv4/6）
+    title: Ipv4/6 CIDR 到 IP 范围计算器
+  ip-geo-location:
+    description: 检索有关 IPv4/6 地址或域位置的信息
+    title: IP 地理位置
+  ip-include-exclude:
+    description: 从允许的 IP 范围/掩码/CIDR 列表中替换不允许的 IP 区域/掩码/CIRR 列表
+    title: IP 子网排除计算器
+  ip-range-to-cidr:
+    description: 根据 IP 范围（IPv4/6）计算 CIDR
+    title: IPv4/6 CIDR 范围计算器
+  ipv6-address-converter:
+    description: 将 ip 地址转换为十进制、二进制、十六进制并获取信息
+    title: Ipv6 地址转换器
+  ipv6-subnet-calculator:
+    description: 解析您的 IPv6 CIDR 块，并获取有关子网络的所有信息。
+    title: IPv6 子网计算器
+  isbn-validator-and-parser:
+    description: 解析、验证、格式化和获取 ISBN 的信息
+    title: ISBN 验证器和解析器
+  iso-3166-searcher:
+    description: 允许搜索国家代码（ISO 3166）和信息
+    title: ISO 3166 国家代码搜索器
+  javascript-prettifier:
+    description: JS/Javascript 美化工具
+    title: Javascript 美化器
+  jq-memo:
+    description: JQ 命令速查表
+    title: Jq 速查表
+  jq-tester:
+    description: 根据 JSON 内容测试 jq/JSONPath 表达式
+    title: Jq/JSONPath 测试
+  js-unobfuscator:
+    description: >-
+      webcrack 是一个用于逆向工程 javascript 的工具。它可以取消混淆器 .io、unnify、transpile 和解包
+      webpack/browserify，以尽可能地类似原始源代码。
+    title: Javascript 解混淆器/解包器
+  json-editor:
+    description: 编辑 JSON 内容
+    title: JSON 编辑器
+  json-escaper:
+    description: 转义并解压缩 JSON 字符串
+    title: JSON 转义器 / 反转义器
+  json-linter:
+    description: 检查并格式化 JSON 内容
+    title: JSON 格式化
+  json-size-analyzer:
+    description: 测量 JSON 节点的相对权重
+    title: JSON 大小分析器
+  json-to-csharp:
+    description: 将 JSON 数据转换为 C# 类型定义
+    title: JSON 到 C#
+  json-to-go:
+    description: 将 JSON 转换为 Go 结构体
+    title: JSON 到 Go
+  json-to-java:
+    description: 将 JSON 转换为 Java 实体
+    title: JSON 到 Java 实体
+  json-to-php-array:
+    description: 将 JSON 转换为 PHP 数组
+    title: JSON 到 PHP 数组
+  json-to-schema:
+    description: >-
+      将 JSON 数据转换为 JSON 模式、MySQL DDL、Mongoose 模式、Google BigQuery 模式或 ClickHouse
+      表模式
+    title: JSON 到 Schema
+  json-to-xml:
+    description: 将 JSON 转换为 XML
+    title: 从JSON转换为XML
+  jsonpath-memo:
+    description: JSONPath 语法速查表
+    title: JSONPath 语法速查表
+  jwt-generator:
+    title: JWT 生成器
+    description: JWT 令牌生成器和编辑器
+  length-converter:
+    description: 从长度单位转换值
+    title: 长度单位转换器
+  list-comparer:
+    description: 比较两个列表项
+    title: 列表比较器
+  luhn-validator:
+    description: 检查并生成由 Luhn checknum 验证的标识符的密钥
+    title: Luhn 验证器
+  mac-address-converter:
+    description: 更改 MAC 地址的格式，并在不同格式（EUI-48、EUI-64、IPv6）之间进行选择
+    title: MAC 地址转换器
+  many-units-converter:
+    description: 转换各种单位
+    title: 多单位转换器
+  markdown-cheatsheet:
+    description: Markdown 速查表
+    title: Markdown 速查表
+  markdown-editor:
+    description: 简单的 Markdown 编辑器
+    title: Markdown 编辑器
+  markdown-to-html:
+    description: 将 Markdown 转换为 HTML 并允许打印（PDF格式）
+    title: Markdown 到 HTML
+  markdown-toc-generator:
+    description: 从 Markdown 文件/内容生成 TOC
+    title: Markdown 目录生成器
+  mass-converter:
+    description: 在质量单位之间转换值
+    title: 质量单位转换器
+  math-formats-converter:
+    description: 在格式之间转换数学表达式
+    title: 数学格式转换器
+  math-ocr:
+    description: 将数学公式图像转换为乳胶
+    title: 数学 OCR
+  mermaid-exporter:
+    description: 将 Markdown（Mermaid）转换为图像，并允许导出为 PNG、JPG 和 SVG
+    title: Mermaid 导出
+  mime-converter:
+    description: 转换为 MIME 编码字格式（邮件主题）
+    title: MIME 编码转换器
+  mongo-objectid-converter:
+    description: MongoDB ObjectId 和内部时间戳之间的转换
+    title: MongoDB ObjectId 转换器
+  morse-converter:
+    description: 编码/解码为摩斯电码
+    title: 摩斯电码转换器
+  my-ip:
+    description: 使用获取您的客户端IP地址（IPv4/6）https://www.ipify.org/
+    title: 我的 IP 地址
+  nano-memo:
+    description: Nano 编辑器速查表
+    title: Nano 编辑器速查表
+  nginx-formatter:
+    description: 格式化/美化 Nginx 配置文件
+    title: Nginx 配置格式化
+  ocr-image:
+    description: 对图像或 PDF 执行 OCR（Tesseract）
+    title: 图片和 PDF 文字识别
+  option43-generator:
+    description: 生成 Option43 Wifi DHCP 配置
+    title: Option43 生成器
+  outlook-parser:
+    description: 解 析Outlook MSG 文件
+    title: Outlook MSG 解析器
+  parquets-reader:
+    description: 将 Parquet 文件读取为 JSON 对象数组的形式
+    title: Parquet 文件识别
+  passphrase-generator:
+    description: 生成随机可记忆的短语
+    title: Passphrase 生成器
+  paste-as-markdown:
+    description: 将剪贴板内容中的单元格/表格和链接粘贴为 Markdown
+    title: 粘贴为 Markdown
+  pdf-encrypt:
+    description: 加密 PDF 文件并为其添加保护
+    title: PDF 加密
+  pdf-linearize:
+    description: 创建 PDF 的线性化版本（启用FastWeb）
+    title: PDF 线性化/FastWeb
+  pdf-unlock:
+    description: 解密 PDF 并解锁（删除安全权限）
+    title: PDF 解密和解锁
+  pgp-encryption:
+    description: 使用 PGP 密钥加密和解密文本明文。
+    title: PGP 加密
+  pgp-key-pair-generator:
+    description: 生成新的随机 PGP 私钥和公钥（有或没有密码）。
+    title: PGP 密钥发生器
+  php-array-to-json:
+    description: 将 PHP 数组转换为 JSON
+    title: PHP 数组到 JSON
+  pin-code-generator:
+    description: 生成唯一的 PIN（数字）码
+    title: Pin 码生成器
+  pomodoro-timer:
+    description: 基础番茄钟
+    title: 番茄钟
+  port-numbers:
+    description: 搜索给定端口和协议的指定用途
+    title: 端口号查询
+  potrace:
+    description: 把位图转换为矢量 SVG 文件
+    title: 位图转换为 SVG（Potrace）
+  power-converter:
+    description: 在功率单位之间转换值
+    title: 功率转换器
+  pressure-converter:
+    description: 在压力单位之间转换值
+    title: 压力单位转换器
+  properties-to-yaml:
+    description: 将 Java.properties 内容转换为 YAML
+    title: JAVA.Properties 到YAML
+  punycode-converter:
+    description: 将国际 unicode 域名或电子邮件从/转换为 ASCII Punycode 版本
+    title: Punycode 转换器
+  qr-code-decoder:
+    description: 二维码扫描/解析
+    title: 二维码解码器
+  raid-calculator:
+    description: 根据磁盘数量、大小和 RAID 类型计算阵列的存储容量、容错性和空间效率
+    title: RAID 计算器
+  regex-memo:
+    description: Javascript 正则表达式速查表
+    title: 正则表达式（Regex）速查表
+  regex-tester:
+    description: 用示例文本测试正则表达式。
+    title: 正则表达式（Regex）测试
+  rem-px-converter:
+    description: 将 px 转换为 rem，反之亦然
+    title: REM/像素转换器
+  remove-exif:
+    description: 从 JPEG 文件中删除 Exif
+    title: 删除 EXIF
+  rmb-numbers:
+    description: 人民币/人民币资本化转换工具
+    title: 人民币大写转换器
+  rsa-ecdsa-signing:
+    description: 使用 SA/DSA/ECDSA 密钥对数据进行签名并验证签名
+    title: RSA/DSA/ECDSA 签名器和验证器
+  rsa-encryption:
+    description: 使用 RSA 密钥加密和解密文本明文。
+    title: RSA 加密
+  rune-converter:
+    description: 将文本转换为符文，反之亦然
+    title: 符文转换器
+  safelink-decoder:
+    description: 解码 Outlook SafeLink 链接
+    title: Outlook Safelink 解码器
+  sensitive-data-masker:
+    description: 清除文本内容（例如日志）中的敏感数据
+    title: 敏感数据屏蔽器
+  sharepoint-decoder:
+    description: 将 sharepoint.com 共享 URL 解码为“正常”Sharepoint URL
+    title: Sharepoint 共享 URL 解码器
+  sla-calculator:
+    description: 服务水平协议（SLA）计算器
+    title: SLA 计算器
+  smart-raw-converter:
+    description: 将 SMART 原始值转换为人类可读值
+    title: SMART Raw 转换器
+  smart-text-replacer:
+    description: 搜索和替换单个或多个出现的单词，就像 Windows 记事本搜索和替换一样。还允许管理换行和文本拆分
+    title: 智能文本替换器和换行符
+  snowflake-id-extractor:
+    description: 从 Snowflake ID 中提取时间戳、机器 ID 和序列号
+    title: Snowflake ID 提取器
+  software-licence-compatibility:
+    description: 软件许可证兼容性检查器和信息
+    title: 软件许可证兼容性检查和信息查询
+  ssl-cert-converter:
+    description: 转换不同格式的 SSL 证书
+    title: SSL 证书转换器
+  stacktrace-prettier:
+    description: 高亮显示 .Net 和 JS 堆栈跟踪
+    title: 堆栈跟踪美化
+  text-to-unicode-names:
+    description: 将文本转换为十六进制字符代码和每个字符的 Unicode 名称
+    title: 文本 到 Unicode名称
+  time-alarm:
+    description: 在特定日期和时间报警
+    title: 时间提醒/闹钟
+  timezone-converter:
+    description: 将日期时间从一个时区转换为其他时区，并获取时区与国家信息
+    title: 时区转换器
+  torrent-to-magnet:
+    title: 磁力链接转换器
+    description: 将 torrent 文件转换为磁力链
+  ttl-calculator:
+    description: TTL 到时间转换器
+    title: TTL 计算器
+  unicode-formatter:
+    description: 使用 Unicode 字体设置文本格式
+    title: Unicode 格式化程序
+  unicode-search:
+    description: 以 Unicode 字符搜索
+    title: Unicode 搜索
+  url-cleaner:
+    description: 清除 URL 中的广告追踪器、UTM、Facebook 及其他广告平台的参数
+    title: URL 清理器
+  url-fanger:
+    description: Defang/Refang URL或电子邮件地址
+    title: URL Fanger
+  url-text-fragment-maker:
+    description: 创建允许直接链接到 web 文档中特定文本部分的 url
+    title: URL文本搜索片段生成器
+  utm-url-generator:
+    description: 生成一个带有 utm_ 参数的 URL
+    title: UTM URL 生成器
+  vat-validator:
+    description: 验证美国增值税号码
+    title: 美国增值税号码验证器
+  volume-converter:
+    description: 在体积单位之间转换值
+    title: 体积单位转换器
+  websocket-tester:
+    description: 允许测试 WebSocket 连接
+    title: Websocket 测试
+  week-number-converter:
+    description: 在 ISO 周数、月周数和日期之间进行转换
+    title: 周数转换器
+  wpa-psk-generator:
+    description: WPA 预共享密钥生成器，用于将 WPA 密码和 SSID 转换为 256 位预共享（“原始”）密钥
+    title: WPA PSK 生成器
+  x509-certificate-generator:
+    description: 生成自签名 SSL/x509 证书
+    title: X509 证书生成器
+  xml-to-json:
+    description: 将 XML 转换为 JSON
+    title: XML 到 Json
+  xpath-memo:
+    description: XPath 语法速查表
+    title: XPath 语法速查表
+  xpath-tester:
+    description: 根据 XML 内容测试 XPath 表达式
+    title: XPath 测试
+  xslt-tester:
+    description: 允许使用 XSLT 样式表测试 XML 转换
+    title: XSLT 测试
+  hex-converter:
+    description: 将十六进制缓冲区编码和解码为数字（位、字节、符号或浮点或字符）和结构
+    title: 十六进制编码器/解码器

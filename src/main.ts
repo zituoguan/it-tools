@@ -9,6 +9,7 @@ import * as monaco from 'monaco-editor';
 
 import { registerSW } from 'virtual:pwa-register';
 import shadow from 'vue-shadow-dom';
+import { createGtm } from '@gtm-support/vue-gtm';
 import { plausible } from './plugins/plausible.plugin';
 
 import 'virtual:uno.css';
@@ -39,5 +40,13 @@ app.use(naive);
 app.use(plausible);
 app.use(shadow);
 app.use(store, 'pomodoro-store');
+app.use(
+  createGtm({
+    id: 'GTM-NKCLH9MX',
+    vueRouter: router,
+    enabled: true,
+    debug: false,
+  }),
+);
 
 app.mount('#app');

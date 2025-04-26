@@ -105,3 +105,5 @@ tools:
   csv-to-json:
     title: CSV a JSON
     description: Convierte CSV a JSON con detección automática de cabeceras.
+  extract-text-from-html:
+    description: ''

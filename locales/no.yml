@@ -435,3 +435,5 @@ tools:
   text-to-binary:
     title: Tekst til ASCII binært
     description: Konverter tekst til sin ASCII binære representasjon og visa-versa.
+  extract-text-from-html:
+    description: ''

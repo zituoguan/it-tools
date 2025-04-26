@@ -30,6 +30,7 @@ home:
     darkMode: Tryb ciemny
     lightMode: Tryb jasny
     mode: Przełącz tryb ciemny/jasny
+  title: Narzędzia informatyczne
 about:
   content: >
     # O IT-Tools
@@ -165,3 +166,623 @@ tools:
     uuidversion: Wersja RFC
     title: Konwerter UUID
     uuidhexupper: Notacja HEX (górna)
+  extract-text-from-html:
+    description: >-
+      Wklej swój HTML w formularzu wejściowym po lewej stronie, a otrzymasz
+      tekst natychmiast. Czasami może być konieczne wyodrębnienie zwykłego
+      tekstu ze strony HTML, gdzie właściwości CSS (takie jak user-select:
+      none;) uniemożliwiają wybór tekstu. Typowe obejście polega na użyciu
+      narzędzi DevTools (F12), aby wybrać "Kopiuj" →  Proponowane narzędzie
+      uprości ten proces poprzez wyodrębnienie "wewnętrznego tekstu"
+      bezpośrednio z skopiowanego HTML.
+    title: Wyodrębnij tekst z HTML
+  ad-ldap-searcher:
+    description: Wyszukiwanie w mapowaniu właściwości LDAP i interfejsu ActiveDirectory
+    title: Wyszukiwarka właściwości LDAP ActiveDirectory
+  ai-prompt-splitter:
+    description: Podziel długi dokument do wielu pytań czatu (tj. ChatGPT)
+    title: Rozdzielacz poleceń AI
+  angle-converter:
+    description: Konwertuj wartości między jednostkami kąta
+    title: Konwerter jednostek kątowych
+  ansible-vault-crypt-decrypt:
+    description: Szyfruj i odszyfruj tajemnice Ansible Vault
+    title: Odszyfrowanie krypty skarbca
+  api-tester:
+    description: Tester HTTP API
+    title: Tester API
+  area-converter:
+    title: Konwerter jednostek obszarowych
+    description: Konwertuj wartości między jednostkami obszaru
+  ascii-text-drawer:
+    description: Twórz ASCII tekst artystyczny z wielu czcionek i stylów.
+    title: Generator tekstu ASCII
+  aspect-ratio-calculator:
+    title: Kalkulator proporcji stron
+    description: >-
+      Użyj tego kalkulatora stosunku, aby sprawdzić wymiary podczas zmiany
+      rozmiaru obrazów.
+  barcode-generator:
+    description: Generator kodów kreskowych
+    title: Generator kodów kreskowych
+  barcode-reader:
+    description: Czytnik kodów kreskowych
+    title: Czytnik kodów kreskowych
+  base64-hex-converter:
+    description: Po prostu zakodować i dekodować tablicę Hex do ich reprezentacji base64.
+    title: Koder/dekoder macierzy Hex Base64
+  bounce-parser:
+    description: Parszuj wiadomości SMTP Bounce
+    title: Odrzuć parser e-mail
+  card-picker:
+    description: Generuj talię kart do gry
+    title: Wybieracz kart
+  certificate-key-parser:
+    description: Parszuj klucz i certyfikat
+    title: Parser certyfikatów/kluczy
+  cidr-in-cidr:
+    description: >-
+      Biorąc pod uwagę CIDR/IP Range/Wildcard IP/IP Mask, należy określić, czy
+      dana IPv4-6/Range/CIDR/Wildcard IP/IP Mask znajduje się w zakresie
+      podsieci
+    title: IPv4-6/IPRange/CIDR w IPRange/CIDR/IPMask
+  code-highlighter:
+    description: Podświetl fragmenty kodu programowania
+    title: Podświetlacz kodu/skryptów
+  coin-flipper:
+    description: Rzuć monetą
+    title: Fliper monet
+  color-contrast-checker:
+    description: Sprawdź poziom stałości WCAG między dwoma kolorami
+    title: Kontrola kontrastu kolorów
+  color-wheel:
+    description: Wybierz paletę kolorów/motyw za pomocą koła i trybu
+    title: Koło kolorów
+  common-regex-memo:
+    description: Arkusz oszustwa dla wspólnych wzorców regex
+    title: Arkusz podstępczy Common Regex
+  countdown:
+    description: Odliczanie i alarm w okresie czasu trwania
+    title: Odliczanie
+  crc-calculator:
+    description: >-
+      Obliczanie tekstu lub pliku CRC (CRC1, CRC8, CRC8 1-Wire, CRC8 DVB-S2,
+      CRC16, CRC16 CCITT, CRC16 Modbus, CRC16 Kermit, CRC16 XModem, CRC24,
+      CRC32, CRC32 MPEG-2, CRCJAM)
+    title: Kalkulator CRC
+  csr-generator:
+    description: Generator żądania podpisywania certyfikatów (format PEM)
+    title: Generator CSR
+  css-prettifier:
+    description: CSS Prettify
+    title: Css ładniejszy
+  css-selectors-memo:
+    description: Arkusz składni selektorów CSS
+    title: Arkusz cheatsheet selektorów CSS
+  css-xpath-converter:
+    description: Konwersja selektora CSS do/z wyrażenia XPath
+    title: Konwerter CSS XPath
+  curl-converter:
+    description: >-
+      Generuj wspólną wersję języków kodowania dostarczonego wiersza poleceń
+      curl
+    title: Konwerter krętów
+  currency-converter:
+    description: >-
+      Konwersja wartości walutowych za pomocą
+      https://github.com/fawazahmed0/exchange-api
+    title: Konwerter walut
+  data-storage-unit-converter:
+    description: >-
+      Konwersja jednostek przechowywania lub transferu danych (bajty, bibyte,
+      bity, kilobajty...)
+    title: Konwerter jednostek przechowywania danych
+  data-transfer-rate-converter:
+    description: Obliczanie czasu transferu danych, szybkości i ilości danych
+    title: Kalkulator kursu transferu danych
+  date-duration-calculator:
+    description: Dodaj/podstaw czas trwania od określonej daty
+    title: Kalkulator daty+czasu trwania
+  days-calculator:
+    description: Obliczać odstęp dni, wakacje, różnicę, godziny robocze
+    title: Kalkulator dni
+  dice-roller:
+    description: RPG Kości Roller za pomocą notacji kości
+    title: Wałek kości
+  dmarc-report-analyzer:
+    description: Odczyt i wyświetlanie raportów DMARC XML
+    title: Analizator raportów DMARC
+  dns-queries:
+    description: Wykonywanie zapytań DNS (przez HTTPS)
+    title: Zapytania DNS
+  docker-compose-converter:
+    description: >-
+      Konwertuj plik Docker Compose między V1, 2.x, 3.x lub CommonSpec i może
+      rozszerzać składnie portów/woluminów
+    title: Konwerter formatów kompozycji Docker
+  docker-compose-to-docker-run-converter:
+    description: Włącza file Docker Compose do uruchomienia poleceń dokujących!
+    title: Konwerter uruchamiania Docker Compose to Docker
+  docker-compose-to-kubernetes:
+    description: Docker Compose to Kubernetes manifesty
+    title: Dokujący komponuje do kubernetów
+  docker-compose-validator:
+    description: Weryfikacja plików Docker Compose według schematu CommonSpec
+    title: Weryfikator kompozycji Dockera
+  docker-memo:
+    description: Notatka poleceń Dockera
+    title: Arkusz podstępu Dockera
+  docker-run-to-kubernetes:
+    description: Docker uruchamia polecenia(-y) do manifestów Kubernetes
+    title: Uruchom doker do kubernetów
+  duplicate-line-finder:
+    description: Znajdź i wyświetlaj zduplikowane wiersze
+    title: Wyszukiwarka powielania linii
+  duration-calculator:
+    description: Oblicz/analizuj czas trwania
+    title: Kalkulator czasu trwania
+  ecdsa-key-pair-generator:
+    description: Generuj nowe losowe klucze prywatne i publiczne ECDSA (z hasłem lub bez).
+    title: Generator pary kluczy ECDSA
+  ed25519-key-pair-generator:
+    description: >-
+      Generuj nowe losowe klucze prywatne i publiczne Ed25519 (z hasłem lub
+      bez).
+    title: Generator pary kluczy Ed25519
+  email-normalizer:
+    description: >-
+      Znormalizuj adresy e-mail do standardowego formatu, aby ułatwić
+      porównanie. Przydatne do deduplikacji i czyszczenia danych.
+    title: Normalizator poczty elektronicznej
+  email-parser:
+    description: Paryzowanie i wyodrębnianie informacji z surowej treści e-mail
+    title: Parser e-maila
+  energy-computer:
+    description: Obliczyć zużycie energii i koszty
+    title: Komputer zużycia energii i kosztów
+  energy-converter:
+    description: Konwersja wartości między jednostkami energetycznymi
+    title: Konwerter jednostek energetycznych
+  file-hasher:
+    description: Oblicz hash plików
+    title: Hasher plików
+  file-type:
+    description: Określić typ pliku
+    title: Wykrywacz typu pliku
+  folder-structure-diagram:
+    description: >-
+      Narzędzie podobne do drzewa do generowania diagramów struktury folderów
+      ASCII
+    title: Diagram struktury folderów
+  force-converter:
+    description: Konwertuj wartości między jednostkami siły
+    title: Konwerter jednostek siły
+  fortune-wheel:
+    description: Obróć kołem, aby wybrać losowy element
+    title: Koło fortuny
+  geo-distance-calculator:
+    description: >-
+      Obliczanie odległości między dwoma lokalizacjami geograficznymi (i
+      wyświetlanie bieżących informacji o lokalizacji użytkownika)
+    title: Kalkulator odległości geologicznej
+  gpt-token-estimator:
+    description: Ocena tokenów GPT OpenAI
+    title: Ocena tokenów GPT
+  gzip-converter:
+    description: Konwersja tekstu z/do gzip/deflate
+    title: Konwerter GZip/Deflate
+  har-sanitizer:
+    description: Urządzenie do dezynfekcji plików HAR
+    title: Środek dezynfekujący HAR
+  hdd-calculator:
+    description: >-
+      Producenci urządzeń pamięci masowej zgłaszają pojemność w formie
+      dziesiętnej (jak GB), natomiast systemy operacyjne i inne oprogramowanie
+      używają formy binarnej (GiB), choć nadal nieprawidłowo używają jednostki
+      dziesiętnej (GiB). To narzędzie konwertuje pojemność formy dziesiętnej na
+      różne formy binarne.
+    title: Kalkulator dysku twardego
+  heic-converter:
+    description: HEIC Converter to JPEG lub PNG
+    title: Konwerter HEIC
+  html-cleaner:
+    description: Czyste HTML
+    title: Czyszczenie HTML
+  html-prettifier:
+    description: Udawaj kod HTML
+    title: Pretyfikator HTML
+  html-to-markdown:
+    description: Konwertuj HTML (albo ze schowka) do Markdown
+    title: HTML do znacznika
+  htpasswd-generator:
+    description: htpassword/htaccess user/generator haseł
+    title: Generator Htpasswd/htaccess
+  ical-generator:
+    description: Generuj plik ICAL/ICS z informacji o wydarzeniach
+    title: Generator ICAL
+  ical-merger:
+    description: Połączenie wielu plików iCal do jednego
+    title: Połączenie iCal
+  ical-parser:
+    description: Paryzuj plik ICAL/ICS do wyświetlania zdarzenia
+    title: Parser plików ICAL
+  ico-converter:
+    description: Konwersja z PNG/JPEG do/z ICO
+    title: Konwerter ICO/PNG
+  ies-lighting-guidelines:
+    description: >-
+      Wyszukaj w aktualnych zaleceniach Oświetlenia Towarzystwa Inżynierii
+      Oświetleniowej (IES).
+    title: Wytyczne dotyczące oświetlenia IES
+  illuminance-converter:
+    description: Konwerter jednostek oświetlenia (Lux, Świece stopowe, Nox, Phot, Flame)
+    title: Konwerter oświetlenia
+  image-converter:
+    description: Konwersja obrazów z jednego formatu do innego
+    title: Konwerter formatów obrazów
+  image-exif-reader:
+    description: >-
+      Czytaj EXIF, IPTC, XMP, GPS i inne metadane, jakość JPEG i inne informacje
+      z plików obrazów
+    title: Czytnik jakości obrazu EXIF/Metadane/GPS/JPEG
+  image-to-ascii-art:
+    description: Obraz do generatora sztuki ASCII
+    title: Obraz do ASCII Art
+  image-to-css:
+    description: Konwertuj obraz do CSS (url, tło,...)
+    title: Obraz do CSS
+  integers-to-ip:
+    description: Konwertuj liczby całkowite na IP
+    title: Całkowite do IPv4/IPv6
+  ip-cidr-to-range:
+    description: Obliczanie zakresu IP z CIDR (IPv4/6)
+    title: Kalkulator zakresu IPv4/6 CIDR do IP
+  ip-geo-location:
+    description: Pobieranie informacji o adresie IPv4/6 lub lokalizacji domeny
+    title: Lokalizacja geograficzna IP
+  ip-include-exclude:
+    description: >-
+      Podkreślenie niedozwolonych zakresów IP/Mask/CIDR listy z dozwolonych
+      zakresów IP/Mask/CIDR listy
+    title: Kalkulator podsieci IP
+  ip-range-to-cidr:
+    description: Obliczanie CIDR(-ów) z zakresu IP (IPv4/6)
+    title: Zakres IPv4/6 do kalkulatora CIDR(y)
+  ipv6-address-converter:
+    description: >-
+      Konwertuj adres IP na dziesiętny, binarny, szesnastkowy i uzyskaj
+      informacje
+    title: Konwerter adresów Ipv6
+  ipv6-subnet-calculator:
+    description: >-
+      Przeanalizuj bloki IPv6 CIDR i uzyskaj wszystkie potrzebne informacje o
+      swojej podsieci.
+    title: Kalkulator podsieci IPv6
+  isbn-validator-and-parser:
+    description: Paryzuj, sprawdzaj, formatuj i uzyskuj informacje o ISBN
+    title: Walidator i parser ISBN
+  iso-3166-searcher:
+    description: Zezwala na wyszukiwanie kodu kraju (ISO 3166) i informacji
+    title: ISO 3166 Wyszukiwarka kodów kraju
+  javascript-prettifier:
+    description: JS/Javascript Prettifer
+    title: Pretyfikator Javascriptu
+  jq-memo:
+    description: Spis poleceń JQ
+    title: Arkusz oszustwa Jq
+  jq-tester:
+    description: Testowanie wyrażenia jq/JSONPath na tle zawartości JSON
+    title: Tester Jq/JSONPath
+  js-unobfuscator:
+    description: >-
+      webcrack jest narzędziem do inżynierii wstecznej javascript. Może
+      deobfuscate obfuscator.io, uninify, przejść i rozpakować
+      webpack/browserify, aby jak najbardziej przypominać oryginalny kod
+      źródłowy.
+    title: Unobfuscator/Unpacker Javascriptu
+  json-editor:
+    description: Edytuj zawartość JSON
+    title: Edytor JSON
+  json-escaper:
+    description: Ucieczka i usuwanie ciągu JSON
+    title: JSON Escaper/Unescaper
+  json-linter:
+    description: Sprawdź i podkładaj zawartość JSON
+    title: JSON Linter
+  json-size-analyzer:
+    description: Pomiar względnej wagi węzłów JSON
+    title: Analizator rozmiaru Jsona
+  json-to-csharp:
+    description: 'Konwersja danych JSON do definicji typu C# '
+    title: JSON do C#
+  json-to-go:
+    description: Konwertuj strukturę JSON do Go
+    title: JSON do przejścia
+  json-to-java:
+    description: Konwertuj JSON na jednostki Java
+    title: JSON do podmiotu Java
+  json-to-php-array:
+    description: Konwertuj tablicę JSON do PHP
+    title: JSON do tablicy PHP
+  json-to-schema:
+    description: >-
+      Konwersja danych JSON do schematu JSON, MySQL DDL, schematu Mongoose,
+      schematu Google BigQuery lub schematu tabeli ClickHouse
+    title: JSON do Schema
+  json-to-xml:
+    description: Konwertuj JSON do XML
+    title: JSON do XML
+  jsonpath-memo:
+    description: Arkusz składni JSONPath
+    title: Arkusz składni JSONPath
+  jwt-generator:
+    title: Generator JWT
+    description: Generator i edytor tokenów JWT
+  length-converter:
+    description: Konwertuj wartości z jednostek długości
+    title: Konwerter jednostek długości
+  list-comparer:
+    description: Porównanie dwóch elementów listy
+    title: Porównywacz listy
+  luhn-validator:
+    description: >-
+      Sprawdź i wygeneruj klucz identyfikatora zatwierdzonego przez numer
+      kontrolny Luhn
+    title: Walidator Luhna
+  mac-address-converter:
+    description: >-
+      Zmiana formatu adresu MAC i wybór między różnymi formatami (EUI-48,
+      EUI-64, IPv6)
+    title: Konwerter adresów MAC
+  many-units-converter:
+    description: Konwersja wszystkich rodzajów jednostek
+    title: Konwerter wielu jednostek
+  markdown-cheatsheet:
+    description: Arkusz oszustw Markdown
+    title: Arkusz oszustw Markdown
+  markdown-editor:
+    description: Prosty edytor oznaczeń
+    title: Edytor oznaczeń
+  markdown-to-html:
+    description: Konwertuj Markdown do HTML i pozwól na drukowanie (jako PDF)
+    title: Znacznik do HTML
+  markdown-toc-generator:
+    description: Generuj zawartość treści z pliku/zawartości znaczników
+    title: Generator toku markdown
+  mass-converter:
+    description: Konwertuj wartości między jednostkami masy
+    title: Konwerter jednostek masy
+  math-formats-converter:
+    description: Konwersja wyrażeń matematycznych między formatami
+    title: Konwerter formatów matematycznych
+  math-ocr:
+    description: Konwertuj obrazy formuły matematycznej do lateksu
+    title: OCR matematyki
+  mermaid-exporter:
+    description: Konwertuj Markdown (Syrena) do obrazu i pozwól na eksport do PNG, JPG, SVG
+    title: Eksporter syrenek
+  mime-converter:
+    description: Konwersja z/do formatu kodowanego programu MIME (Subject poczty)
+    title: Konwerter kodowania MIME
+  mongo-objectid-converter:
+    description: Konwersja między MongoDB ObjectId a wewnętrznym znacznikiem czasu
+    title: Konwerter obiektId MongoDB
+  morse-converter:
+    description: Kodowanie/dekodowanie do kodu morse
+    title: Konwerter kodu morse
+  my-ip:
+    description: Pobierz adres IP klienta (IPv4/6) używając https://www.ipify.org/
+    title: Mój adres IP
+  nano-memo:
+    description: Arkusz oszustwa edytora nano
+    title: Nanoarkusz oszustwa
+  nginx-formatter:
+    description: Formatowanie/upiększanie plików konfiguracyjnych Nginx
+    title: Formatowanie Nginx
+  ocr-image:
+    description: Wykonywanie OCR (Tesseract) na obrazie lub pliku PDF
+    title: OCRize obraz i PDF
+  option43-generator:
+    description: Wygeneruj opcję43 konfiguracja DHCP Wifi
+    title: Generator opcji43
+  outlook-parser:
+    description: Parzuj pliki MSG programu Outlook
+    title: Parser MSG programu Outlook
+  parquets-reader:
+    description: Odczytaj plik parkietu jako tablice obiektów JSON
+    title: Czytnik plików parkietowych
+  passphrase-generator:
+    description: Generuj losowe zapamiętywane hasła
+    title: Generator haseł
+  paste-as-markdown:
+    description: Wklej komórki/tabele i linki z zawartości schowka jako oznaczenie
+    title: Wklej jako znacznik
+  pdf-encrypt:
+    description: Szyfruj i dodaj ochronę do pliku PDF
+    title: Szyfrowanie PDF
+  pdf-linearize:
+    description: Utwórz linearyzowaną wersję pliku PDF (przejdź do FastWeb)
+    title: PDF Linearize/FastWeb
+  pdf-unlock:
+    description: Odszyfruj plik PDF i odblokuj (usuń uprawnienia bezpieczeństwa)
+    title: Odszyfruj i odblokuj PDF
+  pgp-encryption:
+    description: Szyfruj i odszyfruj tekst czysty za pomocą kluczy PGP.
+    title: Szyfrowanie PGP
+  pgp-key-pair-generator:
+    description: Generuj nowe losowe klucze prywatne i publiczne PGP (z hasłem lub bez).
+    title: Klucze PGP
+  php-array-to-json:
+    description: Konwertuj tablicę PHP do JSON
+    title: Tablica PHP do JSON
+  pin-code-generator:
+    description: Generuj unikalne kody PIN (cyfry)
+    title: Generator kodów pinowych
+  pomodoro-timer:
+    description: Podstawowy zegar Pomodoro
+    title: Czas Pomodoro
+  port-numbers:
+    description: Wyszukiwanie przypisanego użycia danego portu i protokołu
+    title: Numery portów
+  potrace:
+    description: Konwersja obrazu rastrowego do wektorowego SVG
+    title: Obraz do SVG (potrace)
+  power-converter:
+    description: Konwertuj wartości między jednostkami zasilającymi
+    title: Konwerter mocy
+  pressure-converter:
+    description: Konwertuj wartości między jednostkami ciśnienia
+    title: Przetwornik jednostek ciśnieniowych
+  properties-to-yaml:
+    description: Konwertuj zawartość Java .properties do YAML
+    title: Właściwości YAML
+  punycode-converter:
+    description: >-
+      Konwersja międzynarodowych nazw domen unicode lub wiadomości e-mail z/do
+      wersji ASCII Punycode
+    title: Konwerter kodów punycode
+  qr-code-decoder:
+    description: Czytnik kodów QR
+    title: Dekoder kodu QR
+  raid-calculator:
+    description: >-
+      Obliczanie pojemności pamięci masowej, tolerancji usterek i wydajności
+      przestrzeni tablicy na podstawie liczby dysków, rozmiaru i typu RAID
+    title: Kalkulator RAID
+  regex-memo:
+    description: Spis treści z regułami JavaScript/wyrażeniami regularnymi
+    title: Karta oszustwa Regex
+  regex-tester:
+    description: Przetestuj swoje wyrażenia regularne z przykładowym tekstem.
+    title: Tester Regex
+  rem-px-converter:
+    description: Konwertuj px na rem i odwrotnie
+    title: Konwerter pikseli REM
+  remove-exif:
+    description: Usuń Exif z plików JPEG
+    title: Usuń EXIF
+  rmb-numbers:
+    description: Narzędzie do konwersji wielkich liter RMB/Renminbi
+    title: Konwerter wielkich liter RMB
+  rsa-ecdsa-signing:
+    description: Podpisywanie danych i weryfikacja podpisu za pomocą kluczy RSA/DSA/ECDSA
+    title: Podpisujący i weryfikator RSA/DSA/ECDSA
+  rsa-encryption:
+    description: Szyfruj i odszyfruj tekst czysty za pomocą kluczy RSA.
+    title: Szyfrowanie RSA
+  rune-converter:
+    description: Konwertuj tekst na runy i odwrotnie
+    title: Konwerter run
+  safelink-decoder:
+    description: Dekodowanie linków programu Outlook SafeLink
+    title: Dekoder Safelink programu Outlook
+  sensitive-data-masker:
+    description: Czyścić wrażliwe dane z treści tekstowych (tj. logów),
+    title: Maskowanie wrażliwych danych
+  sharepoint-decoder:
+    description: Odkoduj adresy URL sharepoint.com do "normalnego" adresu URL Sharepoint
+    title: Dekoder URL udostępniania Sharepoint
+  sla-calculator:
+    description: Kalkulator umów o poziomie usług
+    title: Kalkulator SLA
+  smart-raw-converter:
+    description: Konwertuj wartości SMART Raw na czytelne dla ludzi
+    title: SMART Raw Converter
+  smart-text-replacer:
+    description: >-
+      Wyszukiwanie i zastępowanie słowa w pojedynczych lub wielu wystąpieniach,
+      tak jak wyszukiwanie i zastępowanie notatnika Windows. Pozwala również
+      zarządzać łamaniem linii i podziałem tekstu
+    title: Inteligentny zastępca tekstu i przełamywacz linii
+  snowflake-id-extractor:
+    description: >-
+      Wyodrębnij znacznik czasu, identyfikator maszyny i numer sekwencji z
+      identyfikatora Płatka Śniegu
+    title: Ekstraktor identyfikacji płatków śniegu
+  software-licence-compatibility:
+    description: Sprawdzanie zgodności z licencjami oprogramowania i informacje
+    title: Zgodność z licencją oprogramowania
+  ssl-cert-converter:
+    description: Konwersja certyfikatu SSL z różnych formatów
+    title: Konwerter certyfikatów SSL
+  stacktrace-prettier:
+    description: Podświetl . Ślady stosu sieci i JS
+    title: Stacktrace ładniejszy
+  text-to-unicode-names:
+    description: >-
+      Konwersja tekstu na sześciodecymalne kody znaków i nazwy Unicode dla
+      każdego znaku
+    title: Tekst do nazw Unicode
+  time-alarm:
+    description: Alarm w określonej datie i godzinie
+    title: Alarm czasu
+  timezone-converter:
+    description: >-
+      Konwertuj datę i czas ze strefy czasowej na inne i uzyskaj informacje o
+      strefie czasowej vs kraje
+    title: Konwerter stref czasowych
+  torrent-to-magnet:
+    title: Torrent do magnesu
+    description: Konwertuj plik torrent na adres URL Magnet
+  ttl-calculator:
+    description: Konwerter TTL na czas
+    title: Kalkulator TTL
+  unicode-formatter:
+    description: Formatowanie tekstu przy użyciu czcionek Unicode
+    title: Formatowanie kodów Unicode
+  unicode-search:
+    description: Wyszukiwanie znaków Unicode
+    title: Wyszukiwanie Unicode
+  url-cleaner:
+    description: >-
+      Wyczyść parametry trackera reklam, UTM, Facebooka i innych dostawców
+      reklam z adresu URL
+    title: URL CLeaner
+  url-fanger:
+    description: Ustaw adres URL lub adres e-mail
+    title: URL Fanger
+  url-text-fragment-maker:
+    description: >-
+      Utwórz adres URL, który umożliwia łączenie bezpośrednio do określonej
+      części tekstu w dokumencie internetowym
+    title: Twórca fragmentów wyszukiwania tekstu URL
+  utm-url-generator:
+    description: 'Wygeneruj URL z parametrami utm_ '
+    title: Generator URL UTM
+  vat-validator:
+    description: Zatwierdzenie numerów VAT
+    title: Weryfikator numerów VAT
+  volume-converter:
+    description: Konwertuj wartości między jednostkami objętości
+    title: Konwerter jednostek głośności
+  websocket-tester:
+    description: Pozwala na testowanie połączeń WebSocket
+    title: Tester sieci wewnętrznej
+  week-number-converter:
+    description: Konwersja między numerem ISO Tygodnia, numerem Tygodnia w miesiącu i datą
+    title: Konwerter liczb tygodni
+  wpa-psk-generator:
+    description: >-
+      Generator kluczy współdzielonych WPA do konwersji hasła WPA i
+      identyfikatora SSID na 256-bitowy klucz współdzielony ("raw").
+    title: Generator PSK WPA
+  x509-certificate-generator:
+    description: Generuj samodzielnie podpisany certyfikat SSL/x509
+    title: Generator certyfikatów X509
+  xml-to-json:
+    description: Konwertuj XML do JSON
+    title: XML do Json
+  xpath-memo:
+    description: Arkusz składni XPath
+    title: Arkusz składni XPath
+  xpath-tester:
+    description: Testowanie wyrażenia XPath z zawartością XML
+    title: Tester XPath
+  xslt-tester:
+    description: Pozwala na testowanie transformacji XML przy użyciu arkuszy stylów XSLT
+    title: Tester XSLT
+  hex-converter:
+    description: >-
+      Kodowanie i dekodowanie buforów Hex do liczby (bity, endiany, znak lub
+      zmienny punkt lub znaki) i struktur
+    title: Koder sześciokształtowy/dekoder

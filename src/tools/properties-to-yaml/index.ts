@@ -1,10 +1,11 @@
 import { AlignJustified } from '@vicons/tabler';
 import { defineTool } from '../tool';
+import { translate } from '@/plugins/i18n.plugin';
 
 export const tool = defineTool({
-  name: 'Properties to YAML',
+  name: translate('tools.properties-to-yaml.title'),
   path: '/properties-to-yaml',
-  description: 'Convert Java .properties content to Yaml',
+  description: translate('tools.properties-to-yaml.description'),
   keywords: ['properties', 'yaml', 'convert', 'spring', 'spring-boot', 'parse'],
   component: () => import('./properties-to-yaml.vue'),
   icon: AlignJustified,

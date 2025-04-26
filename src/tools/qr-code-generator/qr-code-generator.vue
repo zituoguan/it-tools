@@ -49,7 +49,7 @@ const dotTypes = ['dots',
 const cornersDotTypes = ['dot', 'square', 'heart'];
 const cornersSquareTypes = ['dot', 'square', 'extra-rounded'];
 
-const text = ref('https://sharevb-it-tools.vercel.app');
+const text = ref('https://jiqili.com');
 const { qrcode } = useQRCodeStyling({
   text,
   color: { background, foreground },

@@ -44,6 +44,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/vue-fontawesome": "^3.0.8",
     "@github/paste-markdown": "^1.5.3",
+    "@gtm-support/vue-gtm": "^3.1.0",
     "@guolao/vue-monaco-editor": "^1.5.4",
     "@guyplusplus/turndown-plugin-gfm": "^1.0.7",
     "@huggingface/transformers": "3.0.0-alpha.14",

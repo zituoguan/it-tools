@@ -23,7 +23,7 @@ const homeCustomMarkdown = computedAsync(async () => {
 
 const toolStore = useToolStore();
 
-useHead({ title: 'IT Tools - Handy online tools for developers' });
+useHead({ title: '机器里 - 开发者实用在线工具' });
 const { t } = useI18n();
 
 const favoriteTools = computed(() => toolStore.favoriteTools);
