@@ -972,3 +972,123 @@ tools:
   hex-converter:
     description: 将十六进制缓冲区编码和解码为数字（位、字节、符号或浮点或字符）和结构
     title: 十六进制编码器/解码器
+  
+  bimi-dns-generator:
+    title: BIMI DNS 生成器
+    description: 生成 BIMI DNS TXT 记录
+
+  properties-converter:
+    title: Properties 转换器
+    description: Java .properties 文件与 YAML 之间的相互转换
+
+  bmi-calculator:
+    title: "BMI 计算器"
+    description: "身体质量指数（BMI）计算器（美制或公制单位）"
+
+  fstab-generator:
+    title: "FStab 生成器"
+    description: "生成 /etc/fstab 行"
+
+  rsync-generator:
+    title: "Rsync 生成器"
+    description: "Rsync 命令生成器"
+  
+  json-to-sql-ddl:
+    title: "JSON 转 SQL DDL"
+    description: "JSON 转 SQL CREATE TABLE 语句"
+  
+  tcpdump-generator:
+    title: "TCPDump 生成器"
+    description: "生成 tcpdump 命令行"
+
+  iptables-generator:
+    title: "Iptables 生成器"
+    description: "生成 iptables 命令行"
+
+  excel-to-data:
+    title: "Excel 转数据"
+    description: "将 XLSX 文件转换为 JSON、YAML、CSV、SQL INSERT、XML 或 Markdown"
+
+  paseto-encryption:
+    title: "Paseto/PASERK Local"
+    description: "生成本地密钥并加密/解密有效载荷"
+
+  pdf-concat:
+    title: "PDF 合并"
+    description: "将多个 PDF 合并为一个"
+
+  pdf-extract:
+    title: "PDF 页面提取器"
+    description: "从 PDF 中提取页面范围"
+
+  curl-generator:
+    title: "Curl 命令生成器"
+    description: "生成 CURL 命令行"
+
+  json-to-python:
+    title: "JSON 转 Python"
+    description: "将 JSON 转换为 Python 类"
+
+  json-to-php:
+    title: "JSON 转 PHP 代码"
+    description: "从 JSON 生成 PHP 类"
+
+  git-semantic-commit-memo:
+    title: "Git 语义化提交速查表"
+    description: "使用语义化前缀进行提交的速查表"
+ 
+  cookies-parser:
+    title: "Cookies 解析器"
+    description: "解析 Cookie HTTP 标头"
+
+  csv-to-data:
+    title: "CSV 转数据"
+    description: "将 CSV 文件转换为 JSON、YAML、CSV、SQL INSERT、XML 或 Markdown"
+
+  json-to-sql-insert:
+    title: "JSON 转 SQL INSERT"
+    description: "将 JSON 数组转换为 INSERT INTO 语句"
+
+  sql-minifier:
+    title: "SQL 压缩器"
+    description: "压缩 SQL 查询"
+
+  json-to-typescript:
+    title: "JSON 转 TypeScript"
+    description: "将 JSON 转换为 TypeScript 代码"
+
+  distinct-words:
+    title: "去重统计单词"
+    description: "提取并统计文本中每个唯一单词出现的次数"
+
+  json-to-protobuf:
+    title: "JSON 转 Protobuf"
+    description: "从 JSON 对象生成 Protobuf 声明"
+
+  quote-converter:
+    title: "引号转换器"
+    description: "转换带引号的字符串，支持单引号和双引号之间的转换"
+
+  string-escaper:
+    title: "字符串转义"
+    description: "将字符串转义为代码语言版本"
+
+  htaccess-generator:
+    title: "HTAccess 生成器"
+    description: "生成 .htaccess 文件"
+
+  firewalld-generator:
+    title: "FirewallD 命令生成器"
+    description: "生成 FirewallD 命令行"
+
+  data-faker:
+    title: "数据模拟器"
+    description: "使用 JSON 模板生成模拟数据"
+
+  traefik-compose-maker:
+    title: "Traefik Docker Compose 生成器"
+    description: "为给定的服务和选项创建一个带有 Traefik 标签的 docker compose 文件"
+
+  cron-alarm:
+    title: "Cron/工作日闹钟"
+    description: "基于时间和工作日表达式的闹钟"

@@ -235,9 +235,6 @@ tools:
   base64-string-converter:
     title: Base64 String Converter
     description: Encode and decode strings to base64
-  bounce-parser:
-    title: Bounce Email Parser
-    description: Parse SMTP Bounce Emails
   toml-to-yaml:
     title: TOML to YAML
     description: Parse and convert TOML to YAML.
@@ -1247,4 +1244,123 @@ tools:
   xslt-tester:
     title: XSLT tester
     description: Allows to test XML transformation using XSLT Stylesheets  
+  
+  bimi-dns-generator:
+    title: "BIMI DNS Generator"
+    description: "Generate BIMI DNS TXT record"
 
+  properties-converter:
+    title: "Properties converter"
+    description: "Convert Java .properties file from/to YAML"
+
+  bmi-calculator:
+    title: "BMI Calculator"
+    description: "Body Mass Index Calculator (us or metric units)"
+
+  fstab-generator:
+    title: "FStab Generator"
+    description: "Generate /etc/fstab line"
+
+  rsync-generator:
+    title: "Rsync Generator"
+    description: "Rsync command generator"
+
+  json-to-sql-ddl:
+    title: "Json to SQL DDL"
+    description: "JSON to SQL CREATE TABLE"
+
+  tcpdump-generator:
+    title: "TCPDump Generator"
+    description: "Generate tcpdump command line"
+
+  iptables-generator:
+    title: "Iptables Generator"
+    description: "Generate iptables command lines"
+
+  excel-to-data:
+    title: "Excel to data"
+    description: "Convert XLSX file to JSON, YAML, CSV, SQL INSERT, XML or Markdown"
+
+  paseto-encryption:
+    title: "Paseto/PASERK Local"
+    description: "Generate local keys and encrypt/decrypt payloads"
+
+  pdf-concat:
+    title: "Pdf Concatener"
+    description: "Concatenate PDF into a single one"
+
+  pdf-extract:
+    title: "Pdf Page Extractor"
+    description: "Extract pages range from a PDF"
+
+  curl-generator:
+    title: "Curl Command Generator"
+    description: "Generate CURL command lines"
+
+  json-to-python:
+    title: "Json to Python"
+    description: "Convert JSON to Python classes"
+
+  json-to-php:
+    title: "Json to PHP Code"
+    description: "Generate PHP Classes from JSON"
+
+  git-semantic-commit-memo:
+    title: "Git Semantic Commit Cheatsheet"
+    description: "Cheatsheet for committing using semantic prefixes"
+
+  cookies-parser:
+    title: "Cookies Parser"
+    description: "Parse Cookie HTTP Header"
+
+  csv-to-data:
+    title: "Csv to Data"
+    description: "Convert CSV file to JSON, YAML, CSV, SQL INSERT, XML or Markdown"
+
+  json-to-sql-insert:
+    title: "Json to SQL INSERT"
+    description: "Convert JSON array to INSERT INTO"
+
+  sql-minifier:
+    title: "SQL Minifier"
+    description: "Minify SQL queries"
+
+  json-to-typescript:
+    title: "Json to Typescript"
+    description: "Convert JSON to Typescript code"
+
+  distinct-words:
+    title: "Distinct Words"
+    description: "Extract and count occurences of each unique word in a text"
+
+  json-to-protobuf:
+    title: "Json to Protobuf"
+    description: "Generate Protobuf declaration from JSON objects"
+
+  quote-converter:
+    title: "Quote Converter"
+    description: "Convert quoted string from/to ' and \""
+
+  string-escaper:
+    title: "String Escaper"
+    description: "Escape string to code language version"
+
+  htaccess-generator:
+    title: "HTAccess generator"
+    description: "Generate .htaccess file"
+
+  firewalld-generator:
+    title: "FW command line generator"
+    description: "Generate fw command lines"
+
+  data-faker:
+    title: "Data Faker"
+    description: "Generate fake data using JSON template"
+
+  traefik-compose-maker:
+    title: "Traefik Docker Compose Maker"
+    description: "Create a docker compose with Traefik labels ready for a given service and options"
+
+  cron-alarm:
+    title: "Cron/Weekday Alarm"
+    description: "Alarm based on time and weekdays expression"
