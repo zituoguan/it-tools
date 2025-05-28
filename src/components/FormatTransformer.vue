@@ -16,6 +16,7 @@ const props = withDefaults(
     outputLanguage?: string
     downloadFileName?: string
     downloadButtonText?: string
+    rows?: number
   }>(),
   {
     transformer: _.identity,
@@ -27,12 +28,13 @@ const props = withDefaults(
     outputLanguage: '',
     downloadFileName: '',
     downloadButtonText: 'Download',
+    rows: 15,
   },
 );
 
 const {
   transformer, inputValidationRules, inputLabel, outputLabel, outputLanguage,
-  inputPlaceholder, inputDefault, downloadFileName, downloadButtonText,
+  inputPlaceholder, inputDefault, downloadFileName, downloadButtonText, rows,
 } = toRefs(props);
 
 const inputElement = ref<typeof CInputText>();
@@ -54,13 +56,14 @@ const { download } = useDownloadFileFromBase64(
     v-model:value="input"
     :placeholder="inputPlaceholder"
     :label="inputLabel"
-    rows="20"
+    :rows="rows"
     autosize
     raw-text
     multiline
     test-id="input"
     :validation-rules="inputValidationRules"
     monospace
+    mb-1
   />
 
   <div overflow-auto>

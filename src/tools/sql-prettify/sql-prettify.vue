@@ -99,7 +99,7 @@ const sqlDialects = [
 
     <n-space justify="center">
       <n-form-item label="Use tabs" label-placement="left">
-        <n-checkbox v-model:value="useTabs" mr-2 />
+        <n-checkbox v-model:checked="useTabs" mr-2 />
       </n-form-item>
       <n-form-item label="Expressions width" label-placement="left">
         <n-input-number v-model:value="expressionWidth" :min="0" size="small" />

@@ -49,11 +49,10 @@ services:
 Category 匹配英文分类名；Tools 匹配工具路径/URL。
 
 详见 [docker-tools-filter-and-home-content](https://github.com/sharevb/it-tools)
-
-## 使用自定义文件夹构建
+## 使用自定义默认语言构建：
 
 ```
-docker build -t it-tools-fr --build-arg BVITE_LANGUAGE=fr .
+docker build -t it-tools-fr --build-arg VITE_LANGUAGE=fr .
 docker run -d --name it-tools-fr --restart unless-stopped -p 8080:8080 it-tools-fr
 ```
 
@@ -104,7 +103,7 @@ name: Deploy static content to Pages
 on:
   # 仅在推送到默认分支时运行
   push:
-    branches: ["main"]
+    branches: [main]
 
   # 允许从 Actions 标签页手动运行
   workflow_dispatch:
@@ -117,7 +116,7 @@ permissions:
 
 # 只允许一个并发部署，跳过排队的旧任务
 concurrency:
-  group: "pages"
+  group: pages
   cancel-in-progress: false
 
 jobs:
@@ -129,7 +128,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install Node.js
         uses: actions/setup-node@v3
@@ -152,9 +151,9 @@ jobs:
         uses: actions/configure-pages@v3
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist'
+          path: ./dist
 
       - name: Deploy to GitHub Pages
         id: deployment

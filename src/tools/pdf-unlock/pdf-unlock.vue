@@ -16,6 +16,7 @@ const { download } = useDownloadFileFromBase64(
     filename: fileName,
     extension: fileExtension,
   });
+const qpdfCommand = ref('');
 
 async function onPDFFileUploaded(uploadedFile: File) {
   file.value = uploadedFile;
@@ -44,6 +45,7 @@ async function onPDFFileUploaded(uploadedFile: File) {
 }
 
 async function callMainWithInOutPdf(data: ArrayBuffer, args: string[], expected_exitcode: number) {
+  qpdfCommand.value = args.join(' ');
   logs.value = [];
   const mod = await createQPDFModule({
     print(text: string) {
@@ -81,6 +83,7 @@ async function callMainWithInOutPdf(data: ArrayBuffer, args: string[], expected_
     </div>
 
     <c-card title="Logs">
+      <input-copyable label="qpdf" :value="qpdfCommand" mb-1 />
       <pre>{{ logs.join('\n') }}</pre>
     </c-card>
   </div>

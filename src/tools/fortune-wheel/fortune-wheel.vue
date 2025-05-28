@@ -78,7 +78,7 @@ function restart() {
 
     <div flex justify-center>
       <c-button @click="restart()">
-        Restart
+        Spin!
       </c-button>
     </div>
   </div>

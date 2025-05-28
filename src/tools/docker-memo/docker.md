@@ -19,13 +19,13 @@ Docker images are a lightweight, standalone, executable package of software that
 Build an Image from a Dockerfile
 
 ```bash
-docker build -t &lt;image_name&gt; .
+docker build -t <image_name> .
 ```
 
 Build an Image from a Dockerfile without the cache
 
 ```bash
-docker build -t &lt;image\_name&gt; . -no-cache
+docker build -t <image\_name> . -no-cache
 ```
 
 List local images
@@ -37,7 +37,7 @@ docker images
 Delete an Image
 
 ```bash
-docker rmi &lt;image\_name&gt;
+docker rmi <image\_name>
 ```
 
 Remove all unused images
@@ -53,25 +53,25 @@ Docker Hub is a service provided by Docker for finding and sharing container ima
 Login into Docker
 
 ```bash
-docker login -u &lt;username&gt;
+docker login -u <username>
 ```
 
 Publish an image to Docker Hub
 
 ```bash
-docker push &lt;username&gt;/&lt;image\_name&gt;
+docker push <username>/<image\_name>
 ```
 
 Search Hub for an image
 
 ```bash
-docker search &lt;image\_name&gt;
+docker search <image\_name>
 ```
 
 Pull an image from a Docker Hub
 
 ```bash
-docker pull &lt;image\_name&gt;
+docker pull <image\_name>
 ```
 
 Start the docker daemon
@@ -99,49 +99,49 @@ A container is a runtime instance of a docker image. A container will always run
 Create and run a container from an image, with a custom name: 
 
 ```bash
-docker run --name &lt;container\_name&gt; &lt;image\_name&gt;
+docker run --name <container\_name> <image\_name>
 ```
 
 Run a container with and publish a container's port(s) to the host.
 
 ```bash
-docker run -p &lt;host\_port&gt;:&lt;container\_port&gt; &lt;image\_name&gt;
+docker run -p <host\_port>:<container\_port> <image\_name>
 ```
 
 Run a container in the background
 
 ```bash
-docker run -d &lt;image\_name&gt;
+docker run -d <image\_name>
 ```
 
 Start or stop an existing container:
 
 ```bash
-docker start|stop &lt;container\_name&gt; (or &lt;container-id&gt;)
+docker start|stop <container\_name> (or <container-id>)
 ```
 
 Remove a stopped container:
 
 ```bash
-docker rm &lt;container\_name&gt;
+docker rm <container\_name>
 ```
 
 Open a shell inside a running container:
 
 ```bash
-docker exec -it &lt;container\_name&gt; sh
+docker exec -it <container\_name> sh
 ```
 
 Fetch and follow the logs of a container:
 
 ```bash
-docker logs -f &lt;container\_name&gt;
+docker logs -f <container\_name>
 ```
 
 To inspect a running container:
 
 ```bash
-docker inspect &lt;container\_name&gt; (or &lt;container\_id&gt;)
+docker inspect <container\_name> (or <container\_id>)
 ```
 
 To list currently running containers: 

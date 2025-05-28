@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import figlet from 'figlet';
 import TextareaCopyable from '@/components/TextareaCopyable.vue';
-import { languages, translateToLanguage } from '@/utils/ascii-lang-utils';
+import { languages, printToLanguage } from '@/utils/ascii-lang-utils';
 
 const input = ref('Ascii ART');
 const language = useStorage('ascii-text-drawer:language', 'raw');
@@ -40,7 +40,7 @@ watchEffect(async () => {
           resolve(text ?? '');
         })));
 
-    output.value = translateToLanguage(rawOutput, languageValue);
+    output.value = printToLanguage(rawOutput, languageValue);
     errored.value = false;
   }
   catch (e: any) {

@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { elderFuthark, futhorc, medievalFuthork, youngerFuthark } from 'riimut';
+import { lettersToRunes as stavelessFutharkLettersToRunes, runesToLetters as stavelessFutharkRunesToLetters } from 'staveless-futhark';
 import { useCopy } from '@/composable/copy';
 
-type RuneType = 'YoungerFutharkLong' | 'YoungerFutharkShort' | 'ElderFuthark' | 'MedievalFuthork' | 'Futhorc';
+type RuneType = 'YoungerFutharkLong' | 'YoungerFutharkShort' | 'ElderFuthark' | 'MedievalFuthork' | 'Futhorc' | 'StavelessFuthark';
 
 function convertTextToRunes(text: string, type: RuneType) {
   if (type === 'YoungerFutharkLong') {
@@ -19,6 +20,9 @@ function convertTextToRunes(text: string, type: RuneType) {
   }
   if (type === 'Futhorc') {
     return futhorc.lettersToRunes(text);
+  }
+  if (type === 'StavelessFuthark') {
+    return stavelessFutharkLettersToRunes(text);
   }
   return text;
 }
@@ -38,6 +42,9 @@ function convertRunesToText(runes: string, type: RuneType) {
   }
   if (type === 'Futhorc') {
     return futhorc.runesToLetters(runes);
+  }
+  if (type === 'StavelessFuthark') {
+    return stavelessFutharkRunesToLetters(runes);
   }
   return runes;
 }
@@ -59,7 +66,7 @@ const { copy: copyText } = useCopy({ source: textFromRunes });
       v-model:value="runeType"
       label="Rune Type:"
       label-position="left"
-      :options="['YoungerFutharkLong', 'YoungerFutharkShort', 'ElderFuthark', 'MedievalFuthork', 'Futhorc']"
+      :options="['YoungerFutharkLong', 'YoungerFutharkShort', 'ElderFuthark', 'MedievalFuthork', 'Futhorc', 'StavelessFuthark']"
       placeholder="Rune Type:"
       mb-2
     />

@@ -53,6 +53,13 @@ const convertedValue = computed(() => {
 
 <template>
   <div>
+    <n-p text-center>
+      1MiB = 1024KiB ; 1MB = 1000kB ; 1GiB = 1024MiB ; 1GB = 1000MB ;
+      <n-a href="https://en.wikipedia.org/wiki/Byte" target="_blank" rel="noopener">
+        see here for details
+      </n-a>
+    </n-p>
+
     <c-card>
       <n-form-item label="Input Size:" label-placement="left" mb-1>
         <c-input-text

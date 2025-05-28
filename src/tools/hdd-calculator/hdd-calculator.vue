@@ -32,6 +32,12 @@ const claimedUnit = ref('tb');
       label="Unit:"
       :options="dec_units"
     />
+    <n-p>
+      1MiB = 1024KiB ; 1MB = 1000kB ; 1GiB = 1024MiB ; 1GB = 1000MB ;
+      <n-a href="https://en.wikipedia.org/wiki/Byte" target="_blank" rel="noopener">
+        see here for details
+      </n-a>
+    </n-p>
 
     <n-divider />
 

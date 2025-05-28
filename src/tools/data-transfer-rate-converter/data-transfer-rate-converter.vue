@@ -142,6 +142,13 @@ const amountTransferableOutput = computed(() => {
 
 <template>
   <div>
+    <n-p text-center>
+      1MiB = 1024KiB ; 1MB = 1000kB ; 1GiB = 1024MiB ; 1GB = 1000MB ;
+      <n-a href="https://en.wikipedia.org/wiki/Byte" target="_blank" rel="noopener">
+        see here for details
+      </n-a>
+    </n-p>
+
     <c-card title="Transfer Time" mb-2>
       <n-form-item label="Data Size:" label-placement="left">
         <n-input v-model:value="transferTimeInput.dataSize" placeholder="Data Size..." :min="0" w-full />

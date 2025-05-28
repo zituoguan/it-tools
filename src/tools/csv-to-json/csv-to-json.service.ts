@@ -15,7 +15,7 @@ function deserializeValue(value: string, tryParseValues: boolean): unknown {
     return null;
   }
 
-  if (value === '') {
+  if (value === '' || typeof value === 'undefined') {
     return undefined;
   }
 

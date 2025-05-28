@@ -21,19 +21,25 @@ const inputStructure = ref([
   'empty dir',
 ].join('\n'));
 const outputTree = computed(() => withDefaultOnError(() => generateTree(parseInput(inputStructure.value)), ''));
+
+const MONACO_EDITOR_OPTIONS = {
+  automaticLayout: true,
+  formatOnType: true,
+  formatOnPaste: true,
+};
 </script>
 
 <template>
   <div>
-    <c-input-text
-      v-model:value="inputStructure"
-      label="Your indented structure"
-      placeholder="Paste your indented structure here..."
-      rows="20"
-      multiline
-      raw-text
-      monospace
-    />
+    <c-card title="Your indented structure" w-full>
+      <c-monaco-editor
+        v-model:value="inputStructure"
+        theme="vs-dark"
+        height="250px"
+        placeholder="Paste your indented structure here..."
+        :options="MONACO_EDITOR_OPTIONS"
+      />
+    </c-card>
 
     <n-divider />
 

@@ -25,7 +25,7 @@ const rules: UseValidationRule<string>[] = [
 
 <template>
   <n-form-item label="Typed Values" label-placement="left">
-    <n-checkbox v-model:value="typedValues" />
+    <n-checkbox v-model:checked="typedValues" />
   </n-form-item>
   <FormatTransformer
     input-label="Your raw CSV"

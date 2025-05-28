@@ -161,6 +161,8 @@ onMounted(() => {
 
 defineExpose({
   inputWrapperRef,
+  textareaRef,
+  inputRef,
   focus,
   blur,
 });

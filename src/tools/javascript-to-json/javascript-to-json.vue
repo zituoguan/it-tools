@@ -4,12 +4,21 @@ import type { UseValidationRule } from '@/composable/validation';
 import { isNotThrowing } from '@/utils/boolean';
 import { withDefaultOnError } from '@/utils/defaults';
 
+function parseJSON(value: string) {
+  try {
+    return JSON5.parse(value);
+  }
+  catch {
+    return JSON5.parse(value.replace(/`((?:[^`]|\\`)*)`/g, (_m, s) => `"${s.replace(/"/g, '\\""').replace(/\r/g, '\\r').replace(/\n/g, '\\n')}"`));
+  }
+}
+
 const indentSize = useStorage('json-prettify:indent-size', 3);
-const transformer = (value: string) => withDefaultOnError(() => JSON.stringify(JSON5.parse(value), null, indentSize.value), '');
+const transformer = (value: string) => withDefaultOnError(() => JSON.stringify(parseJSON(value), null, indentSize.value), '');
 
 const rules: UseValidationRule<string>[] = [
   {
-    validator: (value: string) => value === '' || isNotThrowing(() => JSON.stringify(JSON5.parse(value))),
+    validator: (value: string) => value === '' || isNotThrowing(() => JSON.stringify(parseJSON(value))),
     message: 'Provided JS Object is not valid.',
   },
 ];

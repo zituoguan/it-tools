@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ImageToAsciiArt } from 'image-to-ascii-art';
 import TextareaCopyable from '@/components/TextareaCopyable.vue';
-import { languages, translateToLanguage } from '@/utils/ascii-lang-utils';
+import { languages, printToLanguage } from '@/utils/ascii-lang-utils';
 
 const inputBase64 = ref('');
 const language = useStorage('image-to-ascii-art:language', 'raw');
@@ -39,7 +39,7 @@ const output = computedAsync(async () => {
         drawHeight: scaleValue * 0.4,
       },
     });
-    outputValue = translateToLanguage(await imageToAsciiArt.convert(inputBase64Value), languageValue);
+    outputValue = printToLanguage(await imageToAsciiArt.convert(inputBase64Value), languageValue);
     imageToAsciiArt.destroy();
   }
   catch (e) {
