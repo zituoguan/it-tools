@@ -17,7 +17,7 @@ Some text
 
 Some text
 
-### Title with Link [TOC](http://jiqili.com)
+### Title with Link [TOC](http://gongjulian.com)
 
 \`\`\`
 ## some bash code

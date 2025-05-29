@@ -6,4 +6,4 @@ Text
 code
 ```
 
-And [link](https://jiqili.com/)
+And [link](https://gongjulian.com/)

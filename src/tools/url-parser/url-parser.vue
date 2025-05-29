@@ -3,7 +3,7 @@ import InputCopyable from '../../components/InputCopyable.vue';
 import { isNotThrowing } from '@/utils/boolean';
 import { withDefaultOnError } from '@/utils/defaults';
 
-const urlToParse = ref('https://me:pwd@jiqili.com:3000/url-parser?key=value&keyarr=value1&keyarr=value2&otherarg#the-hash');
+const urlToParse = ref('https://me:pwd@gongjulian.com:3000/url-parser?key=value&keyarr=value1&keyarr=value2&otherarg#the-hash');
 
 const urlParsed = computed(() => withDefaultOnError(() => new URL(urlToParse.value), undefined));
 const urlParsedParams = computed(() => {
