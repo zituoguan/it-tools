@@ -13,7 +13,7 @@ const makeLabel = (tool: Tool) => () => h(RouterLink, { to: tool.path }, { defau
 const makeIcon = (tool: Tool) => () => h(MenuIconItem, { tool });
 
 const collapsedCategories = useStorage<Record<string, boolean>>(
-  'menu-tool-option:collapsed-categories',
+  'menu-tool-option:collapsed-categories', // 菜单工具选项：折叠的分类
   {},
   undefined,
   {
@@ -30,20 +30,20 @@ function toggleCategoryCollapse({ name }: { name: string }) {
 }
 
 /**
- * areAllCollapsed (new)
+ * areAllCollapsed (新增)
  * --------------------------------------------------------------------------
- * A computed property that checks if all categories are collapsed.
- * - If even one category is expanded (false), this becomes false.
- * - If no categories are found or all are collapsed (true), it becomes true.
+ * 一个计算属性，用于检查是否所有分类都已折叠。
+ * - 如果有一个分类是展开的 (false)，则此属性为 false。
+ * - 如果没有找到分类或所有分类都已折叠 (true)，则此属性为 true。
  */
 const areAllCollapsed = computed(() => {
   return toolsByCategory.value.every(({ name }) => collapsedCategories.value[name] !== false);
 });
 
 /**
- * toggleAllCategories (new)
+ * toggleAllCategories (新增)
  * --------------------------------------------------------------------------
- * If all categories are collapsed, expand them all; otherwise, collapse them all.
+ * 如果所有分类都已折叠，则展开所有分类；否则，折叠所有分类。
  */
 function toggleAllCategories() {
   const nextState = !areAllCollapsed.value;
@@ -55,7 +55,7 @@ function toggleAllCategories() {
 const menuOptions = computed(() =>
   toolsByCategory.value.map(({ name, components }) => ({
     name,
-    isCollapsed: collapsedCategories.value[name] === undefined ? true : collapsedCategories.value[name], // default to collapsed if not set
+    isCollapsed: collapsedCategories.value[name] === undefined ? true : collapsedCategories.value[name], // 如果未设置，则默认为折叠
     tools: components.map(tool => ({
       label: makeLabel(tool),
       icon: makeIcon(tool),
@@ -69,13 +69,13 @@ const themeVars = useThemeVars();
 
 <template>
   <!--
-    A button at the top to expand or collapse all categories at once.
-    - Uses areAllCollapsed to determine the label ("Expand All" vs. "Collapse All").
-    - Calls toggleAllCategories() on click.
+    顶部的按钮，用于一次性展开或折叠所有分类。
+    - 使用 areAllCollapsed 来确定标签（“展开所有工具” vs “折叠所有工具”）。
+    - 点击时调用 toggleAllCategories()。
   -->
   <div class="top-controls" ml-6px>
     <c-button @click="toggleAllCategories">
-      {{ areAllCollapsed ? 'Expand All Tools' : 'Collapse All Tools' }}
+      {{ areAllCollapsed ? '展开所有工具' : '折叠所有工具' }}
     </c-button>
   </div>
 

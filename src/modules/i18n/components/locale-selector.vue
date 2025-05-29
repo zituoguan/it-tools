@@ -17,10 +17,17 @@ const localesLong: Record<string, string> = {
 };
 
 const localeOptions = computed(() =>
-  availableLocales.map(locale => ({
-    label: localesLong[locale] ?? locale,
-    value: locale,
-  })),
+  availableLocales
+    .slice() // Create a shallow copy to avoid mutating the original array
+    .sort((a, b) => {
+      if (a === 'zh') return -1;
+      if (b === 'zh') return 1;
+      return 0; // Keep original order for other locales, or implement further sorting
+    })
+    .map(locale => ({
+      label: localesLong[locale] ?? locale,
+      value: locale,
+    })),
 );
 </script>
 
