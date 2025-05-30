@@ -890,7 +890,7 @@ tools:
     description: Edit JSON content
 
   json-escaper:
-    title: Json Escaper/Unescaper
+    title: JSON Escaper/Unescaper
     description: Escape and unescape JSON string
 
   json-linter:
@@ -898,7 +898,7 @@ tools:
     description: Check and lint JSON content
 
   json-size-analyzer:
-    title: Json Size Analyzer
+    title: JSON Size Analyzer
     description: Measure JSON nodes relative weights
 
   json-to-csharp:
@@ -914,15 +914,15 @@ tools:
     description: Convert JSON into Java entities
 
   json-to-php-array:
-    title: Json to PHP-Array
+    title: JSON to PHP-Array
     description: Convert JSON to PHP Array
 
   json-to-schema:
-    title: Json to Schema
+    title: JSON to Schema
     description: Convert JSON data to JSON Schema, MySQL DDL, Mongoose Schema, Google BigQuery schema or ClickHouse Table Schema
 
   json-to-xml:
-    title: Json to XML
+    title: JSON to XML
     description: Convert JSON to XML
 
   jsonpath-memo:
@@ -1230,7 +1230,7 @@ tools:
     description: Generate a self signed SSL/x509 certificate
 
   xml-to-json:
-    title: XML to Json
+    title: XML to JSON
     description: Convert XML to JSON
 
   xpath-memo:
@@ -1266,7 +1266,7 @@ tools:
     description: "Rsync command generator"
 
   json-to-sql-ddl:
-    title: "Json to SQL DDL"
+    title: "JSON to SQL DDL"
     description: "JSON to SQL CREATE TABLE"
 
   tcpdump-generator:
@@ -1298,11 +1298,11 @@ tools:
     description: "Generate CURL command lines"
 
   json-to-python:
-    title: "Json to Python"
+    title: "JSON to Python"
     description: "Convert JSON to Python classes"
 
   json-to-php:
-    title: "Json to PHP Code"
+    title: "JSON to PHP Code"
     description: "Generate PHP Classes from JSON"
 
   git-semantic-commit-memo:
@@ -1318,7 +1318,7 @@ tools:
     description: "Convert CSV file to JSON, YAML, CSV, SQL INSERT, XML or Markdown"
 
   json-to-sql-insert:
-    title: "Json to SQL INSERT"
+    title: "JSON to SQL INSERT"
     description: "Convert JSON array to INSERT INTO"
 
   sql-minifier:
@@ -1326,7 +1326,7 @@ tools:
     description: "Minify SQL queries"
 
   json-to-typescript:
-    title: "Json to Typescript"
+    title: "JSON to Typescript"
     description: "Convert JSON to Typescript code"
 
   distinct-words:
@@ -1334,7 +1334,7 @@ tools:
     description: "Extract and count occurences of each unique word in a text"
 
   json-to-protobuf:
-    title: "Json to Protobuf"
+    title: "JSON to Protobuf"
     description: "Generate Protobuf declaration from JSON objects"
 
   quote-converter:
@@ -1364,3 +1364,19 @@ tools:
   cron-alarm:
     title: "Cron/Weekday Alarm"
     description: "Alarm based on time and weekdays expression"
+
+  paseto-signing:
+    title: Paseto/PASERK Public/Private
+    description: Generate public/private key pairs and sign/verify payload
+
+  dkim-dns-generator:
+    title: DKIM DNS Generator
+    description: Generate DKIM DNS TXT record
+
+  dmarc-dns-generator:
+    title: DMARC DNS Generator
+    description: Generate DMARC DNS TXT record
+
+  spf-dns-generator:
+    title: SPF DNS generator
+    description: Generate SPF DNS TXT record

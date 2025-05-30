@@ -959,7 +959,7 @@ tools:
     title: X509 证书生成器
   xml-to-json:
     description: 将 XML 转换为 JSON
-    title: XML 到 Json
+    title: XML 到 JSON
   xpath-memo:
     description: XPath 语法速查表
     title: XPath 语法速查表
@@ -1092,3 +1092,27 @@ tools:
   cron-alarm:
     title: "Cron/工作日闹钟"
     description: "基于时间和工作日表达式的闹钟"
+
+  paseto-signing:
+    title: Paseto/PASERK 公钥/私钥
+    description: 生成公钥/私钥对并对有效载荷进行签名/验证
+
+  hex-file-converter:
+    title: HEX 文件转换器
+    description: 在文件和十六进制表示之间进行转换
+
+  dkim-dns-generator:
+    title: DKIM DNS 生成器
+    description: 生成 DKIM DNS TXT 记录
+
+  dmarc-dns-generator:
+    title: DMARC DNS 生成器
+    description: 生成 DMARC DNS TXT 记录
+
+  spf-dns-generator:
+    title: SPF DNS 生成器
+    description: 生成 SPF DNS TXT 记录
+
+  x-vr-spamcause-decoder:
+    title: X-VR-SpamCause 解码器
+    description: 解码 OVH 邮件中的 X-VR-SPAMCAUSE 标头
