@@ -2,13 +2,20 @@
 
 由于 *Docker 基础镜像* 现在为 `nginx-unpriviledged`，Docker 镜像现在监听 **8080** 端口，不再是 80。因此你需要更新端口映射，例如从 `8080:80` 改为 `8080:8080`。
 
-### 查看这些变更：<https://sharevb-it-tools.vercel.app/>
+### 在此查看这些变更： <https://sharevb-it-tools.vercel.app/> 或 <https://sharevb.github.io/it-tools/>
 
 如果你想要使用包含我 PR 及其他更新的最新版 it-tools，可以在 docker-compose 文件中使用我的镜像，直到主分支更新为止。
 
 - GitHub Action 会在每次推送到此分支时触发 - [查看包](https://github.com/sharevb/it-tools/pkgs/container/it-tools)
 
-（感谢 [gitmotion](https://github.com/gitmotion/it-tools) 提供的 README 模板）
+（感谢 [gitmotion](https://github.com/gitmotion/it-tools) 提供的 README fork 范本）
+
+## 贡献者
+
+非常感谢所有已经做出贡献的人们！
+
+[![contributors](https://contrib.rocks/image?repo=sharevb/it-tools&refresh=1)](https://github.com/sharevb/it-tools/graphs/contributors)
+
 
 ## 新增功能
 
@@ -19,6 +26,17 @@
 [GitHub Container Registry](https://github.com/sharevb/it-tools/pkgs/container/it-tools)：`ghcr.io/sharevb/it-tools:latest`
 
 [Docker Hub](https://hub.docker.com/r/sharevb/it-tools)：`sharevb/it-tools:latest`
+
+## 推荐使用 HTTPS
+
+一些工具（如 PGP 加密）依赖于 WebCrypto API，该 API 仅在 HTTPS/SSL 环境下可用。
+
+因此，即使在内部安装中，你也可以使用 Let's Encrypt 通过 DNS 质询启用 HTTPS。
+
+关于 DNS 质询的一些文档：
+- https://medium.com/@life-is-short-so-enjoy-it/homelab-nginx-proxy-manager-setup-ssl-certificate-with-domain-name-in-cloudflare-dns-732af64ddc0b
+- https://doc.traefik.io/traefik/user-guides/docker-compose/acme-dns/
+- https://medium.com/@svenvanginkel/traefik-letsencrypt-dns01-challenge-with-ovhcloud-52f2a2c6d08a
 
 ## 在 Docker Compose 文件中使用
 
@@ -93,72 +111,8 @@ docker compose up
 
 ## 为 GitHub Pages 构建
 
-1. 在你的 fork 下，**Settings** > **Pages** 启用 GitHub Pages 构建和部署选项，并选择 **GitHub Actions** 作为来源
-2. 在仓库添加以下 GitHub Action：
-
-.github/workflows/deploy-pages.yaml
-```yaml
-name: Deploy static content to Pages
-
-on:
-  # 仅在推送到默认分支时运行
-  push:
-    branches: [main]
-
-  # 允许从 Actions 标签页手动运行
-  workflow_dispatch:
-
-# 设置 GITHUB_TOKEN 权限以允许部署到 GitHub Pages
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-# 只允许一个并发部署，跳过排队的旧任务
-concurrency:
-  group: pages
-  cancel-in-progress: false
-
-jobs:
-  # 单一部署任务
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Install Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-
-      - uses: pnpm/action-setup@v2
-        name: Install pnpm
-        id: pnpm-install
-        with:
-          version: 8
-          run_install: true
-
-      - name: Build
-        run: |
-          BASE_URL="/it-tools/" pnpm build
-          cp dist/index.html dist/404.html
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v3
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./dist
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v2
-```
+1. 在你的 fork 仓库中启用 GitHub Pages 构建和部署选项，路径为 **Settings** > **Pages**，然后选择 **GitHub Actions** 作为源。
+2. 将以下 GitHub action 添加到你的仓库：https://github.com/sharevb/it-tools/.github/workflows/sharevb-github-pages-publish.yml
 
 ## 安装方式
 

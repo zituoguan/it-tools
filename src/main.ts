@@ -3,12 +3,11 @@ import { createPinia } from 'pinia';
 import { createHead } from '@vueuse/head';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
-
-import { install as VueMonacoEditorPlugin, loader } from '@guolao/vue-monaco-editor';
-import * as monaco from 'monaco-editor';
+import { LoadingPlugin } from 'vue-loading-overlay';
 
 import { registerSW } from 'virtual:pwa-register';
 import shadow from 'vue-shadow-dom';
+import { hideSplashScreen } from 'vite-plugin-splash-screen/runtime';
 import { createGtm } from '@gtm-support/vue-gtm';
 import { plausible } from './plugins/plausible.plugin';
 
@@ -24,14 +23,11 @@ import store from './tools/pomodoro-timer/app/store';
 
 library.add(fas);
 
-// loaded monaco-editor from `node_modules`
-loader.config({ monaco });
-
 registerSW();
 
 const app = createApp(App);
 
-app.use(VueMonacoEditorPlugin);
+app.use(LoadingPlugin);
 app.use(createPinia());
 app.use(createHead());
 app.use(i18nPlugin);
@@ -50,3 +46,5 @@ app.use(
 );
 
 app.mount('#app');
+
+hideSplashScreen();

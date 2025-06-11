@@ -2,6 +2,7 @@ import { URL, fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
 import wasm from 'vite-plugin-wasm';
+import { splashScreen } from "vite-plugin-splash-screen";
 
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
@@ -105,6 +106,10 @@ export default defineConfig({
     Unocss(),
     nodePolyfills(),
     wasm(),
+    splashScreen({
+      logoSrc: 'logo.svg',
+      splashBg: '#101014',
+    }),
   ],
   base: baseUrl,
   resolve: {
@@ -116,6 +121,8 @@ export default defineConfig({
       '@babel/core': fileURLToPath(new URL('./src/_empty.ts', import.meta.url)),
       'isolated-vm': fileURLToPath(new URL('./src/_empty.ts', import.meta.url)),
       'onnxruntime-node': fileURLToPath(new URL('./src/_empty.ts', import.meta.url)),
+      'unpdf/pdfjs': fileURLToPath(new URL('./src/_empty.ts', import.meta.url)),
+      'webcrypto-liner-shim': !process.env.VERCEL ? 'webcrypto-liner-shim' : fileURLToPath(new URL('./src/_empty.ts', import.meta.url)),
     },
   },
   define: {
@@ -130,31 +137,31 @@ export default defineConfig({
     minify: !process.env.VERCEL,
     reportCompressedSize: !process.env.VERCEL,
     // cssMinify: false,
-    modulePreload: false,
+    // modulePreload: false,
     rollupOptions: {
-      external: ['regex', './out/isolated_vm', 'isolated-vm', 'onnxruntime-node'],
+      external: ['regex', './out/isolated_vm', 'isolated-vm', 'onnxruntime-node', 'unpdf/pdfjs'],
       output: {
         format: 'es',
-        manualChunks: (id) => {
-          if (id.includes('monaco-editor')) return 'monaco-editor';
-          if (id.includes('tesseract.js')) return 'tesseract.js';
-          if (id.includes('pdfjs')) return 'pdfjs';
-          if (id.includes('unicode')) return 'unicode';
-          // if (id.includes('transformers')) return 'transformers';
-          // if (id.includes("node_modules")) {
-          //   return "vendor";
-          // }
-        },
-        sourcemapIgnoreList: (relativeSourcePath) => {
-          const normalizedPath = path.normalize(relativeSourcePath);
-          return normalizedPath.includes("node_modules");
-        },
+        // manualChunks: (id) => {
+        //   // if (id.includes('monaco-editor')) return 'monaco-editor';
+        //   if (id.includes('tesseract.js')) return 'tesseract.js';
+        //   if (id.includes('pdfjs')) return 'pdfjs';
+        //   if (id.includes('unicode')) return 'unicode';
+        //   // if (id.includes('transformers')) return 'transformers';
+        //   // if (id.includes("node_modules")) {
+        //   //   return "vendor";
+        //   // }
+        // },
+        // sourcemapIgnoreList: (relativeSourcePath) => {
+        //   const normalizedPath = path.normalize(relativeSourcePath);
+        //   return normalizedPath.includes("node_modules");
+        // },
       },
       cache: false,
     },
   },
   optimizeDeps: {
-    include: ['isolated-vm', 'pdfjs-dist', 'onnxruntime-node'], // optionally specify dependency name
+    include: ['isolated-vm', 'pdfjs-dist', 'onnxruntime-node', 'unpdf', 'unpdf/pdfjs', ...(process.env.VERCEL ? ['webcrypto-liner-shim'] : [])], // optionally specify dependency name
     esbuildOptions: {
       supported: {
         'top-level-await': true,

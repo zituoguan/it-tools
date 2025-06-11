@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { IconDragDrop, IconFileDescription, IconHeart } from '@tabler/icons-vue';
 import { useHead } from '@vueuse/head';
-import { computed } from 'vue';
+import { computed, nextTick, onMounted, onUnmounted, ref } from 'vue';
 import Draggable from 'vuedraggable';
 import VueMarkdown from 'vue-markdown-render';
 import ColoredCard from '../components/ColoredCard.vue';
@@ -28,10 +28,81 @@ const { t } = useI18n();
 
 const favoriteTools = computed(() => toolStore.favoriteTools);
 
+const isOrderingFavorites = ref(false);
+
+window.addEventListener('contextmenu', (e) => {
+  if (isOrderingFavorites.value) {
+    e.preventDefault();
+    e.stopPropagation();
+    e.stopImmediatePropagation();
+    return false;
+  }
+});
+
+function startOrderingFavorites() {
+  isOrderingFavorites.value = true;
+}
+
 // Update favorite tools order when drag is finished
-function onUpdateFavoriteTools() {
+function stopOrderingFavorites() {
+  isOrderingFavorites.value = false;
   toolStore.updateFavoriteTools(favoriteTools.value); // Update the store with the new order
 }
+
+// Batch loading logic for tool cards
+const TOOLS_PER_ROW = 4; // Based on xl:grid-cols-4
+const ROWS_PER_BATCH = 8;
+const TOOLS_PER_BATCH = TOOLS_PER_ROW * ROWS_PER_BATCH; // 32 tools per batch
+
+const visibleToolsCount = ref(TOOLS_PER_BATCH); // Start with first batch
+let loadingInterval: NodeJS.Timeout | null = null;
+
+// Computed property for visible tools
+const visibleTools = computed(() => {
+  return toolStore.tools.slice(0, visibleToolsCount.value);
+});
+
+// Function to stop automated loading
+function stopAutomatedLoading() {
+  if (loadingInterval) {
+    clearInterval(loadingInterval);
+    loadingInterval = null;
+  }
+}
+
+// Function to start automated loading
+function startAutomatedLoading() {
+  // Clear any existing interval
+  if (loadingInterval) {
+    clearInterval(loadingInterval);
+  }
+
+  // Start loading batches every 150ms
+  loadingInterval = setInterval(() => {
+    if (visibleToolsCount.value < toolStore.tools.length) {
+      visibleToolsCount.value = Math.min(
+        visibleToolsCount.value + TOOLS_PER_BATCH,
+        toolStore.tools.length,
+      );
+    }
+    else {
+      // Stop loading when all tools are visible
+      stopAutomatedLoading();
+    }
+  }, 150);
+}
+
+// Start automated loading on component mount
+onMounted(() => {
+  nextTick(() => {
+    startAutomatedLoading();
+  });
+});
+
+// Clean up on component unmount
+onUnmounted(() => {
+  stopAutomatedLoading();
+});
 </script>
 
 <template>
@@ -82,7 +153,9 @@ function onUpdateFavoriteTools() {
             class="grid grid-cols-1 gap-12px lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 xl:grid-cols-4"
             ghost-class="ghost-favorites-draggable"
             item-key="name"
-            @end="onUpdateFavoriteTools"
+            :delay="100"
+            @start="startOrderingFavorites"
+            @end="stopOrderingFavorites"
           >
             <template #item="{ element: tool }">
               <ToolCard :tool="tool" />
@@ -108,7 +181,14 @@ function onUpdateFavoriteTools() {
         {{ $t('home.categories.allTools') }}
       </h3>
       <div class="grid grid-cols-1 gap-12px lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 xl:grid-cols-4">
-        <ToolCard v-for="tool in toolStore.tools" :key="tool.name" :tool="tool" />
+        <ToolCard v-for="tool in visibleTools" :key="tool.name" :tool="tool" />
+      </div>
+
+      <!-- Loading indicator when more tools are coming -->
+      <div v-if="visibleToolsCount < toolStore.tools.length" mt-6 text-center>
+        <div text-14px op-70>
+          Loading more tools... ({{ visibleTools.length }}/{{ toolStore.tools.length }})
+        </div>
       </div>
     </div>
   </div>

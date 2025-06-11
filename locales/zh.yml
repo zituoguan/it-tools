@@ -368,7 +368,7 @@ tools:
     title: CSV 转 JSON
     description: 使用自动标头检测将 CSV 转换为 JSON。
   image-resizer:
-    description: 转换图像文件的宽度和高度，预览并下载为所需格式（.jpg、.jpeg、.png、.bmp、.ico、.svg）
+    description: 转换图像文件的宽度和高度，预览并下载为所需格式。
     title: 图像大小调整
   floating-point-converter:
     description: 将十进制数转换为 IEEE 754 二进制浮点数，反之亦然。
@@ -586,7 +586,7 @@ tools:
     description: 在力单位之间转换值
     title: 力单位转换器
   fortune-wheel:
-    description: 旋转轮子以随机选取一个项目
+    description: 可配置的幸运转盘
     title: 幸运转盘
   geo-distance-calculator:
     description: 计算两个地理位置之间的距离（并显示当前用户位置信息）
@@ -1116,3 +1116,23 @@ tools:
   x-vr-spamcause-decoder:
     title: X-VR-SpamCause 解码器
     description: 解码 OVH 邮件中的 X-VR-SPAMCAUSE 标头
+
+  age-crypto:
+    title: AGE 加密
+    description: 提供一个简单易用的开源 Age 工具，用于生成密钥、加密和解密消息。
+
+  bash-memo:
+    title: Bash 速查表
+    description: Bash 常用命令
+
+  k8s-memo:
+    title: K8s 速查表
+    description: Kubernetes 常用命令
+
+  nginx-memo:
+    title: Nginx 速查表
+    description: Nginx 配置和常用命令
+
+  pdf-text-extractor:
+    title: PDF 文本提取器
+    description: 从 PDF 中提取文本
