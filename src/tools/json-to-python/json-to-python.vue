@@ -5,6 +5,8 @@ import type { UseValidationRule } from '@/composable/validation';
 import TextareaCopyable from '@/components/TextareaCopyable.vue';
 import { useQueryParamOrStorage } from '@/composable/queryParams';
 
+const { t } = useI18n();
+
 const defaultValue = `{
   a:"n",
   arr: [1, 2], 
@@ -80,47 +82,47 @@ const pythonOutput = computedAsync(async () => {
 const rules: UseValidationRule<string>[] = [
   {
     validator: (v: string) => v === '' || JSON5.parse(v),
-    message: 'Provided JSON is not valid.',
+    message: t('tools.json-to-python.invalid-json'),
   },
 ];
 </script>
 
 <template>
-  <c-card title="JSON to Python">
+  <c-card :title="t('tools.json-to-python.card-title')">
     <c-input-text
       v-model:value="jsonInput"
       multiline
-      placeholder="Put your json string here..."
+      :placeholder="t('tools.json-to-python.input-placeholder')"
       rows="20"
-      label="JSON Object:"
+      :label="t('tools.json-to-python.input-label')"
       :validation-rules="rules"
       raw-text
       mb-5
     />
-    <c-input-text v-model:value="rootName" label="Root Name:" label-position="left" mb-2 />
+    <c-input-text v-model:value="rootName" :label="t('tools.json-to-python.root-name-label')" label-position="left" mb-2 />
     <n-space justify="center" items-center>
       <c-select
         v-model:value="pythonVersion"
         :options="['3.5', '3.6', '3.7']"
         label-position="left"
-        label="Python version:"
-        placeholder="Python version"
+        :label="t('tools.json-to-python.python-version-label')"
+        :placeholder="t('tools.json-to-python.python-version-placeholder')"
       />
       <n-checkbox v-model:checked="classesOnly">
-        Classes only
+        {{ t('tools.json-to-python.classes-only') }}
       </n-checkbox>
       <n-checkbox v-model:checked="pythonicNames">
-        Transform property names to be Pythonic
+        {{ t('tools.json-to-python.pythonic-names') }}
       </n-checkbox>
       <n-checkbox v-model:checked="pydanticBaseModel">
-        Uses pydantic BaseModel
+        {{ t('tools.json-to-python.pydantic-base-model') }}
       </n-checkbox>
       <n-checkbox v-model:checked="optionalProperties">
-        Make all properties optional
+        {{ t('tools.json-to-python.make-all-properties-optional') }}
       </n-checkbox>
     </n-space>
   </c-card>
-  <c-card title="Your Python code">
+  <c-card :title="t('tools.json-to-python.output-card-title')">
     <TextareaCopyable
       :value="pythonOutput"
       language="python"

@@ -7,6 +7,8 @@ import { withDefaultOnError } from '@/utils/defaults';
 import { isNotThrowing } from '@/utils/boolean';
 import SpanCopyable from '@/components/SpanCopyable.vue';
 
+const { t } = useI18n();
+
 const baseRange = useStorage('cidr-in-cidr:range', '192.168.0.1/24'); // NOSONAR
 const ipOrRangeToTest = useStorage('cidr-in-cidr:ip', '192.168.0.1'); // NOSONAR
 
@@ -16,7 +18,7 @@ const matchResult = computed(() => withDefaultOnError(
 
 const rangeValidationRules = [
   {
-    message: 'We cannot parse this CIDR/IP Range/Mask/Wildcard, check the format',
+    message: t('tools.cidr-in-cidr.rangeValidationMessage'),
     validator: (value: string) => isNotThrowing(() => getMatch(value)) && getMatch(value),
   },
 ];
@@ -26,16 +28,16 @@ const rangeValidationRules = [
   <div>
     <c-input-text
       v-model:value="baseRange"
-      label="An IPv4/6 CIDR/Range/Mask/Wildcard (base network)"
-      placeholder="The ipv4/6 CIDR..."
+      :label="t('tools.cidr-in-cidr.baseRangeLabel')"
+      :placeholder="t('tools.cidr-in-cidr.baseRangePlaceholder')"
       :validation-rules="rangeValidationRules"
       mb-4
     />
 
     <c-input-text
       v-model:value="ipOrRangeToTest"
-      label="An IPv4/6 CIDR/Range/Mask/Wildcard (to test for inclusion)"
-      placeholder="The An IPv4/6 CIDR/Range/Mask/Wildcard..."
+      :label="t('tools.cidr-in-cidr.ipOrRangeToTestLabel')"
+      :placeholder="t('tools.cidr-in-cidr.ipOrRangeToTestPlaceholder')"
       :validation-rules="rangeValidationRules"
       mb-4
     />
@@ -47,19 +49,19 @@ const rangeValidationRules = [
         <n-icon color="green">
           <CheckIcon />
         </n-icon>
-        Included
+        {{ t('tools.cidr-in-cidr.included') }}
       </span>
       <span v-else>
         <n-icon color="red">
           <CrossIcon />
         </n-icon>
-        Not included
+        {{ t('tools.cidr-in-cidr.notIncluded') }}
       </span>
     </div>
 
     <n-divider />
 
-    <c-card title="Subnets">
+    <c-card :title="t('tools.cidr-in-cidr.subnetsTitle')">
       <n-table>
         <tbody>
           <tr v-for="{ cidr, start, end } in matchResult.baseSubnets" :key="cidr">

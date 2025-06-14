@@ -5,6 +5,8 @@ import type { UseValidationRule } from '@/composable/validation';
 import { isNotThrowing } from '@/utils/boolean';
 import { withDefaultOnError } from '@/utils/defaults';
 
+const { t } = useI18n();
+
 function transformer(value: string) {
   return withDefaultOnError(() => stringifyObject(JSON5.parse(value), {
     indent: '  ',
@@ -15,16 +17,16 @@ function transformer(value: string) {
 const rules: UseValidationRule<string>[] = [
   {
     validator: (value: string) => value === '' || isNotThrowing(() => stringifyObject(JSON5.parse(value))),
-    message: 'Provided JSON is not valid.',
+    message: t('tools.json-to-object.invalid-json'),
   },
 ];
 </script>
 
 <template>
   <format-transformer
-    input-label="Your JSON"
-    input-placeholder="Paste your JSON here..."
-    output-label="Object from your JSON"
+    :input-label="t('tools.json-to-object.input-label')"
+    :input-placeholder="t('tools.json-to-object.input-placeholder')"
+    :output-label="t('tools.json-to-object.output-label')"
     output-language="js"
     :input-validation-rules="rules"
     :transformer="transformer"

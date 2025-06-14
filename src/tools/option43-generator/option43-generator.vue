@@ -2,6 +2,8 @@
 import { useStorage } from '@vueuse/core';
 import { getOption43Infos } from './option43-generator.service';
 
+const { t } = useI18n();
+
 const dhcpVendorOptions = [
   { value: 'genuine', label: 'Native' },
   { value: 'cisco_01', label: 'Cisco IOS device' },
@@ -37,40 +39,40 @@ const option43Infos = computed(() => getOption43Infos(ipAdresses.value, wifiVend
     <c-card>
       <c-select
         v-model:value="wifiVendor"
-        label="Wifi Vendor:"
+        :label="t('tools.option43-generator.wifi-vendor')"
         label-position="left"
         label-width="120px"
         label-align="right"
         mb-2
         :options="wifiVendorOptions"
         w-full
-        placeholder="Select a Wifi Vendor"
+        :placeholder="t('tools.option43-generator.select-wifi-vendor')"
       />
 
       <c-select
         v-model:value="dhcpVendor"
-        label="DHCP Vendor:"
+        :label="t('tools.option43-generator.dhcp-vendor')"
         label-position="left"
         label-width="120px"
         label-align="right"
         mb-2
         :options="dhcpVendorOptions"
         w-full
-        placeholder="Select a DHCP Vendor"
+        :placeholder="t('tools.option43-generator.select-dhcp-vendor')"
       />
 
       <c-input-text
         v-model:value="ipAdresses"
-        label="IP Address(es) (one per line):"
+        :label="t('tools.option43-generator.ip-addresses-label')"
         label-position="left"
         label-width="120px"
         label-align="right"
         multiline mb-2
-        placeholder="Enter your IP Addresses (one per line)"
+        :placeholder="t('tools.option43-generator.ip-addresses-placeholder')"
       />
     </c-card>
 
-    <c-card title="Option 43 Result">
+    <c-card :title="t('tools.option43-generator.option43-result')">
       <!-- //NOSONAR --><div v-html="option43Infos" />
     </c-card>
   </div>

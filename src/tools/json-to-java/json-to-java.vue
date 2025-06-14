@@ -4,6 +4,8 @@ import { convert } from './json-to-java.service';
 import type { UseValidationRule } from '@/composable/validation';
 import TextareaCopyable from '@/components/TextareaCopyable.vue';
 
+const { t } = useI18n();
+
 const jsonInput = ref('');
 const clazzInput = ref('Result');
 const goOutput = computed(() => {
@@ -13,18 +15,18 @@ const goOutput = computed(() => {
 const rules: UseValidationRule<string>[] = [
   {
     validator: (v: string) => v === '' || JSON5.parse(v),
-    message: 'Provided JSON is not valid.',
+    message: t('tools.json-to-java.invalid-json'),
   },
 ];
 </script>
 
 <template>
-  <c-card title="JSON to Java Entity">
+  <c-card :title="t('tools.json-to-java.card-title')">
     <c-input-text
       v-model:value="clazzInput"
-      placeholder="Custom class name"
+      :placeholder="t('tools.json-to-java.class-name-placeholder')"
       raw-text
-      label="classname"
+      :label="t('tools.json-to-java.class-name-label')"
       label-position="left"
       label-width="50px"
       mb-2
@@ -32,15 +34,15 @@ const rules: UseValidationRule<string>[] = [
     <c-input-text
       v-model:value="jsonInput"
       multiline
-      placeholder="Put your josn string here..."
+      :placeholder="t('tools.json-to-java.input-placeholder')"
       rows="20"
-      label="JSON to Java"
+      :label="t('tools.json-to-java.input-label')"
       :validation-rules="rules"
       raw-text
       mb-5
     />
   </c-card>
-  <c-card title="You Java String">
+  <c-card :title="t('tools.json-to-java.output-card-title')">
     <TextareaCopyable
       :value="goOutput"
       language="json"

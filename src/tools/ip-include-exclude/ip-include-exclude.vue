@@ -4,6 +4,8 @@ import { substractCIDRs } from './ip-include-exclude.service';
 import SpanCopyable from '@/components/SpanCopyable.vue';
 import TextareaCopyable from '@/components/TextareaCopyable.vue';
 
+const { t } = useI18n();
+
 const allowedRanges = useStorage('ip-inc-exc:allow', '192.168.0.1/24'); // NOSONAR
 const disallowedRanges = useStorage('ip-inc-exc:disallow', '192.168.0.6'); // NOSONAR
 
@@ -16,15 +18,15 @@ const result = computed(() => substractCIDRs({
   <div>
     <c-input-text
       v-model:value="allowedRanges"
-      label="AllowedIPs (IPv4/6 CIDR/Range/Mask/Wildcard)"
-      placeholder="An IPv4/6 CIDR/Range/Mask/Wildcard..."
+      :label="t('tools.ip-include-exclude.allowedIPs')"
+      :placeholder="t('tools.ip-include-exclude.allowedIPsPlaceholder')"
       mb-4
     />
 
     <c-input-text
       v-model:value="disallowedRanges"
-      label="DisallowedIPs (IPv4/6 CIDR/Range/Mask/Wildcard)"
-      placeholder="An IPv4/6 CIDR/Range/Mask/Wildcard..."
+      :label="t('tools.ip-include-exclude.disallowedIPs')"
+      :placeholder="t('tools.ip-include-exclude.disallowedIPsPlaceholder')"
       mb-4
     />
 
@@ -35,13 +37,13 @@ const result = computed(() => substractCIDRs({
     </c-alert>
 
     <div v-if="!result.error">
-      <n-form-item label="Final AllowedIPs:">
+      <n-form-item :label="t('tools.ip-include-exclude.finalAllowedIPs')">
         <TextareaCopyable :value="result.allowedCIDRs.join(', ')" />
       </n-form-item>
 
       <n-divider />
 
-      <c-card title="Allowed Subnets">
+      <c-card :title="t('tools.ip-include-exclude.allowedSubnets')">
         <n-table>
           <tbody>
             <tr v-for="{ cidr, start, end } in result.allowedSubnets" :key="cidr">
@@ -58,7 +60,7 @@ const result = computed(() => substractCIDRs({
           </tbody>
         </n-table>
       </c-card>
-      <c-card title="Disallowed Subnets">
+      <c-card :title="t('tools.ip-include-exclude.disallowedSubnets')">
         <n-table>
           <tbody>
             <tr v-for="{ cidr, start, end } in result.disallowedSubnets" :key="cidr">

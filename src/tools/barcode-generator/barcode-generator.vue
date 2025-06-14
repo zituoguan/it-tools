@@ -5,6 +5,8 @@ import formats from './barcode.formats.json';
 import { useDownloadFileFromBase64 } from '@/composable/downloadBase64';
 import { useQueryParamOrStorage } from '@/composable/queryParams';
 
+const { t } = useI18n();
+
 const foreground = useQueryParamOrStorage({ name: 'fg', storageName: 'barcode-gen:fg', defaultValue: '#000000' });
 const background = useQueryParamOrStorage({ name: 'bg', storageName: 'barcode-gen:bg', defaultValue: '#FFFFFF' });
 const scale = useQueryParamOrStorage({ name: 'scale', storageName: 'barcode-gen:scale', defaultValue: 2 });
@@ -67,17 +69,17 @@ const { download: downloadSVG } = useDownloadFileFromBase64({ source: barcodeSVG
           label-position="left"
           label-width="130px"
           label-align="right"
-          label="Text:"
+          :label="t('tools.barcode-generator.textLabel')"
           multiline
           rows="1"
           autosize
-          placeholder="Your barcode..."
+          :placeholder="t('tools.barcode-generator.textPlaceholder')"
           mb-6
         />
         <n-form label-width="130" label-placement="left">
           <c-select
             v-model:value="format"
-            label="Format:"
+            :label="t('tools.barcode-generator.formatLabel')"
             label-position="left"
             label-width="130px"
             label-align="right"
@@ -86,22 +88,22 @@ const { download: downloadSVG } = useDownloadFileFromBase64({ source: barcodeSVG
             mb-4
           />
 
-          <n-form-item label="Foreground color:">
+          <n-form-item :label="t('tools.barcode-generator.foregroundColorLabel')">
             <n-color-picker v-model:value="foreground" :modes="['hex']" :show-alpha="false" />
           </n-form-item>
-          <n-form-item label="Background color:">
+          <n-form-item :label="t('tools.barcode-generator.backgroundColorLabel')">
             <n-color-picker v-model:value="background" :modes="['hex']" :show-alpha="false" />
           </n-form-item>
-          <n-form-item label="Scale:">
+          <n-form-item :label="t('tools.barcode-generator.scaleLabel')">
             <n-input-number v-model:value="scale" :min="0" />
           </n-form-item>
-          <n-form-item label="Height (mm):">
+          <n-form-item :label="t('tools.barcode-generator.heightLabel')">
             <n-input-number v-model:value="height" :min="0" />
           </n-form-item>
-          <n-form-item label="Margin:">
+          <n-form-item :label="t('tools.barcode-generator.marginLabel')">
             <n-input-number v-model:value="margin" :min="0" />
           </n-form-item>
-          <n-form-item label="Display text:">
+          <n-form-item :label="t('tools.barcode-generator.displayTextLabel')">
             <n-checkbox v-model:checked="displayValue" />
           </n-form-item>
         </n-form>
@@ -114,10 +116,10 @@ const { download: downloadSVG } = useDownloadFileFromBase64({ source: barcodeSVG
           <canvas ref="barcodeCanvas" />
           <div flex justify-center>
             <c-button mr-2 @click="downloadPNG">
-              Download PNG barcode
+              {{ t('tools.barcode-generator.downloadPngButton') }}
             </c-button>
             <c-button @click="downloadSVG">
-              Download SVG barcode
+              {{ t('tools.barcode-generator.downloadSvgButton') }}
             </c-button>
           </div>
         </div>

@@ -3,6 +3,8 @@ import InputCopyable from '../../components/InputCopyable.vue';
 import type { Units } from './hdd-calculator.service';
 import { getRealSize } from './hdd-calculator.service';
 
+const { t } = useI18n();
+
 const dec_units = [
   { value: 'kb', label: 'kB' },
   { value: 'mb', label: 'MB' },
@@ -24,18 +26,18 @@ const claimedUnit = ref('tb');
 
 <template>
   <div>
-    <n-form-item label="Claimed Capacity:">
+    <n-form-item :label="t('tools.hdd-calculator.claimedCapacityLabel')">
       <n-input-number v-model:value="claimedCapacity" :min="1" />
     </n-form-item>
     <c-select
       v-model:value="claimedUnit"
-      label="Unit:"
+      :label="t('tools.hdd-calculator.unitLabel')"
       :options="dec_units"
     />
     <n-p>
-      1MiB = 1024KiB ; 1MB = 1000kB ; 1GiB = 1024MiB ; 1GB = 1000MB ;
+      {{ t('tools.hdd-calculator.unitExplanation') }}
       <n-a href="https://en.wikipedia.org/wiki/Byte" target="_blank" rel="noopener">
-        see here for details
+        {{ t('tools.hdd-calculator.seeDetails') }}
       </n-a>
     </n-p>
 
@@ -44,7 +46,7 @@ const claimedUnit = ref('tb');
     <InputCopyable
       v-for="({ value, label }) in bin_units"
       :key="value"
-      :label="`Capacity in ${label}:`"
+      :label="t('tools.hdd-calculator.capacityInUnit', { unit: label })"
       :value="getRealSize(claimedCapacity, claimedUnit as Units, value as Units).toFixed(5)"
     />
   </div>

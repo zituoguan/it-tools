@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import UnitsConverter from '@/components/UnitsConverter.vue';
 
+const { t } = useI18n();
+
 const supportedUnits = {
-  deg: 'degree (°)',
-  rad: 'radian',
-  turn: 'turn',
-  gradian: 'gradian',
-  grad: 'grad',
-  gon: 'gon',
+  deg: t('tools.angle-converter.deg'),
+  rad: t('tools.angle-converter.rad'),
+  turn: t('tools.angle-converter.turn'),
+  gradian: t('tools.angle-converter.gradian'),
+  grad: t('tools.angle-converter.grad'),
+  gon: t('tools.angle-converter.gon'),
 };
 </script>
 

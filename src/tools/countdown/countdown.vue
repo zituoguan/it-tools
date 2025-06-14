@@ -3,6 +3,8 @@ import { Countdown } from 'vue3-flip-countdown';
 import moment from 'moment';
 import { useQueryParam } from '@/composable/queryParams';
 
+const { t } = useI18n();
+
 interface CountDown {
   d: number
   h: number
@@ -96,26 +98,26 @@ const isEnded = computed(() => status.value === 'ended');
 
 <template>
   <div max-w-600px>
-    <c-card :disabled="status !== 'stopped'" title="Countdown time" mb-4>
+    <c-card :disabled="status !== 'stopped'" :title="t('tools.countdown.title')" mb-4>
       <div mb-4 flex justify-center gap-2>
         <n-input-number v-model:value="days" :min="0">
           <template #suffix>
-            days
+            {{ t('tools.countdown.days') }}
           </template>
         </n-input-number>
         <n-input-number v-model:value="hours" :min="0">
           <template #suffix>
-            hours
+            {{ t('tools.countdown.hours') }}
           </template>
         </n-input-number>
         <n-input-number v-model:value="minutes" :min="0">
           <template #suffix>
-            minutes
+            {{ t('tools.countdown.minutes') }}
           </template>
         </n-input-number>
         <n-input-number v-model:value="seconds" :min="0">
           <template #suffix>
-            seconds
+            {{ t('tools.countdown.seconds') }}
           </template>
         </n-input-number>
       </div>
@@ -124,7 +126,7 @@ const isEnded = computed(() => status.value === 'ended');
         <c-button
           @click="start"
         >
-          Start
+          {{ t('tools.countdown.start') }}
         </c-button>
       </div>
     </c-card>
@@ -138,7 +140,7 @@ const isEnded = computed(() => status.value === 'ended');
             :disabled="status === 'stopped'"
             @click="toggleFullScreen"
           >
-            Toggle Fullscreen
+            {{ t('tools.countdown.toggleFullscreen') }}
           </c-button>
         </div>
       </div>
@@ -147,16 +149,16 @@ const isEnded = computed(() => status.value === 'ended');
     <n-modal v-model:show="isEnded" mask-closable="false">
       <n-card
         style="width: 600px"
-        title="Timer finished"
+        :title="t('tools.countdown.timerFinished')"
         :bordered="false"
         size="huge"
         role="dialog"
         aria-modal="true"
       >
-        <p>Timer ellapsed!</p>
+        <p>{{ t('tools.countdown.timerElapsed') }}</p>
         <template #footer>
           <n-button @click="stop()">
-            OK
+            {{ t('tools.countdown.ok') }}
           </n-button>
         </template>
       </n-card>
@@ -167,23 +169,23 @@ const isEnded = computed(() => status.value === 'ended');
         :disabled="status === 'stopped'"
         @click="stop"
       >
-        Stop
+        {{ t('tools.countdown.stop') }}
       </c-button>
     </div>
 
     <n-p align="center">
-      Alarm at: {{ deadlineDate }}
+      {{ t('tools.countdown.alarmAt') }}: {{ deadlineDate }}
     </n-p>
 
-    <c-card v-if="history" title="History">
+    <c-card v-if="history" :title="t('tools.countdown.history')">
       <div flex justify-center gap-1>
         <template v-for="(entry, index) in history" :key="index">
           {{ index > 0 ? ' / ' : '' }}
           <n-a :href="getCountDownHref(entry)">
-            {{ entry.d > 0 ? `${entry.d} days` : '' }}
-            {{ entry.h > 0 ? `${entry.h}h` : '' }}
-            {{ entry.m > 0 ? `${entry.m}m` : '' }}
-            {{ entry.s > 0 ? `${entry.s}s` : '' }}
+            {{ entry.d > 0 ? `${entry.d} ${t('tools.countdown.daysShort')}` : '' }}
+            {{ entry.h > 0 ? `${entry.h}${t('tools.countdown.hoursShort')}` : '' }}
+            {{ entry.m > 0 ? `${entry.m}${t('tools.countdown.minutesShort')}` : '' }}
+            {{ entry.s > 0 ? `${entry.s}${t('tools.countdown.secondsShort')}` : '' }}
           </n-a>
         </template>
       </div>

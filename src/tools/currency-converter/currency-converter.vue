@@ -4,6 +4,8 @@ import converter from 'currency-exchanger-js';
 import moneysData from './moneys.json';
 import { useQueryParamOrStorage } from '@/composable/queryParams';
 
+const { t } = useI18n();
+
 const allCurrencies = Object.entries(moneysData).map(([k, v]) => ({ value: k, label: v || k }));
 const otherCurrencies = useQueryParamOrStorage<{ name: string }[]>({ name: 'to', storageName: 'currency-conv:others', defaultValue: [{ name: 'usd' }] });
 const currentCurrency = useQueryParamOrStorage<string>({ name: 'from', storageName: 'currency-conv:cur', defaultValue: 'eur' });
@@ -34,27 +36,27 @@ const currencyToCountriesOutput = computed(() => code(currencyToCountriesInput.v
 
 <template>
   <div>
-    <c-card title="Currency Converter" mb-2>
+    <c-card :title="t('tools.currency-converter.converter.title')" mb-2>
       <c-select
         v-model:value="currentCurrency"
-        label="From"
+        :label="t('tools.currency-converter.converter.from')"
         label-position="left"
         searchable
         :options="allCurrencies"
         mb-2
       />
-      <n-form-item label="Amount:" label-placement="left" mb-2>
+      <n-form-item :label="t('tools.currency-converter.converter.amount')" label-placement="left" mb-2>
         <n-input-number v-model:value="amount" :min="0" />
       </n-form-item>
 
-      <n-form-item label="For Date:" label-placement="left" mb-2>
+      <n-form-item :label="t('tools.currency-converter.converter.for-date')" label-placement="left" mb-2>
         <n-date-picker
           v-model:value="currentDatetime"
           type="date"
         />
       </n-form-item>
 
-      <c-card title="Converted currencies">
+      <c-card :title="t('tools.currency-converter.converter.converted-currencies')">
         <n-dynamic-input
           v-model:value="otherCurrencies"
           show-sort-button
@@ -65,7 +67,7 @@ const currencyToCountriesOutput = computed(() => code(currencyToCountriesInput.v
               <n-select
                 v-model:value="value.name"
                 filterable
-                placeholder="Please select a currency"
+                :placeholder="t('tools.currency-converter.converter.select-currency-placeholder')"
                 :options="allCurrencies"
                 w-full
               />
@@ -76,10 +78,10 @@ const currencyToCountriesOutput = computed(() => code(currencyToCountriesInput.v
       </c-card>
     </c-card>
 
-    <c-card title="Country to Currencies" mb-2>
+    <c-card :title="t('tools.currency-converter.country-to-currencies.title')" mb-2>
       <c-select
         v-model:value="countryToCurrenciesInput"
-        label="Country"
+        :label="t('tools.currency-converter.country-to-currencies.country-label')"
         label-position="left"
         searchable
         :options="allCountries"
@@ -89,15 +91,15 @@ const currencyToCountriesOutput = computed(() => code(currencyToCountriesInput.v
 
       <ul>
         <li v-for="(currency, ix) in countryToCurrenciesOutput" :key="ix">
-          {{ currency.currency }} [{{ currency.code }}/{{ currency.number }} - {{ currency.digits }}digits] (also in: {{ currency.countries?.join(', ') }})
+          {{ currency.currency }} [{{ currency.code }}/{{ currency.number }} - {{ currency.digits }}{{ t('tools.currency-converter.country-to-currencies.digits') }}] ({{ t('tools.currency-converter.country-to-currencies.also-in') }} {{ currency.countries?.join(', ') }})
         </li>
       </ul>
     </c-card>
 
-    <c-card title="Currencies to Countries" mb-2>
+    <c-card :title="t('tools.currency-converter.currencies-to-countries.title')" mb-2>
       <c-select
         v-model:value="currencyToCountriesInput"
-        label="Currency"
+        :label="t('tools.currency-converter.currencies-to-countries.currency-label')"
         label-position="left"
         searchable
         :options="allCurrencies"
@@ -106,7 +108,7 @@ const currencyToCountriesOutput = computed(() => code(currencyToCountriesInput.v
       <n-divider />
 
       <n-p v-if="currencyToCountriesOutput">
-        {{ currencyToCountriesOutput.currency }} [{{ currencyToCountriesOutput.code }}/{{ currencyToCountriesOutput.number }} - {{ currencyToCountriesOutput.digits }}digits]
+        {{ currencyToCountriesOutput.currency }} [{{ currencyToCountriesOutput.code }}/{{ currencyToCountriesOutput.number }} - {{ currencyToCountriesOutput.digits }}{{ t('tools.currency-converter.currencies-to-countries.digits') }}]
       </n-p>
 
       <ul v-if="currencyToCountriesOutput">

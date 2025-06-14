@@ -4,6 +4,8 @@ import hexArray from 'hex-array';
 import { useCopy } from '@/composable/copy';
 import { isValidBase64 } from '@/utils/base64';
 
+const { t } = useI18n();
+
 const textInput = ref('');
 const base64Output = computed(() => {
   try {
@@ -13,7 +15,7 @@ const base64Output = computed(() => {
     return e.toString();
   }
 });
-const { copy: copyTextBase64 } = useCopy({ source: base64Output, text: 'Base64 Hex Array copied to the clipboard' });
+const { copy: copyTextBase64 } = useCopy({ source: base64Output, text: t('tools.base64-hex-converter.base64HexArrayCopied') });
 
 const uppercase = ref(false);
 const grouping = ref(0);
@@ -33,70 +35,70 @@ const textOutput = computed(() => {
   }
 },
 );
-const { copy: copyText } = useCopy({ source: textOutput, text: 'Hex Array copied to the clipboard' });
+const { copy: copyText } = useCopy({ source: textOutput, text: t('tools.base64-hex-converter.hexArrayCopied') });
 const b64ValidationRules = [
   {
-    message: 'Invalid base64 string',
+    message: t('tools.base64-hex-converter.invalidBase64'),
     validator: (value: string) => isValidBase64(value.trim()),
   },
 ];
 </script>
 
 <template>
-  <c-card title="Hex Array to Base64">
+  <c-card :title="t('tools.base64-hex-converter.hexArrayToBase64Title')">
     <c-input-text
       v-model:value="textInput"
       multiline
-      placeholder="Put your Hex Array here..."
+      :placeholder="t('tools.base64-hex-converter.hexArrayPlaceholder')"
       rows="5"
-      label="Hex Array to encode"
+      :label="t('tools.base64-hex-converter.hexArrayToEncodeLabel')"
       raw-text
       mb-5
     />
 
     <c-input-text
-      label="Base64 of Hex Array"
+      :label="t('tools.base64-hex-converter.base64OfHexArrayLabel')"
       :value="base64Output"
       multiline
       readonly
-      placeholder="The Base64 encoding of your Hex Array will be here"
+      :placeholder="t('tools.base64-hex-converter.base64OfHexArrayPlaceholder')"
       rows="5"
       mb-5
     />
 
     <div flex justify-center>
       <c-button @click="copyTextBase64()">
-        Copy Base64
+        {{ t('tools.base64-hex-converter.copyBase64Button') }}
       </c-button>
     </div>
   </c-card>
 
-  <c-card title="Base64 to Hex Array">
+  <c-card :title="t('tools.base64-hex-converter.base64ToHexArrayTitle')">
     <n-space align="baseline" justify="center" mb-1>
-      <n-form-item label="Uppercase" label-placement="left">
+      <n-form-item :label="t('tools.base64-hex-converter.uppercaseLabel')" label-placement="left">
         <n-switch v-model:value="uppercase" />
       </n-form-item>
-      <n-form-item label="Group by" label-placement="left">
-        <n-input-number v-model:value="grouping" :min="0" style="width: 6em" mr-1 /> digits (0 = no grouping)
+      <n-form-item :label="t('tools.base64-hex-converter.groupByLabel')" label-placement="left">
+        <n-input-number v-model:value="grouping" :min="0" style="width: 6em" mr-1 /> {{ t('tools.base64-hex-converter.digitsLabel') }}
       </n-form-item>
-      <n-form-item label="Split as rows by" label-placement="left">
-        <n-input-number v-model:value="rowlength" :min="0" style="width: 6em" mr-1 /> group of digits (0 = no rows)
+      <n-form-item :label="t('tools.base64-hex-converter.splitAsRowsByLabel')" label-placement="left">
+        <n-input-number v-model:value="rowlength" :min="0" style="width: 6em" mr-1 /> {{ t('tools.base64-hex-converter.groupOfDigitsLabel') }}
       </n-form-item>
     </n-space>
     <c-input-text
       v-model:value="base64Input"
       multiline
-      placeholder="Your Base64 Hex Array..."
+      :placeholder="t('tools.base64-hex-converter.base64HexArrayPlaceholder')"
       rows="5"
       :validation-rules="b64ValidationRules"
-      label="Base64 Hex Array to decode"
+      :label="t('tools.base64-hex-converter.base64HexArrayToDecodeLabel')"
       mb-5
     />
 
     <c-input-text
       v-model:value="textOutput"
-      label="Decoded Hex Array"
-      placeholder="The decoded Hex Array will be here"
+      :label="t('tools.base64-hex-converter.decodedHexArrayLabel')"
+      :placeholder="t('tools.base64-hex-converter.decodedHexArrayPlaceholder')"
       multiline
       rows="5"
       readonly
@@ -105,7 +107,7 @@ const b64ValidationRules = [
 
     <div flex justify-center>
       <c-button @click="copyText()">
-        Copy Decoded Hex Array
+        {{ t('tools.base64-hex-converter.copyDecodedHexArrayButton') }}
       </c-button>
     </div>
   </c-card>

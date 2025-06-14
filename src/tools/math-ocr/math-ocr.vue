@@ -5,6 +5,8 @@ import VueMathjax from 'vue-mathjax-next';
 import { useScriptTag } from '@vueuse/core';
 import TextareaCopyable from '@/components/TextareaCopyable.vue';
 
+const { t } = useI18n();
+
 useScriptTag('//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS_HTML');
 
 const ocrInProgress = ref(false);
@@ -54,13 +56,13 @@ async function ocr(file: File) {
 <template>
   <div>
     <c-alert type="warning" mb-2>
-      NB: processing is done in your browser, so be patient, processing can take a while
+      {{ t('tools.math-ocr.warning-message') }}
       <br>
-      This tool required internet connection (to access models)
+      {{ t('tools.math-ocr.internet-required') }}
     </c-alert>
 
     <c-file-upload
-      title="Drag and drop a Image here, or click to select a file"
+      :title="t('tools.math-ocr.file-upload-title')"
       paste-image
       @file-upload="onUpload"
     />
@@ -68,7 +70,7 @@ async function ocr(file: File) {
     <n-divider />
 
     <div>
-      <h3>Latex Result</h3>
+      <h3>{{ t('tools.math-ocr.latex-result') }}</h3>
       <TextareaCopyable
         v-if="!ocrInProgress"
         v-model:value="latexResult"

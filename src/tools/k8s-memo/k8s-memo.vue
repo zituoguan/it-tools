@@ -1,13 +1,25 @@
 <script setup lang="ts">
 import { useThemeVars } from 'naive-ui';
-import Memo from './k8s-memo.content.md';
+import { computed, defineAsyncComponent } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 const themeVars = useThemeVars();
+const { locale } = useI18n();
+
+const MemoContent = computed(() => {
+  const lang = locale.value;
+  // 尝试加载特定语言的 .md 文件
+  // 如果失败，则回退到原始的 .md 文件 (如果存在)
+  return defineAsyncComponent(() =>
+    import(`./k8s-memo.content.${lang}.md`)
+      .catch(() => import('./k8s-memo.content.md')), // 最后的备选方案
+  );
+});
 </script>
 
 <template>
   <div>
-    <Memo />
+    <MemoContent />
   </div>
 </template>
 

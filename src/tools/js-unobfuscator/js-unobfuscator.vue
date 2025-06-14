@@ -2,6 +2,7 @@
 import Sandybox from 'sandybox';
 import { webcrack } from 'webcrack';
 
+const { t } = useI18n();
 const input = ref('');
 const result = computedAsync(async () => {
   try {
@@ -37,8 +38,8 @@ const result = computedAsync(async () => {
   <iframe class="sandybox" style="display:none" title="sandbox" />
   <CInputText
     v-model:value="input"
-    placeholder="Your obfuscate Javascript code"
-    label="Obfuscate Javascript code:"
+    :placeholder="t('tools.js-unobfuscator.inputPlaceholder')"
+    :label="t('tools.js-unobfuscator.inputLabel')"
     rows="20"
     autosize
     raw-text
@@ -46,10 +47,10 @@ const result = computedAsync(async () => {
     monospace
   />
 
-  <n-form-item label="Deobfuscated code:">
+  <n-form-item :label="t('tools.js-unobfuscator.deobfuscatedCode')">
     <textarea-copyable :value="result?.code" language="javascript" />
   </n-form-item>
-  <n-form-item label="Bundle:">
+  <n-form-item :label="t('tools.js-unobfuscator.bundle')">
     <textarea-copyable :value="result?.bundle" language="javascript" />
   </n-form-item>
 </template>

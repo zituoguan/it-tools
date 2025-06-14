@@ -2,6 +2,8 @@
 import beautify from 'js-beautify';
 import TextareaCopyable from '@/components/TextareaCopyable.vue';
 
+const { t } = useI18n();
+
 const inputCSS = ref('');
 const outputCSS = computed(() => {
   return beautify.css(inputCSS.value, {
@@ -17,15 +19,15 @@ const outputCSS = computed(() => {
     <c-input-text
       v-model:value="inputCSS"
       multiline raw-text
-      placeholder="Your CSS content..."
+      :placeholder="t('tools.css-prettifier.placeholder')"
       rows="8"
       autofocus
-      label="Your CSS to format (can paste from clipboard):"
+      :label="t('tools.css-prettifier.inputLabel')"
     />
 
     <n-divider />
 
-    <n-form-item label="Output prettified CSS:">
+    <n-form-item :label="t('tools.css-prettifier.outputLabel')">
       <TextareaCopyable
         :value="outputCSS"
         multiline

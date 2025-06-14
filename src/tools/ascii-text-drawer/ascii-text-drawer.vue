@@ -3,6 +3,8 @@ import figlet from 'figlet';
 import TextareaCopyable from '@/components/TextareaCopyable.vue';
 import { languages, printToLanguage } from '@/utils/ascii-lang-utils';
 
+const { t } = useI18n();
+
 const input = ref('Ascii ART');
 const language = useStorage('ascii-text-drawer:language', 'raw');
 const font = useStorage('ascii-text-drawer:font', 'Standard');
@@ -56,8 +58,8 @@ const fonts = ['1Row', '3-D', '3D Diagonal', '3D-ASCII', '3x5', '4Max', '5 Line 
   <c-card>
     <c-input-text
       v-model:value="input"
-      label="Your text:"
-      placeholder="Your text to draw"
+      :label="t('tools.ascii-text-drawer.yourTextLabel')"
+      :placeholder="t('tools.ascii-text-drawer.yourTextPlaceholder')"
       raw-text
       multiline
       rows="4"
@@ -71,15 +73,15 @@ const fonts = ['1Row', '3-D', '3D Diagonal', '3D-ASCII', '3x5', '4Max', '5 Line 
         <c-select
           v-model:value="font"
           label-position="top"
-          label="Font:"
+          :label="t('tools.ascii-text-drawer.fontLabel')"
           :options="fonts"
           searchable="true"
-          placeholder="Select font to use"
+          :placeholder="t('tools.ascii-text-drawer.selectFontPlaceholder')"
         />
       </n-gi>
       <n-gi span="2">
-        <n-form-item label="Width:" label-placement="top" label-width="100" :show-feedback="false">
-          <n-input-number v-model:value="width" min="0" max="10000" w-full placeholder="Width of the text" />
+        <n-form-item :label="t('tools.ascii-text-drawer.widthLabel')" label-placement="top" label-width="100" :show-feedback="false">
+          <n-input-number v-model:value="width" min="0" max="10000" w-full :placeholder="t('tools.ascii-text-drawer.widthPlaceholder')" />
         </n-form-item>
       </n-gi>
     </n-grid>
@@ -88,14 +90,14 @@ const fonts = ['1Row', '3-D', '3D Diagonal', '3D-ASCII', '3x5', '4Max', '5 Line 
 
     <div v-if="processing" flex items-center justify-center>
       <n-spin size="medium" />
-      <span class="ml-2">Loading font...</span>
+      <span class="ml-2">{{ t('tools.ascii-text-drawer.loadingFont') }}</span>
     </div>
 
     <c-alert v-if="errored" mt-1 text-center type="error">
-      Current settings resulted in error.
+      {{ t('tools.ascii-text-drawer.errorSettings') }}
     </c-alert>
 
-    <n-form-item v-if="!processing && !errored" label="Ascii Art text:">
+    <n-form-item v-if="!processing && !errored" :label="t('tools.ascii-text-drawer.asciiArtTextLabel')">
       <TextareaCopyable
         :value="output"
         mb-1 mt-1

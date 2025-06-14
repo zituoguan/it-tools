@@ -6,6 +6,7 @@ import { withDefaultOnError } from '@/utils/defaults';
 import SpanCopyable from '@/components/SpanCopyable.vue';
 import { isNotThrowing } from '@/utils/boolean';
 
+const { t } = useI18n();
 const ip = useStorage('ipv6-subnet-calculator:ip', '2001:db8:0:85a3:0:0:ac1f:8001/32'); // NOSONAR
 
 const getNetworkInfo = (address: string) => new Address6(parseAsCIDR(address.trim()) || address.trim());
@@ -13,7 +14,7 @@ const networkInfo = computed(() => withDefaultOnError(() => getNetworkInfo(ip.va
 
 const ipValidationRules = [
   {
-    message: 'We cannot parse this address, check the format',
+    message: t('tools.ipv6-subnet-calculator.validationError'),
     validator: (value: string) => isNotThrowing(() => getNetworkInfo(value)),
   },
 ];
@@ -24,86 +25,86 @@ const sections: {
   undefinedFallback?: string
 }[] = [
   {
-    label: 'Full address',
+    label: t('tools.ipv6-subnet-calculator.fullAddress'),
     getValue: (block: Address6) => block.canonicalForm(),
   },
   {
-    label: 'Short address',
+    label: t('tools.ipv6-subnet-calculator.shortAddress'),
     getValue: (block: Address6) => block.correctForm(),
   },
   {
-    label: 'Address as binary',
+    label: t('tools.ipv6-subnet-calculator.addressAsBinary'),
     getValue: (block: Address6) => (block.binaryZeroPad()).match(/.{8}/g)?.join(':') ?? '',
   },
   {
-    label: 'Address as integer',
+    label: t('tools.ipv6-subnet-calculator.addressAsInteger'),
     getValue: (block: Address6) => BigInt(`0x${block.getBitsBase16(0, 128)}`).toString(),
   },
   {
-    label: 'Address as decimal',
+    label: t('tools.ipv6-subnet-calculator.addressAsDecimal'),
     getValue: (block: Address6) => block.decimal(),
   },
   {
-    label: 'Address as hex',
+    label: t('tools.ipv6-subnet-calculator.addressAsHex'),
     getValue: (block: Address6) => (block.getBitsBase16(0, 128)),
   },
   {
-    label: 'Network mask size',
+    label: t('tools.ipv6-subnet-calculator.networkMaskSize'),
     getValue: (block: Address6) => block.subnetMask.toString(),
   },
   {
-    label: 'Network mask',
+    label: t('tools.ipv6-subnet-calculator.networkMask'),
     getValue: (block: Address6) => BigInt(`0b${'1'.repeat(block.subnetMask).padEnd(128, '0')}`).toString(16).match(/.{4}/g)?.join(':') ?? '',
   },
   {
-    label: 'Network mask as integer',
+    label: t('tools.ipv6-subnet-calculator.networkMaskAsInteger'),
     getValue: (block: Address6) => BigInt(`0b${'1'.repeat(block.subnetMask).padEnd(128, '0')}`).toString(),
   },
   {
-    label: 'Network mask as binary',
+    label: t('tools.ipv6-subnet-calculator.networkMaskAsBinary'),
     getValue: (block: Address6) => '1'.repeat(block.subnetMask).padEnd(128, '0').match(/.{8}/g)?.join(':') ?? '',
   },
   {
-    label: 'Total IP addresses',
+    label: t('tools.ipv6-subnet-calculator.totalIpAddresses'),
     getValue: (block: Address6) => {
       const totalAddresses = BigInt(2) ** BigInt(128 - block.subnetMask);
       return totalAddresses.toString();
     },
   },
   {
-    label: 'Total networks',
+    label: t('tools.ipv6-subnet-calculator.totalNetworks'),
     getValue: ({ subnetMask }) => subnetMask <= 64 ? (BigInt(2) ** BigInt(64 - subnetMask)).toString() : '',
   },
   {
-    label: 'First address',
+    label: t('tools.ipv6-subnet-calculator.firstAddress'),
     getValue: (block: Address6) => block.startAddress().correctForm(),
   },
   {
-    label: 'Last address',
+    label: t('tools.ipv6-subnet-calculator.lastAddress'),
     getValue: (block: Address6) => block.endAddress().correctForm(),
   },
   {
-    label: 'Scope',
+    label: t('tools.ipv6-subnet-calculator.scope'),
     getValue: (block: Address6) => block.getScope(),
   },
   {
-    label: '6to4 Properties',
+    label: t('tools.ipv6-subnet-calculator.sixToFourProperties'),
     getValue: (block: Address6) => JSON.stringify(block.inspect6to4()),
   },
   {
-    label: 'Teredo Properties',
+    label: t('tools.ipv6-subnet-calculator.teredoProperties'),
     getValue: (block: Address6) => JSON.stringify(block.inspectTeredo()),
   },
   {
-    label: 'ARPA',
+    label: t('tools.ipv6-subnet-calculator.arpa'),
     getValue: (block: Address6) => block.reverseForm(),
   },
   {
-    label: 'Microsoft UNC Transcription',
+    label: t('tools.ipv6-subnet-calculator.microsoftUncTranscription'),
     getValue: (block: Address6) => block.microsoftTranscription(),
   },
   {
-    label: 'Type',
+    label: t('tools.ipv6-subnet-calculator.type'),
     getValue: (block: Address6) => getIPNetworkType(block.correctForm()),
   },
 ];
@@ -113,8 +114,8 @@ const sections: {
   <div w-600>
     <c-input-text
       v-model:value="ip"
-      label="An IPv6 address with or without mask"
-      placeholder="The ipv6 address..."
+      :label="t('tools.ipv6-subnet-calculator.inputLabel')"
+      :placeholder="t('tools.ipv6-subnet-calculator.inputPlaceholder')"
       :validation-rules="ipValidationRules"
       mb-4
     />
@@ -123,7 +124,7 @@ const sections: {
       <n-table>
         <tbody>
           <tr v-for="{ getValue, label, undefinedFallback } in sections" :key="label">
-            <td font-bold>
+            <td font-bold style="min-width: 180px;">
               {{ label }}
             </td>
             <td>

@@ -6,6 +6,7 @@ import { withDefaultOnError } from '@/utils/defaults';
 import { useValidation } from '@/composable/validation';
 import TextareaCopyable from '@/components/TextareaCopyable.vue';
 
+const { t } = useI18n();
 const inputElement = ref<HTMLElement>();
 
 const rawJson = useStorage('json-prettify:raw-json', '{"hello": "world", "foo": "bar"}');
@@ -14,12 +15,31 @@ const indentSize = useStorage('json-prettify:indent-size', 3);
 const keyName = ref('');
 const cleanJson = computed(() => withDefaultOnError(() => formatJson({ rawJson, sortMethod, keyName, indentSize }), ''));
 
+const sortOptions = computed(() => [
+  {
+    label: t('tools.json-sort-master.keyName'),
+    value: 'key_name',
+  },
+  {
+    label: t('tools.json-sort-master.keyValue'),
+    value: 'key_val',
+  },
+  {
+    label: t('tools.json-sort-master.keyNameDesc'),
+    value: 'key_name_desc',
+  },
+  {
+    label: t('tools.json-sort-master.keyValueDesc'),
+    value: 'key_val_desc',
+  },
+]);
+
 const rawJsonValidation = useValidation({
   source: rawJson,
   rules: [
     {
       validator: v => v === '' || JSON5.parse(v),
-      message: 'Provided JSON is not valid.',
+      message: t('tools.json-sort-master.validationError'),
     },
   ],
 });
@@ -29,40 +49,23 @@ const rawJsonValidation = useValidation({
   <div style="flex: 0 0 100%">
     <div style="margin: 0 auto; max-width: 400px" flex justify-center gap-3>
       <c-select
-        v-model:value="sortMethod" mb-4 style="width: 200px" label="Sort Method" :options="[
-          {
-            label: 'Key Name',
-            value: 'key_name',
-          },
-          {
-            label: 'Key Value',
-            value: 'key_val',
-          },
-          {
-            label: 'Key Name (Descending)',
-            value: 'key_name_desc',
-          },
-          {
-            label: 'Key Value (Descending)',
-            value: 'key_val_desc',
-          },
-        ]"
+        v-model:value="sortMethod" mb-4 style="width: 200px" :label="t('tools.json-sort-master.sortMethod')" :options="sortOptions"
       />
 
-      <c-input-text v-if="!['key_name', 'key_name_desc'].includes(sortMethod)" v-model:value="keyName" label="Key Name:" style="width: 200px" clearable raw-text />
+      <c-input-text v-if="!['key_name', 'key_name_desc'].includes(sortMethod)" v-model:value="keyName" :label="t('tools.json-sort-master.keyNameLabel')" style="width: 200px" clearable raw-text />
     </div>
   </div>
 
   <n-form-item
-    label="Your raw JSON" :feedback="rawJsonValidation.message"
+    :label="t('tools.json-sort-master.rawJsonLabel')" :feedback="rawJsonValidation.message"
     :validation-status="rawJsonValidation.status"
   >
     <c-input-text
-      ref="inputElement" v-model:value="rawJson" placeholder="Paste your raw JSON here..." rows="20"
+      ref="inputElement" v-model:value="rawJson" :placeholder="t('tools.json-sort-master.rawJsonPlaceholder')" rows="20"
       multiline autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" monospace
     />
   </n-form-item>
-  <n-form-item label="Sorted version of your JSON">
+  <n-form-item :label="t('tools.json-sort-master.sortedJsonLabel')">
     <TextareaCopyable :value="cleanJson" language="json" :follow-height-of="inputElement" />
   </n-form-item>
 </template>

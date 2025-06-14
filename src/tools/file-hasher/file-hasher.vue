@@ -31,6 +31,8 @@ import { convertHexToBin } from '../hash-text/hash-text.service';
 import { useQueryParamOrStorage } from '@/composable/queryParams';
 import { withDefaultOnError } from '@/utils/defaults';
 
+const { t } = useI18n();
+
 const status = ref<'idle' | 'done' | 'error' | 'processing'>('idle');
 const file = ref<File | null>(null);
 
@@ -168,7 +170,7 @@ const hashWasmValues = computed(() => withDefaultOnError(() => {
   <div>
     <c-card>
       <c-file-upload
-        title="Drag and drop a file here, or click to select a file"
+        :title="t('tools.file-hasher.file-upload-title')"
         @file-upload="onUpload"
       />
 
@@ -177,22 +179,22 @@ const hashWasmValues = computed(() => withDefaultOnError(() => {
       <c-select
         v-model:value="encoding"
         mb-4
-        label="Digest encoding"
+        :label="t('tools.file-hasher.encoding-label')"
         :options="[
           {
-            label: 'Binary (base 2)',
+            label: t('tools.file-hasher.binary'),
             value: 'Bin',
           },
           {
-            label: 'Hexadecimal (base 16)',
+            label: t('tools.file-hasher.hexadecimal'),
             value: 'Hex',
           },
           {
-            label: 'Base64 (base 64)',
+            label: t('tools.file-hasher.base64'),
             value: 'Base64',
           },
           {
-            label: 'Base64url (base 64 with url safe chars)',
+            label: t('tools.file-hasher.base64url'),
             value: 'Base64url',
           },
         ]"
@@ -201,7 +203,7 @@ const hashWasmValues = computed(() => withDefaultOnError(() => {
 
     <div mt-3 flex justify-center>
       <c-alert v-if="status === 'error'" type="error">
-        An error occured hashing file '{{ file?.name }}'.
+        {{ t('tools.file-hasher.error-message', { fileName: file?.name }) }}
       </c-alert>
       <n-spin
         v-if="status === 'processing'"
@@ -209,7 +211,7 @@ const hashWasmValues = computed(() => withDefaultOnError(() => {
       />
     </div>
 
-    <c-card v-if="status === 'done'" :title="`Hashes of ${file?.name}`">
+    <c-card v-if="status === 'done'" :title="t('tools.file-hasher.hashes-title', { fileName: file?.name })">
       <div v-for="algo in algoWasmNames" :key="algo" style="margin: 5px 0">
         <n-input-group>
           <n-input-group-label style="flex: 0 0 120px">

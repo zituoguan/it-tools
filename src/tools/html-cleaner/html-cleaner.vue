@@ -3,6 +3,8 @@ import DOMPurify from 'dompurify';
 import beautify from 'js-beautify';
 import TextareaCopyable from '@/components/TextareaCopyable.vue';
 
+const { t } = useI18n();
+
 const inputHtml = ref('');
 const outputHtml = computed(() => {
   const cleanedHtml = DOMPurify.sanitize(inputHtml.value ?? '',
@@ -32,16 +34,16 @@ const outputHtml = computed(() => {
     <c-input-text
       v-model:value="inputHtml"
       multiline raw-text
-      placeholder="Your HTML content..."
+      :placeholder="t('tools.html-cleaner.your_html_content')"
       rows="8"
       autofocus
-      label="Your HTML to clean (can paste from clipboard):"
+      :label="t('tools.html-cleaner.your_html_to_clean')"
       paste-html
     />
 
     <n-divider />
 
-    <n-form-item label="Output cleaned HTML:">
+    <n-form-item :label="t('tools.html-cleaner.output_cleaned_html')">
       <TextareaCopyable
         :value="outputHtml"
         multiline

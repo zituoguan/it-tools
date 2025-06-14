@@ -3,6 +3,8 @@ import { Base64 } from 'js-base64';
 import createQPDFModule from 'qpdf-wasm-esm-embedded';
 import { useDownloadFileFromBase64 } from '@/composable/downloadBase64';
 
+const { t } = useI18n();
+
 const status = ref<'idle' | 'done' | 'error' | 'processing'>('idle');
 const file = ref<File | null>(null);
 
@@ -68,13 +70,13 @@ async function callMainWithInOutPdf(data: ArrayBuffer, args: string[], expected_
   <div>
     <div style="flex: 0 0 100%">
       <div mx-auto max-w-600px>
-        <c-file-upload title="Drag and drop a PDF file here, or click to select a file" accept=".pdf" @file-upload="onPDFFileUploaded" />
+        <c-file-upload :title="t('tools.pdf-unlock.upload-title')" accept=".pdf" @file-upload="onPDFFileUploaded" />
       </div>
     </div>
 
     <div mt-3 flex justify-center>
       <c-alert v-if="status === 'error'" type="error">
-        An error occured processing {{ fileName }}
+        {{ t('tools.pdf-unlock.error', { file: fileName }) }}
       </c-alert>
       <n-spin
         v-if="status === 'processing'"
@@ -82,7 +84,7 @@ async function callMainWithInOutPdf(data: ArrayBuffer, args: string[], expected_
       />
     </div>
 
-    <c-card title="Logs">
+    <c-card :title="t('tools.pdf-unlock.logs')">
       <input-copyable label="qpdf" :value="qpdfCommand" mb-1 />
       <pre>{{ logs.join('\n') }}</pre>
     </c-card>

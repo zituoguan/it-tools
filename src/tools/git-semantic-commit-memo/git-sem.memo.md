@@ -1,33 +1,33 @@
-# 语义化提交信息
+# Semantic Commit Messages
 
-了解对提交信息风格进行微小更改如何能让您成为一名更好的程序员。
+See how a minor change to your commit message style can make you a better programmer.
 
-格式：`<类型>(<范围>): <主题>`
+Format: `<type>(<scope>): <subject>`
 
-`<范围>` 是可选的
+`<scope>` is optional
 
-## 示例
+## Example
 
 ```
 feat: add hat wobble
 ^--^  ^------------^
 |     |
-|     +-> 摘要，使用现在时。
+|     +-> Summary in present tense.
 |
-+-------> 类型：chore、docs、feat、fix、refactor、style 或 test。
++-------> Type: chore, docs, feat, fix, refactor, style, or test.
 ```
 
-更多示例：
+More Examples:
 
-- `feat`: (为用户添加的新功能，而不是为构建脚本添加的新功能)
-- `fix`: (为用户修复的 bug，而不是修复构建脚本)
-- `docs`: (对文档的更改)
-- `style`: (格式化、缺少分号等；不更改生产代码)
-- `refactor`: (重构生产代码，例如重命名变量)
-- `test`: (添加缺失的测试、重构测试；不更改生产代码)
-- `chore`: (更新 grunt 任务等；不更改生产代码)
+- `feat`: (new feature for the user, not a new feature for build script)
+- `fix`: (bug fix for the user, not a fix to a build script)
+- `docs`: (changes to the documentation)
+- `style`: (formatting, missing semi colons, etc; no production code change)
+- `refactor`: (refactoring production code, eg. renaming a variable)
+- `test`: (adding missing tests, refactoring tests; no production code change)
+- `chore`: (updating grunt tasks etc; no production code change)
 
-参考资料：
+References:
 
 - https://www.conventionalcommits.org/
 - https://seesparkbox.com/foundry/semantic_commit_messages

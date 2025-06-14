@@ -2,6 +2,8 @@
 import { generateHtpasswd } from './htpasswd-generator.service';
 import TextareaCopyable from '@/components/TextareaCopyable.vue';
 
+const { t } = useI18n();
+
 const username = ref('');
 const password = ref('');
 const hashMethod = ref('bcrypt');
@@ -17,7 +19,7 @@ const algos = [
 
 const htpasswd = computed(() => {
   if (username.value === '' || password.value === '') {
-    return '# username and password must not be empty';
+    return t('tools.htpasswd-generator.emptyFieldsMessage');
   }
 
   return generateHtpasswd({
@@ -33,14 +35,14 @@ const htpasswd = computed(() => {
   <div>
     <c-input-text
       v-model:value="username"
-      label="Username"
-      placeholder="Your username..."
+      :label="t('tools.htpasswd-generator.usernameLabel')"
+      :placeholder="t('tools.htpasswd-generator.usernamePlaceholder')"
       clearable raw-text mb-5
     />
     <c-input-text
       v-model:value="password"
-      label="Password"
-      placeholder="Your password..."
+      :label="t('tools.htpasswd-generator.passwordLabel')"
+      :placeholder="t('tools.htpasswd-generator.passwordPlaceholder')"
       clearable
       raw-text
       mb-2
@@ -49,18 +51,18 @@ const htpasswd = computed(() => {
 
     <c-select
       v-model:value="hashMethod"
-      label="Hash method:"
+      :label="t('tools.htpasswd-generator.hashMethodLabel')"
       :options="algos"
       mb-2
     />
 
-    <n-form-item v-if="hashMethod === 'bcrypt'" label="Salt rounds: " label-placement="left" label-width="120">
-      <n-input-number v-model:value="saltCount" placeholder="Salt rounds..." :max="100" :min="0" w-full />
+    <n-form-item v-if="hashMethod === 'bcrypt'" :label="t('tools.htpasswd-generator.saltRoundsLabel')" label-placement="left" label-width="120">
+      <n-input-number v-model:value="saltCount" :placeholder="t('tools.htpasswd-generator.saltRoundsPlaceholder')" :max="100" :min="0" w-full />
     </n-form-item>
 
     <n-divider />
 
-    <n-form-item label="htpasswd content:">
+    <n-form-item :label="t('tools.htpasswd-generator.outputLabel')">
       <TextareaCopyable :value="htpasswd" />
     </n-form-item>
   </div>

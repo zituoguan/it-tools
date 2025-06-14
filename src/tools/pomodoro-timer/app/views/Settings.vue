@@ -5,6 +5,7 @@ import AppColorPicker from '../components/AppColorPicker.vue';
 import AlarmSoundToggle from '../components/AlarmSoundToggle.vue';
 
 const store = useStore('pomodoro-store');
+const { t } = useI18n();
 
 store.commit('setInitialTimer');
 store.commit('setFirstVisitStatus', { propValue: false });
@@ -12,17 +13,17 @@ store.commit('setFirstVisitStatus', { propValue: false });
 
 <template>
   <form>
-    <NumberInput id="workInterval" :min="1" :max="120" label="Work Interval" /><span>min</span><br>
-    <NumberInput id="shortBreak" :min="1" :max="120" label="Short break" /><span>min</span><br>
-    <NumberInput id="shortBreakCount" :min="1" :max="10" label="Short break count" /><span>breaks</span><br>
-    <NumberInput id="longBreak" :min="1" :max="120" label="Long break" /><span>min</span><br>
-    <AlarmSoundToggle id="prefersAlarmSound" label="Alarm Sound" /><br>
-    <AppColorPicker id="appAccentColor" label="App color" /><br>
+    <NumberInput id="workInterval" :min="1" :max="120" :label="t('tools.pomodoro-timer.settings.workInterval')" /><span>{{ t('tools.pomodoro-timer.settings.min') }}</span><br>
+    <NumberInput id="shortBreak" :min="1" :max="120" :label="t('tools.pomodoro-timer.settings.shortBreak')" /><span>{{ t('tools.pomodoro-timer.settings.min') }}</span><br>
+    <NumberInput id="shortBreakCount" :min="1" :max="10" :label="t('tools.pomodoro-timer.settings.shortBreakCount')" /><span>{{ t('tools.pomodoro-timer.settings.breaks') }}</span><br>
+    <NumberInput id="longBreak" :min="1" :max="120" :label="t('tools.pomodoro-timer.settings.longBreak')" /><span>{{ t('tools.pomodoro-timer.settings.min') }}</span><br>
+    <AlarmSoundToggle id="prefersAlarmSound" :label="t('tools.pomodoro-timer.settings.alarmSound')" /><br>
+    <AppColorPicker id="appAccentColor" :label="t('tools.pomodoro-timer.settings.appColor')" /><br>
     <a class="lets-go" @click="store.commit('goToPage', 'home')">
-      LET'S GO!
+      {{ t('tools.pomodoro-timer.settings.letsGo') }}
     </a>
     <button type="button" class="reset-btn" @click="store.commit('restoreDefaultSettings')">
-      RESTORE DEFAULTS
+      {{ t('tools.pomodoro-timer.settings.restoreDefaults') }}
     </button>
   </form>
 </template>

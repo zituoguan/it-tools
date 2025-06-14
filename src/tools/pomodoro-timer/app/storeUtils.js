@@ -10,15 +10,15 @@ let titleInterval = null;
 function startTitleAlarm(str, delay) {
   titleInterval = setInterval(() => {
     document.title.startsWith('⏰')
-      ? document.title = `${str} - IT Tools`
-      : document.title = '⏰⏰⏰⏰⏰⏰⏰⏰⏰⏰' + ' - IT Tools';
+      ? document.title = `${str} - 工具链`
+      : document.title = '⏰⏰⏰⏰⏰⏰⏰⏰⏰⏰' + ' - 工具链';
   }, delay);
 }
 
 function stopTitleAlarm() {
   // eslint-disable-next-line no-alert
-  titleInterval ? clearInterval(titleInterval) : alert('Error:  something went wrong when trying to stop the title alarm.');
-  document.title = 'Pomodoro Timer - IT Tools';
+  titleInterval ? clearInterval(titleInterval) : alert('错误：停止标题闹钟时出现问题。');
+  document.title = '番茄钟 - 工具链';
 }
 
 function getNextTimerMode(state) {
@@ -33,25 +33,25 @@ function getNextTimerMode(state) {
 
 function formatModeToText(mode) {
   if (mode === 'workInterval') {
-    return 'work interval';
+    return '工作时间';
   }
   if (mode === 'shortBreak') {
-    return 'short break';
+    return '短休息';
   }
   if (mode === 'longBreak') {
-    return 'long break';
+    return '长休息';
   }
 }
 
 function getAlarmText(nextMode) {
   if (nextMode === 'workInterval') {
-    return 'Work Time';
+    return '工作时间';
   }
   if (nextMode === 'shortBreak') {
-    return 'Short Break Time';
+    return '短休息时间';
   }
   if (nextMode === 'longBreak') {
-    return 'Long Break Time';
+    return '长休息时间';
   }
 }
 
@@ -74,7 +74,7 @@ function onTimerFinished(state, alarmPlayer) {
 
   const oldModeText = formatModeToText(oldMode);
   const newModeText = formatModeToText(newMode);
-  state.finishedMessage = `The ${oldModeText} timer has finished. Next up is a ${newModeText}.`;
+  state.finishedMessage = `${oldModeText}已结束。接下来是${newModeText}。`;
   state.isShowFinishedPopup = true;
 
   const titleText = getAlarmText(newMode);

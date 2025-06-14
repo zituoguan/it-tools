@@ -1,8 +1,45 @@
 import JSZip from 'jszip';
 
+// Helper function to validate URL
+function isValidUrl(string: string): boolean {
+  try {
+    const url = new URL(string);
+    return url.protocol === 'http:' || url.protocol === 'https:';
+  }
+  catch (_) {
+    return false;
+  }
+}
+
 export async function downloadLinks(links: string): Promise<void> {
   // Split links by newline and filter out empty ones
-  const linksArray: string[] = links.split('\n').filter(link => link.trim() !== '');
+  const linksArray: string[] = links.split('\n')
+    .map(link => link.trim())
+    .filter(link => link !== '');
+
+  // Validate all links first
+  const validLinks: string[] = [];
+  const invalidLinks: string[] = [];
+
+  linksArray.forEach((link) => {
+    if (isValidUrl(link)) {
+      validLinks.push(link);
+    }
+    else {
+      invalidLinks.push(link);
+    }
+  });
+
+  // Show error for invalid links
+  if (invalidLinks.length > 0) {
+    const errorMessage = `Invalid URLs found:\n${invalidLinks.join('\n')}\n\nPlease provide valid HTTP/HTTPS URLs.`;
+    console.error(errorMessage);
+
+    // If no valid links, return early
+    if (validLinks.length === 0) {
+      return;
+    }
+  }
 
   // Helper function to handle duplicate filenames
   function getUniqueFileName(existingNames: Set<string>, originalName: string): string {
@@ -29,9 +66,9 @@ export async function downloadLinks(links: string): Promise<void> {
     return uniqueName;
   }
 
-  if (linksArray.length === 1) {
+  if (validLinks.length === 1) {
     // Single link: download directly
-    const linkUrl: string = linksArray[0];
+    const linkUrl: string = validLinks[0];
     try {
       const response: Response = await fetch(linkUrl);
       if (!response.ok) {
@@ -42,7 +79,41 @@ export async function downloadLinks(links: string): Promise<void> {
       const blob: Blob = await response.blob();
 
       // Extract filename from URL
-      const fileName: string = linkUrl.split('/').pop() || 'downloaded_file';
+      let fileName: string = linkUrl.split('/').pop() || 'downloaded_file';
+
+      // Remove query parameters and fragments from filename
+      fileName = fileName.split('?')[0].split('#')[0];
+
+      // If filename has no extension and content-type is available, try to add appropriate extension
+      if (!fileName.includes('.')) {
+        const contentType = response.headers.get('content-type');
+        if (contentType) {
+          if (contentType.includes('image/jpeg')) {
+            fileName += '.jpg';
+          }
+          else if (contentType.includes('image/png')) {
+            fileName += '.png';
+          }
+          else if (contentType.includes('image/gif')) {
+            fileName += '.gif';
+          }
+          else if (contentType.includes('image/webp')) {
+            fileName += '.webp';
+          }
+          else if (contentType.includes('application/pdf')) {
+            fileName += '.pdf';
+          }
+          else if (contentType.includes('text/plain')) {
+            fileName += '.txt';
+          }
+          else if (contentType.includes('application/json')) {
+            fileName += '.json';
+          }
+          else if (contentType.includes('application/zip')) {
+            fileName += '.zip';
+          }
+        }
+      }
 
       // Trigger download
       const a: HTMLAnchorElement = document.createElement('a');
@@ -60,13 +131,13 @@ export async function downloadLinks(links: string): Promise<void> {
       console.error('Error downloading the file:', error);
     }
   }
-  else if (linksArray.length > 1) {
+  else if (validLinks.length > 1) {
     // Multiple links: create a zip file
     const zip = new JSZip();
     const fileNamesSet = new Set<string>(); // To track file names for duplicates
 
     await Promise.all(
-      linksArray.map(async (linkUrl: string) => {
+      validLinks.map(async (linkUrl: string) => {
         try {
           const response: Response = await fetch(linkUrl);
           if (!response.ok) {
@@ -76,6 +147,40 @@ export async function downloadLinks(links: string): Promise<void> {
 
           // Extract filename from URL
           let fileName: string = linkUrl.split('/').pop() || 'file';
+
+          // Remove query parameters and fragments from filename
+          fileName = fileName.split('?')[0].split('#')[0];
+
+          // If filename has no extension and content-type is available, try to add appropriate extension
+          if (!fileName.includes('.')) {
+            const contentType = response.headers.get('content-type');
+            if (contentType) {
+              if (contentType.includes('image/jpeg')) {
+                fileName += '.jpg';
+              }
+              else if (contentType.includes('image/png')) {
+                fileName += '.png';
+              }
+              else if (contentType.includes('image/gif')) {
+                fileName += '.gif';
+              }
+              else if (contentType.includes('image/webp')) {
+                fileName += '.webp';
+              }
+              else if (contentType.includes('application/pdf')) {
+                fileName += '.pdf';
+              }
+              else if (contentType.includes('text/plain')) {
+                fileName += '.txt';
+              }
+              else if (contentType.includes('application/json')) {
+                fileName += '.json';
+              }
+              else if (contentType.includes('application/zip')) {
+                fileName += '.zip';
+              }
+            }
+          }
 
           // Get unique filename if duplicate exists
           fileName = getUniqueFileName(fileNamesSet, fileName);

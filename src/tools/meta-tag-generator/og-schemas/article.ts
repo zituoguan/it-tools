@@ -1,33 +1,34 @@
 import type { OGSchemaType } from '../OGSchemaType.type';
+import { translate } from '@/plugins/i18n.plugin';
 
 export const article: OGSchemaType = {
-  name: 'Article',
+  name: translate('tools.meta-tag-generator.article'),
   elements: [
     {
       type: 'input',
-      label: 'Publishing date',
+      label: translate('tools.meta-tag-generator.publishing-date'),
       key: 'article:published_time',
-      placeholder: 'When the article was first published...',
+      placeholder: translate('tools.meta-tag-generator.when-article-was-first-published'),
     },
     {
       type: 'input',
-      label: 'Modification date',
+      label: translate('tools.meta-tag-generator.modification-date'),
       key: 'article:modified_time',
-      placeholder: 'When the article was last changed...',
+      placeholder: translate('tools.meta-tag-generator.when-article-was-last-changed'),
     },
     {
       type: 'input',
-      label: 'Expiration date',
+      label: translate('tools.meta-tag-generator.expiration-date'),
       key: 'article:expiration_time',
-      placeholder: 'When the article is out of date after...',
+      placeholder: translate('tools.meta-tag-generator.when-article-is-out-of-date-after'),
     },
-    { type: 'input', label: 'Author', key: 'article:author', placeholder: 'Writers of the article...' },
+    { type: 'input', label: translate('tools.meta-tag-generator.author'), key: 'article:author', placeholder: translate('tools.meta-tag-generator.writers-of-the-article') },
     {
       type: 'input',
-      label: 'Section',
+      label: translate('tools.meta-tag-generator.section'),
       key: 'article:section',
-      placeholder: 'A high-level section name. E.g. Technology..',
+      placeholder: translate('tools.meta-tag-generator.high-level-section-name'),
     },
-    { type: 'input', label: 'Tag', key: 'article:tag', placeholder: 'Tag words associated with this article...' },
+    { type: 'input', label: translate('tools.meta-tag-generator.tag'), key: 'article:tag', placeholder: translate('tools.meta-tag-generator.tag-words-associated-with-article') },
   ],
 };

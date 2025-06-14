@@ -5,6 +5,8 @@ import { useQueryParamOrStorage } from '@/composable/queryParams';
 import { computedRefreshable } from '@/composable/computedRefreshable';
 import { randIntFromInterval } from '@/utils/random';
 
+const { t } = useI18n();
+
 const count = useQueryParamOrStorage({ name: 'count', storageName: 'pass-generator:count', defaultValue: 1 });
 const words = useQueryParamOrStorage({ name: 'words', storageName: 'pass-generator:words', defaultValue: 5 });
 const numbers = useQueryParamOrStorage({ name: 'nums', storageName: 'pass-generator:nums', defaultValue: 0 });
@@ -60,47 +62,47 @@ const { copy } = useCopy({ source: passphrases, text: 'Passphrase(s) copied to c
   <div>
     <c-card>
       <n-space>
-        <n-form-item :label="`Words (${words})`" label-placement="left">
+        <n-form-item :label="t('tools.passphrase-generator.words', { n: words })" label-placement="left">
           <n-slider v-model:value="words" :step="1" :min="1" :max="512" mr-2 />
           <n-input-number v-model:value="words" size="small" />
         </n-form-item>
-        <n-form-item label="Add numbers after X words" label-placement="left">
+        <n-form-item :label="t('tools.passphrase-generator.add-numbers')" label-placement="left">
           <n-slider v-model:value="numbers" :step="1" :min="1" :max="words" mr-2 />
           <n-input-number v-model:value="numbers" :max="words" size="small" />
         </n-form-item>
       </n-space>
 
       <n-space>
-        <n-form-item label="Max passphrase len" label-placement="left">
+        <n-form-item :label="t('tools.passphrase-generator.max-len')" label-placement="left">
           <n-input-number v-model:value="maxLen" size="small" />
         </n-form-item>
 
-        <n-form-item label="Capitalize" label-placement="left">
+        <n-form-item :label="t('tools.passphrase-generator.capitalize')" label-placement="left">
           <n-switch v-model:value="capitalize" />
         </n-form-item>
-        <n-form-item label="Separator" label-placement="left">
+        <n-form-item :label="t('tools.passphrase-generator.separator')" label-placement="left">
           <c-input-text
             v-model:value="separator"
-            placeholder="Put separator char"
+            :placeholder="t('tools.passphrase-generator.separator-placeholder')"
           />
         </n-form-item>
       </n-space>
 
-      <n-form-item label="Ending Salt Chars" label-placement="left">
+      <n-form-item :label="t('tools.passphrase-generator.salt')" label-placement="left">
         <c-input-text
           v-model:value="saltChars"
-          placeholder="Put characters to appended to end of passphrase"
+          :placeholder="t('tools.passphrase-generator.salt-placeholder')"
         />
       </n-form-item>
 
-      <n-form-item label="Number of passphrase to generate" label-placement="left">
+      <n-form-item :label="t('tools.passphrase-generator.count')" label-placement="left">
         <n-input-number v-model:value="count" size="small" />
       </n-form-item>
 
       <c-input-text
         v-model:value="passphrases"
         multiline
-        placeholder="Passphrase..."
+        :placeholder="t('tools.passphrase-generator.passphrase-placeholder')"
         readonly
         rows="3"
         autosize
@@ -110,10 +112,10 @@ const { copy } = useCopy({ source: passphrases, text: 'Passphrase(s) copied to c
 
       <div mt-5 flex justify-center gap-3>
         <c-button @click="copy()">
-          Copy
+          {{ t('tools.passphrase-generator.copy') }}
         </c-button>
         <c-button @click="refreshPassphrases">
-          Refresh
+          {{ t('tools.passphrase-generator.refresh') }}
         </c-button>
       </div>
     </c-card>

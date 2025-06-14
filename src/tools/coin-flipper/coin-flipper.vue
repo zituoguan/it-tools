@@ -2,8 +2,10 @@
 import { computedRefreshable } from '@/composable/computedRefreshable';
 import { randIntFromInterval } from '@/utils/random';
 
+const { t } = useI18n();
+
 const [coinFlip, refreshCoinFlip] = computedRefreshable(() => ({
-  coin: randIntFromInterval(0, 10) % 2 === 0 ? 'Heads' : 'Tails',
+  coin: randIntFromInterval(0, 10) % 2 === 0 ? t('tools.coin-flipper.heads') : t('tools.coin-flipper.tails'),
   dt: Date.now(),
 }));
 </script>
@@ -19,7 +21,7 @@ const [coinFlip, refreshCoinFlip] = computedRefreshable(() => ({
     </Transition>
     <div mt-4 flex justify-center>
       <c-button @click="refreshCoinFlip">
-        Re flip
+        {{ t('tools.coin-flipper.reflip') }}
       </c-button>
     </div>
   </div>

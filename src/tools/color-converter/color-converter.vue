@@ -12,58 +12,60 @@ import { buildColorFormat } from './color-converter.models';
 
 extend([cmykPlugin, hwbPlugin, namesPlugin, lchPlugin, xyzPlugin, labPlugin]);
 
+const { t } = useI18n();
+
 const formats = {
   picker: buildColorFormat({
-    label: 'color picker',
+    label: t('tools.color-converter.colorPicker'),
     format: (v: Colord) => v.toHex(),
     type: 'color-picker',
   }),
   hex: buildColorFormat({
     label: 'hex',
     format: (v: Colord) => v.toHex(),
-    placeholder: 'e.g. #ff0000',
+    placeholder: t('tools.color-converter.hexPlaceholder'),
   }),
   rgb: buildColorFormat({
     label: 'rgb',
     format: (v: Colord) => v.toRgbString(),
-    placeholder: 'e.g. rgb(255, 0, 0)',
+    placeholder: t('tools.color-converter.rgbPlaceholder'),
   }),
   hsl: buildColorFormat({
     label: 'hsl',
     format: (v: Colord) => v.toHslString(),
-    placeholder: 'e.g. hsl(0, 100%, 50%)',
+    placeholder: t('tools.color-converter.hslPlaceholder'),
   }),
   hwb: buildColorFormat({
     label: 'hwb',
     format: (v: Colord) => v.toHwbString(),
-    placeholder: 'e.g. hwb(0, 0%, 0%)',
+    placeholder: t('tools.color-converter.hwbPlaceholder'),
   }),
   lch: buildColorFormat({
     label: 'lch',
     format: (v: Colord) => v.toLchString(),
-    placeholder: 'e.g. lch(53.24, 104.55, 40.85)',
+    placeholder: t('tools.color-converter.lchPlaceholder'),
   }),
   cmyk: buildColorFormat({
     label: 'cmyk',
     format: (v: Colord) => v.toCmykString(),
-    placeholder: 'e.g. cmyk(0, 100%, 100%, 0)',
+    placeholder: t('tools.color-converter.cmykPlaceholder'),
   }),
   lab: buildColorFormat({
     label: 'lab',
     format: (v: Colord) => JSON.stringify(v.toLab()),
-    placeholder: 'e.g. { l: 14.89, a: 5.77, b: 14.41, alpha: 0.5 }',
+    placeholder: t('tools.color-converter.labPlaceholder'),
     parse: value => colord(JSON.parse(value)),
   }),
   xyz: buildColorFormat({
     label: 'xyz',
     format: (v: Colord) => JSON.stringify(v.toXyz()),
-    placeholder: 'e.g. { x: 95.047, y: 100, z: 108.883, a: 1 }',
+    placeholder: t('tools.color-converter.xyzPlaceholder'),
     parse: value => colord(JSON.parse(value)),
   }),
   name: buildColorFormat({
-    label: 'name',
-    format: (v: Colord) => v.toName({ closest: true }) ?? 'Unknown',
-    placeholder: 'e.g. red',
+    label: t('tools.color-converter.name'),
+    format: (v: Colord) => v.toName({ closest: true }) ?? t('tools.color-converter.unknown'),
+    placeholder: t('tools.color-converter.namePlaceholder'),
   }),
 };
 
@@ -124,23 +126,23 @@ function updateColorValue(value: Colord | undefined, omitLabel?: string) {
 
 <template>
   <div>
-    <c-card title="Transformations">
-      <n-form-item label="Saturation" label-placement="left">
+    <c-card :title="t('tools.color-converter.transformationsTitle')">
+      <n-form-item :label="t('tools.color-converter.saturationLabel')" label-placement="left">
         <n-slider v-model:value="saturation" :step="1" :min="-100" :max="100" mr-2 />
         <n-input-number v-model:value="saturation" size="small" />
       </n-form-item>
 
-      <n-form-item label="Brightness" label-placement="left">
+      <n-form-item :label="t('tools.color-converter.brightnessLabel')" label-placement="left">
         <n-slider v-model:value="brightness" :step="1" :min="-100" :max="100" mr-2 />
         <n-input-number v-model:value="brightness" size="small" />
       </n-form-item>
 
       <n-space>
-        <n-form-item label="Grayscale" label-placement="left">
+        <n-form-item :label="t('tools.color-converter.grayscaleLabel')" label-placement="left">
           <n-checkbox v-model:checked="grayscale" mr-2 />
         </n-form-item>
 
-        <n-form-item label="Invert" label-placement="left">
+        <n-form-item :label="t('tools.color-converter.invertLabel')" label-placement="left">
           <n-checkbox v-model:checked="invert" mr-2 />
         </n-form-item>
       </n-space>

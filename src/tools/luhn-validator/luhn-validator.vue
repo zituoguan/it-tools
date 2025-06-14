@@ -2,6 +2,8 @@
 import Luhn from 'luhn-js';
 import type { CKeyValueListItems } from '@/ui/c-key-value-list/c-key-value-list.types';
 
+const { t } = useI18n();
+
 const rawValue = ref('44540661970241257');
 const cleanedValue = computed(() => rawValue.value.replace(/[^\d]/g, ''));
 const isValid = computed(() => {
@@ -15,17 +17,17 @@ const isValid = computed(() => {
 const luhnInfos = computed<CKeyValueListItems>(() => {
   return [
     {
-      label: 'Is valid ?',
+      label: t('tools.luhn-validator.isValid'),
       value: isValid.value,
     },
     {
-      label: 'Luhn Key',
+      label: t('tools.luhn-validator.luhnKey'),
       value: (isValid.value
         ? cleanedValue.value.slice(-1)
         : Luhn.generate(cleanedValue.value).slice(-1)) || '',
     },
     {
-      label: 'Value with Luhn Key',
+      label: t('tools.luhn-validator.valueWithLuhnKey'),
       value: (isValid.value
         ? cleanedValue.value
         : Luhn.generate(cleanedValue.value)) || '',
@@ -36,13 +38,13 @@ const luhnInfos = computed<CKeyValueListItems>(() => {
 
 <template>
   <div>
-    <c-input-text v-model:value="rawValue" placeholder="Enter a 'Luhn validated' value..." />
+    <c-input-text v-model:value="rawValue" :placeholder="t('tools.luhn-validator.placeholder')" />
     <n-alert v-if="!isValid" type="error">
-      Invalid Luhn Key.
-      <input-copyable label="Probably correct" label-position="left" :value="Luhn.generate(cleanedValue)" disabled="true" />
+      {{ t('tools.luhn-validator.invalidLuhnKey') }}
+      <input-copyable :label="t('tools.luhn-validator.probablyCorrect')" label-position="left" :value="Luhn.generate(cleanedValue)" disabled="true" />
     </n-alert>
 
-    <c-card v-if="luhnInfos.length > 0" mt-5 title="Infos">
+    <c-card v-if="luhnInfos.length > 0" mt-5 :title="t('tools.luhn-validator.infos')">
       <c-key-value-list :items="luhnInfos" />
     </c-card>
   </div>

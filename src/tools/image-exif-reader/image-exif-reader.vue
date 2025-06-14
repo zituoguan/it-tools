@@ -3,6 +3,8 @@ import ExifReader from 'exifreader';
 import getJpegQuality from 'jpeg-quality-estimator';
 import { formatBytes } from '@/utils/convert';
 
+const { t } = useI18n();
+
 interface Tag {
   id: number
   name: string
@@ -15,19 +17,19 @@ interface TagsSection {
 }
 
 const tagsSections = ref<{ name: string; title: string }[]>([
-  { name: 'file', title: 'File Tags' },
-  { name: 'jfif', title: 'JFIF Tags' },
-  { name: 'pngFile', title: 'PNG File Tags' },
-  { name: 'pngText', title: 'PNG Text Tags' },
-  { name: 'png', title: 'PNG Tags' },
-  { name: 'exif', title: 'EXIF Tags' },
-  { name: 'iptc', title: 'IPTC Tags' },
-  { name: 'xmp', title: 'XMP Tags' },
-  { name: 'icc', title: 'ICC Tags' },
-  { name: 'riff', title: 'RIFF Tags' },
-  { name: 'gif', title: 'GIF Tags' },
-  { name: 'Thumbnail', title: 'Thumbnail Tags' },
-  { name: 'photoshop', title: 'Photoshop Tags' },
+  { name: 'file', title: t('tools.image-exif-reader.fileTags') },
+  { name: 'jfif', title: t('tools.image-exif-reader.jfifTags') },
+  { name: 'pngFile', title: t('tools.image-exif-reader.pngFileTags') },
+  { name: 'pngText', title: t('tools.image-exif-reader.pngTextTags') },
+  { name: 'png', title: t('tools.image-exif-reader.pngTags') },
+  { name: 'exif', title: t('tools.image-exif-reader.exifTags') },
+  { name: 'iptc', title: t('tools.image-exif-reader.iptcTags') },
+  { name: 'xmp', title: t('tools.image-exif-reader.xmpTags') },
+  { name: 'icc', title: t('tools.image-exif-reader.iccTags') },
+  { name: 'riff', title: t('tools.image-exif-reader.riffTags') },
+  { name: 'gif', title: t('tools.image-exif-reader.gifTags') },
+  { name: 'Thumbnail', title: t('tools.image-exif-reader.thumbnailTags') },
+  { name: 'photoshop', title: t('tools.image-exif-reader.photoshopTags') },
 ]);
 
 const errorMessage = ref<string>('');
@@ -74,7 +76,7 @@ const addSpacesToTagNames = (label: string) => label.replace(/([A-Z][a-z])/g, ' 
 <template>
   <div style="flex: 0 0 100%">
     <div mx-auto max-w-600px>
-      <c-file-upload title="Drag and drop a Image file here, or click to select a file" @file-upload="onImageUploaded" />
+      <c-file-upload :title="t('tools.image-exif-reader.dragAndDropTitle')" @file-upload="onImageUploaded" />
 
       <c-card v-if="file" mt-4 flex gap-2>
         <div font-bold>
@@ -92,13 +94,13 @@ const addSpacesToTagNames = (label: string) => label.replace(/([A-Z][a-z])/g, ' 
 
       <div v-if="status === 'error'">
         <c-alert mt-4>
-          Error parsing image file: {{ errorMessage }}
+          {{ t('tools.image-exif-reader.errorParsingImage') }}: {{ errorMessage }}
         </c-alert>
       </div>
 
-      <c-card v-if="quality >= 0" title="JPEG Quality" mt-4>
+      <c-card v-if="quality >= 0" :title="t('tools.image-exif-reader.jpegQuality')" mt-4>
         <input-copyable
-          label="JPEG Quality (%)"
+          :label="t('tools.image-exif-reader.jpegQualityPercent')"
           label-position="left"
           label-width="150px"
           label-align="right"
@@ -107,24 +109,24 @@ const addSpacesToTagNames = (label: string) => label.replace(/([A-Z][a-z])/g, ' 
         />
       </c-card>
 
-      <c-card v-if="status === 'parsed' && openStreetMapUrl" title="GPS Infos" mt-4>
+      <c-card v-if="status === 'parsed' && openStreetMapUrl" :title="t('tools.image-exif-reader.gpsInfo')" mt-4>
         <div flex gap-2>
-          <c-label label="Latitude">
+          <c-label :label="t('tools.image-exif-reader.latitude')">
             {{ tags.gps?.Latitude?.toFixed(4) }}
           </c-label>
-          <c-label label="Longitude">
+          <c-label :label="t('tools.image-exif-reader.longitude')">
             {{ tags.gps?.Longitude?.toFixed(4) }}
           </c-label>
-          <c-label label="Altitude">
+          <c-label :label="t('tools.image-exif-reader.altitude')">
             {{ tags.gps?.Altitude?.toFixed(4) }}
           </c-label>
         </div>
         <c-button :href="openStreetMapUrl" target="_blank" mt-4>
-          Localize on Open Street Map
+          {{ t('tools.image-exif-reader.localizeOnMap') }}
         </c-button>
       </c-card>
       <c-card v-if="status === 'parsed' && !openStreetMapUrl" mt-4>
-        No GPS Information
+        {{ t('tools.image-exif-reader.noGpsInfo') }}
       </c-card>
 
       <div v-if="status === 'parsed'">

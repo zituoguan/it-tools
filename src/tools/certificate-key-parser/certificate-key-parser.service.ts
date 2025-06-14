@@ -18,6 +18,7 @@ import 'webcrypto-liner-shim';
 import * as openpgp from 'openpgp';
 import * as forge from 'node-forge';
 import { type LabelValue, getCSRLabelValues, getCertificateLabelValues, getFingerprintLabelValues, getPGPPrivateKeyLabelValuesAsync, getPGPPublicKeyLabelValuesAsync, getPrivateKeyLabelValues, getPublicKeyLabelValues, getSignatureLabelValues } from './certificate-key-parser.infos';
+import { translate } from '@/plugins/i18n.plugin';
 
 export async function getKeysOrCertificatesInfosAsync(keyOrCertificateValue: string | Buffer, passphrase: string) {
   const parts = keyOrCertificateValue.toString().trim().split(/(-----BEGIN [^-]+-----\n)/).filter(s => s !== '');
@@ -140,8 +141,8 @@ export async function getKeyOrCertificateInfosAsync(keyOrCertificateValue: strin
     return {
       values: [
         {
-          label: 'Type:',
-          value: 'Unknown format or invalid passphrase',
+          label: translate('tools.certificate-key-parser.type'),
+          value: translate('tools.certificate-key-parser.unknownFormatOrInvalidPassphrase'),
         }],
     };
   }
@@ -149,7 +150,7 @@ export async function getKeyOrCertificateInfosAsync(keyOrCertificateValue: strin
     return {
       values: [
         {
-          label: 'Error:',
+          label: translate('tools.certificate-key-parser.error'),
           value: e.toString(),
         }] as LabelValue[],
     };

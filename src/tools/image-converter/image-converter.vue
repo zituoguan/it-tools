@@ -8,6 +8,8 @@ import { normal as robotoBase64 } from 'roboto-base64';
 import { useDownloadFileFromBase64 } from '@/composable/downloadBase64';
 import { useQueryParamOrStorage } from '@/composable/queryParams';
 
+const { t } = useI18n();
+
 function readAsText(file: File) {
   return new Promise<string>((resolve, reject) => {
     const reader = new FileReader();
@@ -113,7 +115,7 @@ async function onFileUploaded(uploadedFile: File) {
       });
 
       if (decodedImage == null) {
-        throw new Error('Invalid Image file!');
+        throw new Error(t('tools.image-converter.invalidImageFile'));
       };
 
       const outConfig = outputFormats[outputFormatValue as (keyof typeof outputFormats)];
@@ -133,32 +135,32 @@ async function onFileUploaded(uploadedFile: File) {
 
 <template>
   <div max-w-800px>
-    <h4>First, select output options:</h4>
+    <h4>{{ t('tools.image-converter.selectOutputOptions') }}</h4>
 
     <c-select
       v-model:value="outputFormat"
-      label="Output format:"
+      :label="t('tools.image-converter.outputFormat')"
       label-position="left"
       :options="Object.keys(outputFormats)"
-      placeholder="Select output format"
+      :placeholder="t('tools.image-converter.selectOutputFormat')"
       mb-2
     />
 
     <div mb-2 flex justify-center>
-      <n-form-item v-if="outputFormatHasQuality" label="Output quality:" label-placement="left">
+      <n-form-item v-if="outputFormatHasQuality" :label="t('tools.image-converter.outputQuality')" label-placement="left">
         <n-input-number v-model:value="outputQuality" :max="100" :min="0" w-full />
       </n-form-item>
-      <n-form-item label="SVG scaling:" label-placement="left">
+      <n-form-item :label="t('tools.image-converter.svgScaling')" label-placement="left">
         <n-input-number v-model:value="svgScale" :min="0" />
       </n-form-item>
     </div>
 
-    <h4>Then, drag and drop your images below and they will be converted and downloaded immediately:</h4>
+    <h4>{{ t('tools.image-converter.dragAndDropInstructions') }}</h4>
 
     <div style="flex: 0 0 100%" mb-2>
       <div mx-auto max-w-600px>
         <c-file-upload
-          title="Drag and drop images files here, or click to select some files"
+          :title="t('tools.image-converter.dragAndDropTitle')"
           accept="image/*"
           paste-image
           multiple
@@ -170,7 +172,7 @@ async function onFileUploaded(uploadedFile: File) {
 
     <div mt-3 flex justify-center>
       <c-alert v-if="status === 'error'" type="error">
-        An error occured processing {{ fileName }}
+        {{ t('tools.image-converter.errorProcessing', { fileName }) }}
       </c-alert>
       <n-spin
         v-if="status === 'processing'"

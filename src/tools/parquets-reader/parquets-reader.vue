@@ -4,6 +4,8 @@ import { parquetReadObjects } from 'hyparquet';
 import { compressors } from 'hyparquet-compressors';
 import type { DataTableInst } from 'naive-ui';
 
+const { t } = useI18n();
+
 const fileInput = ref() as Ref<File | null>;
 
 const error = ref('');
@@ -41,9 +43,9 @@ function downloadCsv() {
 
 <template>
   <div>
-    <c-card title="Input" mb-2>
+    <c-card :title="t('tools.parquets-reader.input')" mb-2>
       <c-file-upload
-        title="Drag and drop Parquet file here, or click to select a file"
+        :title="t('tools.parquets-reader.upload-title')"
         @file-upload="onUpload"
       />
     </c-card>
@@ -53,20 +55,19 @@ function downloadCsv() {
     </c-alert>
 
     <n-tabs v-if="!error" type="line" animated>
-      <n-tab-pane name="jsonData" tab="JSON Content">
+      <n-tab-pane name="jsonData" :tab="t('tools.parquets-reader.json-content')">
         <textarea-copyable :value="resultsJson" language="json" :download-file-name="`${fileInput?.name}.json`" />
       </n-tab-pane>
-      <n-tab-pane v-if="columns.length" name="tabData" tab="Table View">
+      <n-tab-pane v-if="columns.length" name="tabData" :tab="t('tools.parquets-reader.table-view')">
         <div mb-1 flex justify-center>
           <n-button @click="downloadCsv">
-            Export as CSV
+            {{ t('tools.parquets-reader.export-csv') }}
           </n-button>
         </div>
         <n-data-table
           ref="tableRef"
           size="small"
           :columns="columns"
-
           :data="results" bordered striped
           pagination
         />

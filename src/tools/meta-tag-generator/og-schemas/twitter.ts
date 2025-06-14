@@ -1,4 +1,5 @@
 import type { OGSchemaType } from '../OGSchemaType.type';
+import { translate } from '@/plugins/i18n.plugin';
 
 export const twitter: OGSchemaType = {
   name: 'Twitter',
@@ -6,25 +7,25 @@ export const twitter: OGSchemaType = {
     {
       type: 'select',
       options: [
-        { label: 'Summary', value: 'summary' },
-        { label: 'Summary with large image', value: 'summary_large_image' },
-        { label: 'Application', value: 'app' },
-        { label: 'Player', value: 'player' },
+        { label: translate('tools.meta-tag-generator.summary'), value: 'summary' },
+        { label: translate('tools.meta-tag-generator.summary-with-large-image'), value: 'summary_large_image' },
+        { label: translate('tools.meta-tag-generator.application'), value: 'app' },
+        { label: translate('tools.meta-tag-generator.player'), value: 'player' },
       ],
-      label: 'Card type',
-      placeholder: 'The Twitter card type...',
+      label: translate('tools.meta-tag-generator.card-type'),
+      placeholder: translate('tools.meta-tag-generator.twitter-card-type'),
       key: 'twitter:card',
     },
     {
       type: 'input',
-      label: 'Site account',
-      placeholder: 'The name of the Twitter account of the site (ex: @ittoolsdottech)...',
+      label: translate('tools.meta-tag-generator.site-account'),
+      placeholder: translate('tools.meta-tag-generator.name-of-twitter-account-of-site'),
       key: 'twitter:site',
     },
     {
       type: 'input',
-      label: 'Creator acc.',
-      placeholder: 'The name of the Twitter account of the creator (ex: @cthmsst)...',
+      label: translate('tools.meta-tag-generator.creator-account'),
+      placeholder: translate('tools.meta-tag-generator.name-of-twitter-account-of-creator'),
       key: 'twitter:creator',
     },
   ],

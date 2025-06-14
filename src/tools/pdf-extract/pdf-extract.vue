@@ -3,6 +3,8 @@ import { Base64 } from 'js-base64';
 import createQPDFModule from 'qpdf-wasm-esm-embedded';
 import { useDownloadFileFromBase64 } from '@/composable/downloadBase64';
 
+const { t } = useI18n();
+
 const status = ref<'idle' | 'done' | 'error' | 'processing'>('idle');
 const file = ref<File | null>(null);
 
@@ -78,25 +80,26 @@ async function callMainWithInOutPdf(data: ArrayBuffer, args: string[], expected_
     <div style="flex: 0 0 100%">
       <div mx-auto max-w-600px>
         <c-file-upload
-          title="Drag and drop a PDF file here, or click to select a file"
+          :title="t('tools.pdf-extract.upload-title')"
           accept=".pdf"
           @file-upload="onFileUploaded"
         />
         <div mt-2 text-center>
-          <c-input-text :value="fileName" label="Output file:" label-position="left" />
+          <c-input-text :value="fileName" :label="t('tools.pdf-extract.output-file')" label-position="left" />
         </div>
       </div>
     </div>
 
-    <c-card title="Extraction Range" mb-3 mt-3>
+    <c-card :title="t('tools.pdf-extract.range-title')" mb-3 mt-3>
       <c-input-text
         v-model:value="extractRange"
-        label="Range:"
-        placeholder="Qpdf Range"
+        :label="t('tools.pdf-extract.range')"
+        :placeholder="t('tools.pdf-extract.range-placeholder')"
         mb-2
       />
       <n-p>
-        For details about Range options, see <n-a target="_blank" href="https://qpdf.readthedocs.io/en/stable/cli.html#page-selection">
+        {{ t('tools.pdf-extract.range-tip') }}
+        <n-a target="_blank" href="https://qpdf.readthedocs.io/en/stable/cli.html#page-selection">
           QPDF Documentation
         </n-a>
       </n-p>
@@ -104,7 +107,7 @@ async function callMainWithInOutPdf(data: ArrayBuffer, args: string[], expected_
 
     <div mt-3 flex justify-center>
       <c-button :disabled="!file" @click="onProcessClicked()">
-        Extract PDF pages
+        {{ t('tools.pdf-extract.extract-btn') }}
       </c-button>
     </div>
 
@@ -112,7 +115,7 @@ async function callMainWithInOutPdf(data: ArrayBuffer, args: string[], expected_
 
     <div mt-3 flex justify-center>
       <c-alert v-if="status === 'error'" type="error">
-        An error occured processing {{ fileName }}
+        {{ t('tools.pdf-extract.error', { file: fileName }) }}
       </c-alert>
       <n-spin
         v-if="status === 'processing'"
@@ -120,7 +123,7 @@ async function callMainWithInOutPdf(data: ArrayBuffer, args: string[], expected_
       />
     </div>
 
-    <c-card title="Logs">
+    <c-card :title="t('tools.pdf-extract.logs')">
       <input-copyable label="qpdf" :value="qpdfCommand" mb-1 />
       <pre>{{ logs.join('\n') }}</pre>
     </c-card>

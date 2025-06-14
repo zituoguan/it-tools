@@ -5,6 +5,8 @@ import type { UseValidationRule } from '@/composable/validation';
 import TextareaCopyable from '@/components/TextareaCopyable.vue';
 import { useQueryParamOrStorage } from '@/composable/queryParams';
 
+const { t } = useI18n();
+
 const defaultValue = `{
   a:"n",
   arr: [1, 2], 
@@ -80,42 +82,42 @@ const goOutput = computedAsync(async () => {
 const rules: UseValidationRule<string>[] = [
   {
     validator: (v: string) => v === '' || JSON5.parse(v),
-    message: 'Provided JSON is not valid.',
+    message: t('tools.json-to-go.invalid-json'),
   },
 ];
 </script>
 
 <template>
-  <c-card title="JSON to Go">
+  <c-card :title="t('tools.json-to-go.card-title')">
     <c-input-text
       v-model:value="jsonInput"
       multiline
-      placeholder="Put your json string here..."
+      :placeholder="t('tools.json-to-go.input-placeholder')"
       rows="20"
-      label="JSON to Go"
+      :label="t('tools.json-to-go.input-label')"
       :validation-rules="rules"
       raw-text
       mb-5
     />
     <n-space justify="center">
-      <c-input v-model:value="rootName" label="Root Name" />
-      <c-input v-model:value="packageName" label="Package Name" />
-      <c-input v-model:value="tags" label="List of tags which should be generated for fields" />
+      <c-input v-model:value="rootName" :label="t('tools.json-to-go.root-name-label')" />
+      <c-input v-model:value="packageName" :label="t('tools.json-to-go.package-name-label')" />
+      <c-input v-model:value="tags" :label="t('tools.json-to-go.tags-label')" />
       <n-checkbox v-model:checked="plainTypesOnly">
-        Plain types only
+        {{ t('tools.json-to-go.plain-types-only') }}
       </n-checkbox>
       <n-checkbox v-model:checked="plainTypesWithPackageOnly">
-        Plain types with package only
+        {{ t('tools.json-to-go.plain-types-with-package-only') }}
       </n-checkbox>
       <n-checkbox v-model:checked="omitEmpty">
-        Omit empty
+        {{ t('tools.json-to-go.omit-empty') }}
       </n-checkbox>
       <n-checkbox v-model:checked="optionalProperties">
-        Make all properties optional
+        {{ t('tools.json-to-go.make-all-properties-optional') }}
       </n-checkbox>
     </n-space>
   </c-card>
-  <c-card title="Your Go code">
+  <c-card :title="t('tools.json-to-go.output-card-title')">
     <TextareaCopyable
       :value="goOutput"
       language="go"

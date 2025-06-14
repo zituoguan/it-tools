@@ -5,6 +5,8 @@ import TextareaCopyable from '@/components/TextareaCopyable.vue';
 import { withDefaultOnErrorAsync } from '@/utils/defaults';
 import { computedRefreshableAsync } from '@/composable/computedRefreshable';
 
+const { t } = useI18n();
+
 const password = ref('');
 const comment = ref('');
 const emptyCerts = { publicKey: '', privateKey: '' };
@@ -44,56 +46,56 @@ const [certs, refreshCerts] = computedRefreshableAsync(
       <c-select
         v-model:value="format"
         label-position="left"
-        label="Format:"
+        :label="t('tools.ecdsa-key-pair-generator.format-label')"
         :options="formatOptions"
-        placeholder="Select a key format"
+        :placeholder="t('tools.ecdsa-key-pair-generator.format-placeholder')"
       />
 
       <c-select
         v-model:value="curve"
         label-position="left"
-        label="Curve:"
+        :label="t('tools.ecdsa-key-pair-generator.curve-label')"
         :options="curveOptions"
-        placeholder="Select a curve type"
+        :placeholder="t('tools.ecdsa-key-pair-generator.curve-placeholder')"
       />
     </n-space>
 
     <div v-if="supportsPassphrase" mb-1 mt-3>
-      <n-form-item label="Passphrase :" label-placement="left">
+      <n-form-item :label="t('tools.ecdsa-key-pair-generator.passphrase-label')" label-placement="left">
         <n-input
           v-model:value="password"
           type="password"
           show-password-on="mousedown"
-          placeholder="Passphrase"
+          :placeholder="t('tools.ecdsa-key-pair-generator.passphrase-placeholder')"
         />
       </n-form-item>
     </div>
 
     <div mb-2>
-      <n-form-item label="Comment :" label-placement="left">
+      <n-form-item :label="t('tools.ecdsa-key-pair-generator.comment-label')" label-placement="left">
         <n-input
           v-model:value="comment"
           type="text"
-          placeholder="Comment"
+          :placeholder="t('tools.ecdsa-key-pair-generator.comment-placeholder')"
         />
       </n-form-item>
     </div>
 
     <n-space justify="center" mb-1>
       <c-button @click="refreshCerts">
-        Refresh key-pair
+        {{ t('tools.ecdsa-key-pair-generator.refresh-button') }}
       </c-button>
     </n-space>
 
     <n-divider />
 
     <div>
-      <h3>Public key</h3>
+      <h3>{{ t('tools.ecdsa-key-pair-generator.public-key-title') }}</h3>
       <TextareaCopyable :value="certs.publicKey" :word-wrap="true" />
     </div>
 
     <div>
-      <h3>Private key</h3>
+      <h3>{{ t('tools.ecdsa-key-pair-generator.private-key-title') }}</h3>
       <TextareaCopyable :value="certs.privateKey" />
     </div>
   </div>

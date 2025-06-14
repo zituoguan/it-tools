@@ -5,6 +5,8 @@ import { bundledThemesInfo } from 'shiki/themes';
 import { useQueryParamOrStorage } from '@/composable/queryParams';
 import { useCopy, useCopyClipboardItems } from '@/composable/copy';
 
+const { t } = useI18n();
+
 const code = ref(`// Using 'typeof' to infer types
 const person = { name: "Alice", age: 30 };
 type PersonType = typeof person;  // { name: string; age: number }
@@ -85,7 +87,7 @@ const { copy: copyText } = useCopy({ source: code });
     <div mb-3 flex items-baseline gap-1>
       <c-select
         v-model:value="currentLang"
-        label="Language"
+        :label="t('tools.code-highlighter.language')"
         label-position="left"
         searchable
         :options="langs"
@@ -93,7 +95,7 @@ const { copy: copyText } = useCopy({ source: code });
       />
       <c-select
         v-model:value="currentTheme"
-        label="Theme"
+        :label="t('tools.code-highlighter.theme')"
         label-position="left"
         searchable
         :options="themes"
@@ -103,22 +105,22 @@ const { copy: copyText } = useCopy({ source: code });
 
     <c-input-text
       v-model:value="code"
-      label="Code snippet to format:"
+      :label="t('tools.code-highlighter.codeSnippetToFormat')"
       multiline
-      placeholder="Put your code snippet here"
+      :placeholder="t('tools.code-highlighter.codeSnippetPlaceholder')"
       rows="5"
       mb-3
     />
 
     <div flex justify-center gap-2>
-      <n-form-item label="Show line numbers" label-placement="left">
+      <n-form-item :label="t('tools.code-highlighter.showLineNumbers')" label-placement="left">
         <n-switch v-model:value="showLineNumbers" />
       </n-form-item>
       <c-button @click="copyHtml()">
-        Copy HTML Formatted
+        {{ t('tools.code-highlighter.copyHtmlFormatted') }}
       </c-button>
       <c-button @click="copyText()">
-        Copy Code Text
+        {{ t('tools.code-highlighter.copyCodeText') }}
       </c-button>
     </div>
 

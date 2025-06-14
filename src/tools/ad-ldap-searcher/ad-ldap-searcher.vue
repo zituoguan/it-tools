@@ -4,6 +4,7 @@ import { useFlexSearch } from '@/composable/flexSearch';
 
 const data = mappingData;
 const search = ref('');
+const { t } = useI18n();
 
 const { searchResult } = useFlexSearch({
   search,
@@ -20,7 +21,7 @@ const { searchResult } = useFlexSearch({
     <div flex items-center gap-3>
       <c-input-text
         v-model:value="search"
-        placeholder="Search Active Directory LDAP mapping"
+        :placeholder="t('tools.ad-ldap-searcher.searchPlaceholder')"
         mx-auto max-w-600px
       >
         <template #prefix>
@@ -35,19 +36,19 @@ const { searchResult } = useFlexSearch({
 
         mt-4 text-center text-20px font-bold
       >
-        No results
+        {{ t('tools.ad-ldap-searcher.noResults') }}
       </div>
 
       <div v-else>
         <div mt-4 text-20px font-bold>
-          Search result
+          {{ t('tools.ad-ldap-searcher.searchResult') }}
         </div>
 
         <n-table>
           <thead>
-            <th>TAB</th>
-            <th>Active Directory Field</th>
-            <th>LDAP Attribute</th>
+            <th>{{ t('tools.ad-ldap-searcher.tableHeaderTab') }}</th>
+            <th>{{ t('tools.ad-ldap-searcher.tableHeaderActiveDirectoryField') }}</th>
+            <th>{{ t('tools.ad-ldap-searcher.tableHeaderLdapAttribute') }}</th>
           </thead>
           <tbody>
             <tr v-for="(result, ix) in searchResult" :key="ix">

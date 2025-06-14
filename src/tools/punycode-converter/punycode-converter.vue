@@ -2,6 +2,8 @@
 import { toASCII, toUnicode } from 'punycode/';
 import TextareaCopyable from '@/components/TextareaCopyable.vue';
 
+const { t } = useI18n();
+
 const punycodeInput = ref('');
 const intlOutput = computed(
   () => {
@@ -29,35 +31,35 @@ const punycodeOutput = computed(
 
 <template>
   <div max-w-600>
-    <c-card title="Punycode to International">
+    <c-card :title="t('tools.punycode-converter.toIntlTitle')">
       <c-input-text
         v-model:value="punycodeInput"
-        placeholder="Put your punycode domain name or email to decode..."
-        label="Punycode Domain name/Email"
+        :placeholder="t('tools.punycode-converter.punycodePlaceholder')"
+        :label="t('tools.punycode-converter.punycodeLabel')"
         raw-text
       />
 
       <n-divider />
 
       <TextareaCopyable
-        label="Decoded Domain name/Email"
+        :label="t('tools.punycode-converter.decodedLabel')"
         :value="intlOutput"
         readonly
       />
     </c-card>
 
-    <c-card title="International to Punycode" mt-5>
+    <c-card :title="t('tools.punycode-converter.toPunycodeTitle')" mt-5>
       <c-input-text
         v-model:value="intlInput"
-        placeholder="Put your international domain or email name here..."
-        label="Domain name or email to encode"
+        :placeholder="t('tools.punycode-converter.intlPlaceholder')"
+        :label="t('tools.punycode-converter.intlLabel')"
         raw-text
       />
 
       <n-divider />
 
       <TextareaCopyable
-        label="Punycode Domain name/Email"
+        :label="t('tools.punycode-converter.punycodeLabel')"
         :value="punycodeOutput"
         readonly
       />

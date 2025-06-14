@@ -5,6 +5,8 @@ import { computedRefreshable } from '@/composable/computedRefreshable';
 import { useCopy } from '@/composable/copy';
 import { useQueryParamOrStorage } from '@/composable/queryParams';
 
+const { t } = useI18n();
+
 const cardKeys = [...Object.keys(cards).filter(k => k !== 'joker'), 'joker', 'joker'];
 type CardNames = keyof typeof cards;
 
@@ -22,29 +24,61 @@ const [cardPicked, refreshCardPicked] = computedRefreshable(() => {
 });
 const maxCards = computed(() => (useJokers.value ? 54 : 52) * numberOfPacks.value);
 
-const suitNames = {
-  c: 'clubs (♣)',
-  d: 'diamonds (♦)',
-  h: 'hearts (♥)',
-  s: 'spades (♠)',
-};
-const numberNames = {
-  1: 'Ace',
-  11: 'Jack',
-  12: 'Queen',
-  13: 'King',
-};
-function translateName(cardId: string) {
-  const [, number, suit] = /(\d+)([cdhs])/.exec(cardId) || [];
-  if (!number && !suit) {
+function translateName(cardId: string): string {
+  if (cardId === 'joker') {
+    return t('tools.card-picker.joker');
+  }
+  const match = /(\d+)([cdhs])/.exec(cardId);
+  if (!match) {
     return cardId;
   }
-  return `${numberNames[number as never] || number} of ${suitNames[suit as never] || suit}`;
+  const [, numberStr, suitChar] = match;
+  const number = Number.parseInt(numberStr, 10);
+
+  let numberName: string;
+  switch (number) {
+    case 1:
+      numberName = t('tools.card-picker.numbers.ace');
+      break;
+    case 11:
+      numberName = t('tools.card-picker.numbers.jack');
+      break;
+    case 12:
+      numberName = t('tools.card-picker.numbers.queen');
+      break;
+    case 13:
+      numberName = t('tools.card-picker.numbers.king');
+      break;
+    default:
+      numberName = numberStr;
+      break;
+  }
+
+  let suitName: string;
+  switch (suitChar) {
+    case 'c':
+      suitName = t('tools.card-picker.suits.clubs');
+      break;
+    case 'd':
+      suitName = t('tools.card-picker.suits.diamonds');
+      break;
+    case 'h':
+      suitName = t('tools.card-picker.suits.hearts');
+      break;
+    case 's':
+      suitName = t('tools.card-picker.suits.spades');
+      break;
+    default:
+      suitName = suitChar;
+      break;
+  }
+
+  return `${numberName} ${t('tools.card-picker.of')} ${suitName}`;
 }
 
 const cardPickedString = computed(() => cardPicked.value.map(translateName).join(', '));
 
-const { copy } = useCopy({ source: cardPickedString, text: 'Cards Picked copied to the clipboard' });
+const { copy } = useCopy({ source: cardPickedString, text: () => t('tools.card-picker.cardsPickedCopied') });
 </script>
 
 <template>
@@ -56,24 +90,24 @@ const { copy } = useCopy({ source: cardPickedString, text: 'Cards Picked copied 
       <textarea-copyable :value="cardPickedString" readonly mb-1 />
     </div>
     <div flex justify-center gap-3>
-      <n-form-item label="Number of cards:" label-placement="left">
-        <n-input-number v-model:value="numberOfCards" min="1" :max="maxCards" placeholder="Number of cards to pick" />
+      <n-form-item :label="t('tools.card-picker.numberOfCardsLabel')" label-placement="left">
+        <n-input-number v-model:value="numberOfCards" min="1" :max="maxCards" :placeholder="t('tools.card-picker.numberOfCardsPlaceholder')" />
       </n-form-item>
-      <n-form-item label="Number of packs:" label-placement="left">
-        <n-input-number v-model:value="numberOfPacks" min="1" placeholder="Number of card packs to pick in" />
+      <n-form-item :label="t('tools.card-picker.numberOfPacksLabel')" label-placement="left">
+        <n-input-number v-model:value="numberOfPacks" min="1" :placeholder="t('tools.card-picker.numberOfPacksPlaceholder')" />
       </n-form-item>
     </div>
     <div mb-4 flex justify-center>
       <n-checkbox v-model:checked="useJokers">
-        Use Jokers
+        {{ t('tools.card-picker.useJokersLabel') }}
       </n-checkbox>
     </div>
     <div flex justify-center gap-3>
       <c-button @click="copy()">
-        Copy deck
+        {{ t('tools.card-picker.copyDeckButton') }}
       </c-button>
       <c-button @click="refreshCardPicked">
-        Refresh deck
+        {{ t('tools.card-picker.refreshDeckButton') }}
       </c-button>
     </div>
   </c-card>

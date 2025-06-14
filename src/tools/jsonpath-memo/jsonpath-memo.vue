@@ -1,13 +1,24 @@
 <script setup lang="ts">
 import { useThemeVars } from 'naive-ui';
-import Memo from './jsonpath.md';
+import { computed, defineAsyncComponent } from 'vue';
 
 const themeVars = useThemeVars();
+const { locale } = useI18n();
+
+const MemoContent = computed(() => {
+  const lang = locale.value;
+  // 尝试加载特定语言的 .md 文件
+  // 如果失败，则回退到原始的 .md 文件 (如果存在)
+  return defineAsyncComponent(() =>
+    import(`./jsonpath.${lang}.md`)
+      .catch(() => import('./jsonpath.md')), // 最后的备选方案
+  );
+});
 </script>
 
 <template>
   <div max-w-1200px>
-    <Memo style="overflow-x: auto;" />
+    <component :is="MemoContent" style="overflow-x: auto;" />
   </div>
 </template>
 

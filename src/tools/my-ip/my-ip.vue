@@ -2,6 +2,8 @@
 import { useScriptTag } from '@vueuse/core';
 import { computedRefreshableAsync } from '@/composable/computedRefreshable';
 
+const { t } = useI18n();
+
 declare global {
   interface Window {
     IpLookup: (ip: string) => Promise<{
@@ -38,7 +40,7 @@ const [clientIPDetails, refreshClientIP] = computedRefreshableAsync(async () => 
     })).json()).ip?.toString();
   }
   catch (e: any) {
-    ipv4.error = `Not detected (${e.toString()})`;
+    ipv4.error = t('tools.my-ip.not-detected-error', { error: e.toString() });
   }
   try {
     ipv6.ip = (await (await fetch('//api6.ipify.org?format=json', {
@@ -46,7 +48,7 @@ const [clientIPDetails, refreshClientIP] = computedRefreshableAsync(async () => 
     })).json()).ip?.toString();
   }
   catch (e: any) {
-    ipv6.error = `Not detected (${e.toString()})`;
+    ipv6.error = t('tools.my-ip.not-detected-error', { error: e.toString() });
   }
 
   await loadIpLookup();
@@ -61,7 +63,7 @@ const [clientIPDetails, refreshClientIP] = computedRefreshableAsync(async () => 
     ipv4: ipv4.ip || ipv4.error,
     ipv6: ipv6.ip || ipv6.error,
     location: {
-      country: location.country?.country || `ERROR: ${location.error || 'Unknown'}`,
+      country: location.country?.country || t('tools.my-ip.error-unknown', { error: location.error || 'Unknown' }),
       country_name: location.country ? `${location.country?.country_name}/${location.country?.country_native}` : '',
       continent: location.country ? location.country?.continent : '',
     },
@@ -70,17 +72,17 @@ const [clientIPDetails, refreshClientIP] = computedRefreshableAsync(async () => 
 </script>
 
 <template>
-  <c-card title="Your IPv4/6 address details">
+  <c-card :title="t('tools.my-ip.your-ipv4-ipv6-address-details')">
     <div v-if="clientIPDetails">
-      <input-copyable v-model:value="clientIPDetails.ipv4" label-position="left" label-width="100px" label-align="right" readonly label="IPv4:" placeholder="Your IPv4" />
-      <input-copyable v-model:value="clientIPDetails.ipv6" label-position="left" label-width="100px" label-align="right" readonly label="IPv6:" placeholder="Your IPv6" />
-      <input-copyable v-model:value="clientIPDetails.location.country" label-position="left" label-width="100px" label-align="right" readonly label="Country:" />
-      <input-copyable v-model:value="clientIPDetails.location.country_name" label-position="left" label-width="100px" label-align="right" readonly label="Country Name:" />
-      <input-copyable v-model:value="clientIPDetails.location.continent" label-position="left" label-width="100px" label-align="right" readonly label="Continent Name:" />
+      <input-copyable v-model:value="clientIPDetails.ipv4" label-position="left" label-width="100px" label-align="right" readonly :label="t('tools.my-ip.ipv4')" :placeholder="t('tools.my-ip.your-ipv4')" />
+      <input-copyable v-model:value="clientIPDetails.ipv6" label-position="left" label-width="100px" label-align="right" readonly :label="t('tools.my-ip.ipv6')" :placeholder="t('tools.my-ip.your-ipv6')" />
+      <input-copyable v-model:value="clientIPDetails.location.country" label-position="left" label-width="100px" label-align="right" readonly :label="t('tools.my-ip.country')" />
+      <input-copyable v-model:value="clientIPDetails.location.country_name" label-position="left" label-width="100px" label-align="right" readonly :label="t('tools.my-ip.country-name')" />
+      <input-copyable v-model:value="clientIPDetails.location.continent" label-position="left" label-width="100px" label-align="right" readonly :label="t('tools.my-ip.continent-name')" />
     </div>
     <div flex justify-center gap-3>
       <c-button @click="refreshClientIP">
-        Refresh
+        {{ t('tools.my-ip.refresh') }}
       </c-button>
     </div>
   </c-card>

@@ -4,6 +4,8 @@ import { useCopy } from '@/composable/copy';
 import { useQueryParamOrStorage } from '@/composable/queryParams';
 import { computedRefreshable } from '@/composable/computedRefreshable';
 
+const { t } = useI18n();
+
 const count = useQueryParamOrStorage({ name: 'count', storageName: 'pin-generator:count', defaultValue: 1 });
 const length = useQueryParamOrStorage({ name: 'length', storageName: 'pin-generator:length', defaultValue: 6 });
 const repeat = useQueryParamOrStorage({ name: 'repeat', storageName: 'pin-generator:repeat', defaultValue: true });
@@ -22,23 +24,23 @@ const { copy } = useCopy({ source: pins, text: 'Pin code copied to clipboard!' }
 <template>
   <div>
     <c-card>
-      <n-form-item :label="`Number of digits (${length})`" label-placement="left">
+      <n-form-item :label="t('tools.pin-code-generator.length', { n: length })" label-placement="left">
         <n-slider v-model:value="length" :step="1" :min="1" :max="512" mr-2 />
         <n-input-number v-model:value="length" size="small" />
       </n-form-item>
 
-      <n-form-item label="Allow repeated digits" label-placement="left">
+      <n-form-item :label="t('tools.pin-code-generator.repeat')" label-placement="left">
         <n-switch v-model:value="repeat" />
       </n-form-item>
 
-      <n-form-item label="Number of PIN codes to generate" label-placement="left">
+      <n-form-item :label="t('tools.pin-code-generator.count')" label-placement="left">
         <n-input-number v-model:value="count" size="small" />
       </n-form-item>
 
       <c-input-text
         v-model:value="pins"
         multiline
-        placeholder="PIN codes..."
+        :placeholder="t('tools.pin-code-generator.placeholder')"
         readonly
         rows="3"
         autosize
@@ -48,10 +50,10 @@ const { copy } = useCopy({ source: pins, text: 'Pin code copied to clipboard!' }
 
       <div mt-5 flex justify-center gap-3>
         <c-button @click="copy()">
-          Copy
+          {{ t('tools.pin-code-generator.copy') }}
         </c-button>
         <c-button @click="refreshPins">
-          Refresh
+          {{ t('tools.pin-code-generator.refresh') }}
         </c-button>
       </div>
     </c-card>

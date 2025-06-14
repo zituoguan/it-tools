@@ -7,15 +7,16 @@ import ResetDropup from '../components/ResetDropup.vue';
 import ModeIconBar from '../components/ModeIconBar.vue';
 
 const store = useStore('pomodoro-store');
+const { t } = useI18n();
 </script>
 
 <template>
   <div v-if="$store.state.isFirstVisit" class="welcome-msg">
-    <p>Welcome!</p>
+    <p>{{ t('tools.pomodoro-timer.home.welcome') }}</p>
     <p>
-      Go to <a style="cursor: pointer;" @click="store.commit('goToPage', 'settings')">
-        Settings
-      </a> to get started.
+      {{ t('tools.pomodoro-timer.home.goTo') }} <a style="cursor: pointer;" @click="store.commit('goToPage', 'settings')">
+        {{ t('tools.pomodoro-timer.home.settings') }}
+      </a> {{ t('tools.pomodoro-timer.home.getStarted') }}
     </p>
   </div>
   <div v-else class="home">

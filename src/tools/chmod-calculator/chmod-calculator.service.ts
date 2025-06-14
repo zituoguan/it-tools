@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import type { GroupPermissions, Permissions, SpecialPermissions } from './chmod-calculator.types';
+import { translate } from '@/plugins/i18n.plugin';
 
 export { computeUmaskRepresentation, computeChmodOctalRepresentation, computeChmodSymbolicRepresentation, computePermissionsFromChmodOctalRepresentation, computePermissionsFromChmodSymbolicRepresentation };
 
@@ -42,7 +43,7 @@ function computePermissionsFromChmodOctalRepresentation(octalPermissions: string
   const specialPermissionValue = { setuid: 4, setgid: 2, stickybit: 1 };
 
   if (!octalPermissions || !octalPermissions.match(/^[0-7]{3,4}$/)) {
-    throw new Error(`Invalid octal permissions (must be 3 or 4 octal digits): ${octalPermissions}`);
+    throw new Error(translate('tools.chmod-calculator.invalidOctalPermissions', { octalPermissions }));
   }
   const fullOctalPermissions = octalPermissions.length === 3 ? `0${octalPermissions}` : octalPermissions;
 
@@ -65,7 +66,7 @@ function computePermissionsFromChmodOctalRepresentation(octalPermissions: string
 function computePermissionsFromChmodSymbolicRepresentation(symbolicPermissions: string): Permissions {
   const formatRegex = /^[-dlbcsp]?([r-])([w-])([xs-])([r-])([w-])([xs-])([r-])([w-])([xt-])$/;
   if (!symbolicPermissions || !symbolicPermissions.match(formatRegex)) {
-    throw new Error(`Invalid string permissions (must be in form 'rwxrwxrwx'): ${symbolicPermissions}`);
+    throw new Error(translate('tools.chmod-calculator.invalidSymbolicPermissions', { symbolicPermissions }));
   }
 
   const [_, rOwner, wOwner, xOwner, rGroup, wGroup, xGroup, rAll, wAll, xAll] = formatRegex.exec(symbolicPermissions) || [];

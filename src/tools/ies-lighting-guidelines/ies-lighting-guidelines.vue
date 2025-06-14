@@ -3,6 +3,8 @@ import iesData from './ies-lighting-data.json';
 import useDebouncedRef from '@/composable/debouncedref';
 import { useFlexSearch } from '@/composable/flexSearch';
 
+const { t } = useI18n();
+
 const data = iesData;
 const searchQuery = useDebouncedRef('', 250);
 
@@ -14,6 +16,41 @@ const { searchResult } = useFlexSearch({
     filterEmpty: false,
   },
 });
+
+// 翻译函数，用于翻译 JSON 数据中的值
+function translateIndustryType(industryType: string) {
+  if (!industryType) {
+    return '';
+  }
+  const key = industryType.toLowerCase().replace(/[^a-z0-9]/g, '-');
+  return t(`tools.ies-lighting-guidelines.industry-types.${key}`, industryType);
+}
+
+function translateIndustryApplication(application: string) {
+  if (!application) {
+    return '';
+  }
+  const key = application.toLowerCase().replace(/[^a-z0-9]/g, '-');
+  return t(`tools.ies-lighting-guidelines.applications.${key}`, application);
+}
+
+function translateRecommendedLighting(lighting: string) {
+  if (!lighting) {
+    return '';
+  }
+  const key = lighting.toLowerCase().replace(/[^a-z0-9]/g, '-');
+  return t(`tools.ies-lighting-guidelines.lighting-types.${key}`, lighting);
+}
+
+// 处理搜索结果，添加翻译
+const translatedSearchResult = computed(() => {
+  return searchResult.value.map(item => ({
+    ...item,
+    translatedIndustryType: translateIndustryType(item.industryType),
+    translatedIndustryApplication: translateIndustryApplication(item.industryApplication),
+    translatedRecommendedLighting: translateRecommendedLighting(item.recommendedLighting),
+  }));
+});
 </script>
 
 <template>
@@ -21,7 +58,7 @@ const { searchResult } = useFlexSearch({
     <div flex items-center gap-3>
       <c-input-text
         v-model:value="searchQuery"
-        placeholder="Search IES recommendation by industry or application"
+        :placeholder="t('tools.ies-lighting-guidelines.search-placeholder')"
         mx-auto max-w-600px
       >
         <template #prefix>
@@ -31,45 +68,45 @@ const { searchResult } = useFlexSearch({
     </div>
 
     <n-p style="text-align: center">
-      Individual applications will determine exact foot-candle levels. Please refer to the <n-a href="https://www.ies.org/standards/lighting-library/" target="_blank">
-        IES Lighting Handbook
-      </n-a> for a more detailed evaluation
+      {{ t('tools.ies-lighting-guidelines.disclaimer-text') }} <n-a href="https://www.ies.org/standards/lighting-library/" target="_blank">
+        {{ t('tools.ies-lighting-guidelines.handbook-link') }}
+      </n-a> {{ t('tools.ies-lighting-guidelines.disclaimer-suffix') }}
     </n-p>
 
     <div>
       <div
-        v-if="searchResult.length === 0"
+        v-if="translatedSearchResult.length === 0"
 
         mt-4 text-center text-20px font-bold
       >
-        No results
+        {{ t('tools.ies-lighting-guidelines.no-results') }}
       </div>
 
       <div v-else>
         <div mt-4 text-20px font-bold>
-          Search result
+          {{ t('tools.ies-lighting-guidelines.search-result') }}
         </div>
 
         <n-table>
           <thead>
-            <th>Industry</th>
-            <th>Application</th>
-            <th>Foot Candles</th>
-            <th>Lighting type</th>
+            <th>{{ t('tools.ies-lighting-guidelines.table.industry') }}</th>
+            <th>{{ t('tools.ies-lighting-guidelines.table.application') }}</th>
+            <th>{{ t('tools.ies-lighting-guidelines.table.foot-candles') }}</th>
+            <th>{{ t('tools.ies-lighting-guidelines.table.lighting-type') }}</th>
           </thead>
           <tbody>
-            <tr v-for="(result, ix) in searchResult" :key="ix">
+            <tr v-for="(result, ix) in translatedSearchResult" :key="ix">
               <td>
-                <input-copyable :readonly="true" :value="result.industryType" />
+                <input-copyable :readonly="true" :value="result.translatedIndustryType" />
               </td>
               <td>
-                <input-copyable :readonly="true" :value="result.industryApplication" />
+                <input-copyable :readonly="true" :value="result.translatedIndustryApplication" />
               </td>
               <td>
                 <input-copyable :readonly="true" :value="result.footCandlesRange" />
               </td>
               <td>
-                <input-copyable :readonly="true" :value="result.recommendedLighting" />
+                <input-copyable :readonly="true" :value="result.translatedRecommendedLighting" />
               </td>
             </tr>
           </tbody>

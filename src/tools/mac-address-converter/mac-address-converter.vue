@@ -8,59 +8,61 @@ import {
   convertMacToNumber,
 } from './mac-address-converter.service';
 
+const { t } = useI18n();
+
 const input = ref('AA:BB:CC:DD:EE:FF');
 
 const formats = computed(() => [
   {
-    label: 'Canonical IETF Format:',
+    label: t('tools.mac-address-converter.canonicalIETF'),
     value: convertMacCanonicalIETF(input.value),
   },
   {
-    label: 'Canonical Format:',
+    label: t('tools.mac-address-converter.canonical'),
     value: convertMacCanonical(input.value),
   },
   {
-    label: 'Canonical IEEE Format:',
+    label: t('tools.mac-address-converter.canonicalIEEE'),
     value: convertMacCanonicalIEEE(input.value),
   },
   {
-    label: 'Cisco:',
+    label: t('tools.mac-address-converter.cisco'),
     value: convertMacCISCO(input.value),
   },
   {
-    label: 'Hex:',
+    label: t('tools.mac-address-converter.hex'),
     value: convertMacToNumber(input.value).toString(16),
   },
   {
-    label: 'Decimal:',
+    label: t('tools.mac-address-converter.decimal'),
     value: convertMacToNumber(input.value).toString(10),
   },
   {
-    label: 'EUI-64 Canonical IETF Format:',
+    label: t('tools.mac-address-converter.eui64CanonicalIETF'),
     value: convertMacToEUI64CanonicalIETF(input.value, false),
   },
   {
-    label: 'EUI-64 Canonical IEEE Format:',
+    label: t('tools.mac-address-converter.eui64CanonicalIEEE'),
     value: convertMacToEUI64CanonicalIEEE(input.value, false),
   },
   {
-    label: 'EUI-64 Cisco:',
+    label: t('tools.mac-address-converter.eui64Cisco'),
     value: convertMacToEUI64CISCO(input.value, false),
   },
   {
-    label: 'EUI-64 IPv6 Canonical IETF Format:',
+    label: t('tools.mac-address-converter.eui64IPv6CanonicalIETF'),
     value: convertMacToEUI64CanonicalIETF(input.value, true),
   },
   {
-    label: 'EUI-64 IPv6 Canonical IEEE Format:',
+    label: t('tools.mac-address-converter.eui64IPv6CanonicalIEEE'),
     value: convertMacToEUI64CanonicalIEEE(input.value, true),
   },
   {
-    label: 'EUI-64 IPv6 Cisco:',
+    label: t('tools.mac-address-converter.eui64IPv6Cisco'),
     value: convertMacToEUI64CISCO(input.value, true),
   },
   {
-    label: 'Link-Local IPv6:',
+    label: t('tools.mac-address-converter.linkLocalIPv6'),
     value: convertMacToLinkLocalIPv6(input.value),
   },
 ]);
@@ -76,9 +78,9 @@ const inputLabelAlignmentConfig = {
   <c-card>
     <c-input-text
       v-model:value="input"
-      label="MAC address:"
+      :label="t('tools.mac-address-converter.macAddress')"
       size="large"
-      placeholder="Type a MAC address"
+      :placeholder="t('tools.mac-address-converter.placeholder')"
       clearable
       autocomplete="off"
       autocorrect="off"

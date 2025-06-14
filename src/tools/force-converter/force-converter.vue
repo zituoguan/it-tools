@@ -1,36 +1,38 @@
 <script setup lang="ts">
 import UnitsConverter from '@/components/UnitsConverter.vue';
 
-const supportedUnits = {
-  'N': 'newton',
-  'PN': 'petanewton',
-  'TN': 'teranewton',
-  'GN': 'giganewton',
-  'MN': 'meganewton',
-  'kN': 'kilonewton',
-  'hN': 'hectonewton',
-  'daN': 'decanewton',
-  'dN': 'decinewton',
-  'cN': 'centinewton',
-  'mN': 'millinewton',
-  'µN': 'micronewton',
-  'nN': 'nanonewton',
-  'pN': 'piconewton',
-  'fN': 'femtonewton',
-  'dyn': 'dyne',
-  'lbf': 'pound of force',
-  'kip': 'kip',
-  'klb': 'klb',
-  'kipf': 'kipf',
-  'klbf': 'klbf',
-  'pdl': 'poundal',
-  'kgf': 'kilogram-force',
-  'kp': 'kilopond',
-  'Mp': 'megapond',
-  'tf': 'tonne-force',
-  'metric tf': 'metric ton-force',
-  'megagram-force': 'megagram-force',
-};
+const { t } = useI18n();
+
+const supportedUnits = computed(() => ({
+  'N': t('tools.force-converter.units.newton'),
+  'PN': t('tools.force-converter.units.petanewton'),
+  'TN': t('tools.force-converter.units.teranewton'),
+  'GN': t('tools.force-converter.units.giganewton'),
+  'MN': t('tools.force-converter.units.meganewton'),
+  'kN': t('tools.force-converter.units.kilonewton'),
+  'hN': t('tools.force-converter.units.hectonewton'),
+  'daN': t('tools.force-converter.units.decanewton'),
+  'dN': t('tools.force-converter.units.decinewton'),
+  'cN': t('tools.force-converter.units.centinewton'),
+  'mN': t('tools.force-converter.units.millinewton'),
+  'µN': t('tools.force-converter.units.micronewton'),
+  'nN': t('tools.force-converter.units.nanonewton'),
+  'pN': t('tools.force-converter.units.piconewton'),
+  'fN': t('tools.force-converter.units.femtonewton'),
+  'dyn': t('tools.force-converter.units.dyne'),
+  'lbf': t('tools.force-converter.units.poundOfForce'),
+  'kip': t('tools.force-converter.units.kip'),
+  'klb': t('tools.force-converter.units.klb'),
+  'kipf': t('tools.force-converter.units.kipf'),
+  'klbf': t('tools.force-converter.units.klbf'),
+  'pdl': t('tools.force-converter.units.poundal'),
+  'kgf': t('tools.force-converter.units.kilogramForce'),
+  'kp': t('tools.force-converter.units.kilopond'),
+  'Mp': t('tools.force-converter.units.megapond'),
+  'tf': t('tools.force-converter.units.tonneForce'),
+  'metric tf': t('tools.force-converter.units.metricTonForce'),
+  'megagram-force': t('tools.force-converter.units.megagramForce'),
+}));
 </script>
 
 <template>

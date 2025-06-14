@@ -7,6 +7,8 @@ import { escapeUnicodeComplete, getAllCodePoints } from './emoji-utils';
 import useDebouncedRef from '@/composable/debouncedref';
 import { useFlexSearch } from '@/composable/flexSearch';
 
+const { t } = useI18n();
+
 // Enhanced emoji processing functions
 const escapeUnicode = ({ emoji }: { emoji: string }) => escapeUnicodeComplete(emoji);
 
@@ -172,14 +174,14 @@ onUnmounted(() => {
     <div mx-auto mb-4 max-w-600px flex justify-center gap-3>
       <c-input-text
         v-model:value="rawSearchQuery"
-        placeholder="Search emojis (e.g. 'smile') or paste an emoji (e.g. '😄')"
+        :placeholder="t('tools.emoji-picker.search-placeholder')"
         class="flex-1"
       >
         <template #prefix>
           <icon-mdi-search mr-6px color-black op-70 dark:color-white />
         </template>
       </c-input-text>
-      <n-form-item label="Max results:" label-placement="left">
+      <n-form-item :label="t('tools.emoji-picker.max-results-label')" label-placement="left">
         <n-input-number v-model:value="limit" :min="10" :max="500" :step="10" style="width: 100px" />
       </n-form-item>
     </div>
@@ -187,16 +189,16 @@ onUnmounted(() => {
     <!-- Search Results -->
     <div v-if="searchQuery.trim().length > 0">
       <div v-if="displayedSearchResults.length === 0" mt-4 text-center text-20px font-bold op-70>
-        <div>No results found</div>
+        <div>{{ t('tools.emoji-picker.no-results') }}</div>
         <div mt-2 text-14px font-normal>
-          Try searching for something else like "smile", "flag", or "😄"
+          {{ t('tools.emoji-picker.no-results-hint') }}
         </div>
       </div>
 
       <div v-else>
         <div mb-3 mt-4 flex items-center gap-2 text-20px font-bold>
-          <span>Search Results</span>
-          <span text-14px font-normal op-70>({{ displayedSearchResults.length }} found)</span>
+          <span>{{ t('tools.emoji-picker.search-results') }}</span>
+          <span text-14px font-normal op-70>({{ t('tools.emoji-picker.found-count', { count: displayedSearchResults.length }) }})</span>
         </div>
 
         <emoji-grid :emoji-infos="displayedSearchResults" />
@@ -217,7 +219,7 @@ onUnmounted(() => {
       <!-- Loading indicator when more groups are coming -->
       <div v-if="visibleGroupsCount < emojisGroups.length" mt-6 text-center>
         <div text-14px op-70>
-          Loading more groups... ({{ visibleGroupsCount }}/{{ emojisGroups.length }})
+          {{ t('tools.emoji-picker.loading-more', { visible: visibleGroupsCount, total: emojisGroups.length }) }}
         </div>
       </div>
     </div>

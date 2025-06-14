@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const { t } = useI18n();
+
 const formData = ref({
   domainName: '',
   redirects: [] as { key: string; value: string }[],
@@ -169,103 +171,129 @@ function onCreateIpRule() {
 </script>
 
 <template>
-  <NCard title="HTAccess Generator">
+  <NCard :title="t('tools.htaccess-generator.htaccess_generator')">
     <NForm :model="formData" label-placement="left">
-      <c-card title="Rewrite to www" mb-1>
-        <NFormItem label="Domain Name">
-          <NInput v-model:value="formData.domainName" placeholder="example.com" />
+      <c-card :title="t('tools.htaccess-generator.rewrite_to_www')" mb-1>
+        <NFormItem :label="t('tools.htaccess-generator.domain_name')">
+          <NInput v-model:value="formData.domainName" :placeholder="t('tools.htaccess-generator.domain_name_placeholder')" />
         </NFormItem>
       </c-card>
 
-      <c-card title="301 Redirect File or Directory" mb-1>
-        <NDynamicInput v-model:value="formData.redirects" preset="pair" key-placeholder="Old Path" value-placeholder="New Path" />
+      <c-card :title="t('tools.htaccess-generator.redirect_301_file_or_directory')" mb-1>
+        <NDynamicInput
+          v-model:value="formData.redirects"
+          preset="pair"
+          :key-placeholder="t('tools.htaccess-generator.old_path')"
+          :value-placeholder="t('tools.htaccess-generator.new_path')"
+        />
       </c-card>
 
-      <c-card title="Cache Settings" mb-1>
-        <NFormItem label="Cache Extensions:">
-          <NInput v-model:value="formData.cacheExtensions" placeholder="js, css, png" />
+      <c-card :title="t('tools.htaccess-generator.cache_settings')" mb-1>
+        <NFormItem :label="t('tools.htaccess-generator.cache_extensions')">
+          <NInput v-model:value="formData.cacheExtensions" :placeholder="t('tools.htaccess-generator.cache_extensions_placeholder')" />
         </NFormItem>
-        <NFormItem label="Cache Duration">
+        <NFormItem :label="t('tools.htaccess-generator.cache_duration')">
           <NInputNumber v-model:value="formData.cacheDuration" mr-1 />
           <NSelect
             v-model:value="formData.cacheDurationMultiple"
-            :options="[{ label: 'Seconds', value: '1' }, { label: 'Minutes', value: '60' }, { label: 'Hours', value: '3600' }, { label: 'Days', value: '86400' }, { label: 'Weeks', value: '36288000' }, { label: 'Months', value: '160704000' }]"
+            :options="[
+              { label: t('tools.htaccess-generator.seconds'), value: '1' },
+              { label: t('tools.htaccess-generator.minutes'), value: '60' },
+              { label: t('tools.htaccess-generator.hours'), value: '3600' },
+              { label: t('tools.htaccess-generator.days'), value: '86400' },
+              { label: t('tools.htaccess-generator.weeks'), value: '36288000' },
+              { label: t('tools.htaccess-generator.months'), value: '160704000' },
+            ]"
           />
         </NFormItem>
-        <NFormItem label="Cache Type:">
-          <NSelect v-model:value="formData.cacheType" :options="[{ label: 'Public', value: 'public' }, { label: 'Private', value: 'private' }]" />
+        <NFormItem :label="t('tools.htaccess-generator.cache_type')">
+          <NSelect
+            v-model:value="formData.cacheType"
+            :options="[
+              { label: t('tools.htaccess-generator.public'), value: 'public' },
+              { label: t('tools.htaccess-generator.private'), value: 'private' },
+            ]"
+          />
         </NFormItem>
-        <NFormItem label="Must Revalidate">
+        <NFormItem :label="t('tools.htaccess-generator.must_revalidate')">
           <NSwitch v-model:value="formData.mustRevalidate" />
         </NFormItem>
       </c-card>
 
-      <c-card title="Password Protection" mb-1>
-        <NFormItem label="Path to protect:">
-          <NInput v-model:value="formData.protectedFile" label-position="left" placeholder="Path to protect" />
+      <c-card :title="t('tools.htaccess-generator.password_protection')" mb-1>
+        <NFormItem :label="t('tools.htaccess-generator.path_to_protect')">
+          <NInput v-model:value="formData.protectedFile" label-position="left" :placeholder="t('tools.htaccess-generator.path_to_protect_placeholder')" />
         </NFormItem>
-        <NFormItem label=".htpasswd file path:">
-          <NInput v-model:value="formData.htpasswdPath" label-position="left" placeholder=".htpasswd file path" />
-        </NFormItem>
-      </c-card>
-
-      <c-card title="Prevent Hotlinking" mb-1>
-        <NFormItem label="Referring URL:">
-          <NInput v-model:value="formData.referrer" placeholder="The domain that is hotlinking to you." />
-        </NFormItem>
-        <NFormItem label="File Extension:">
-          <NInput v-model:value="formData.hotlinkExtensions" placeholder="Extensions" />
-        </NFormItem>
-        <NFormItem label="No hotlinking Image:">
-          <NInput v-model:value="formData.nohotlinkImageHref" placeholder="Href" />
+        <NFormItem :label="t('tools.htaccess-generator.htpasswd_file_path')">
+          <NInput v-model:value="formData.htpasswdPath" label-position="left" :placeholder="t('tools.htaccess-generator.htpasswd_file_path_placeholder')" />
         </NFormItem>
       </c-card>
 
-      <c-card title="Custom Error Pages" mb-1>
-        <NDynamicInput v-model:value="formData.errorPages" preset="pair" key-placeholder="Error Code" value-placeholder="File Path" />
+      <c-card :title="t('tools.htaccess-generator.prevent_hotlinking')" mb-1>
+        <NFormItem :label="t('tools.htaccess-generator.referring_url')">
+          <NInput v-model:value="formData.referrer" :placeholder="t('tools.htaccess-generator.referring_url_placeholder')" />
+        </NFormItem>
+        <NFormItem :label="t('tools.htaccess-generator.file_extension')">
+          <NInput v-model:value="formData.hotlinkExtensions" :placeholder="t('tools.htaccess-generator.file_extension_placeholder')" />
+        </NFormItem>
+        <NFormItem :label="t('tools.htaccess-generator.no_hotlinking_image')">
+          <NInput v-model:value="formData.nohotlinkImageHref" :placeholder="t('tools.htaccess-generator.no_hotlinking_image_placeholder')" />
+        </NFormItem>
       </c-card>
 
-      <c-card title="Block or Allow IP addresses" mb-1>
+      <c-card :title="t('tools.htaccess-generator.custom_error_pages')" mb-1>
+        <NDynamicInput
+          v-model:value="formData.errorPages"
+          preset="pair"
+          :key-placeholder="t('tools.htaccess-generator.error_code')"
+          :value-placeholder="t('tools.htaccess-generator.file_path')"
+        />
+      </c-card>
+
+      <c-card :title="t('tools.htaccess-generator.block_or_allow_ip_addresses')" mb-1>
         <NDynamicInput v-model:value="formData.ipRules" preset="pair" :on-create="onCreateIpRule">
           <template #default="{ value }">
             <div style="display: flex; align-items: center; width: 100%">
               <n-select
                 v-model:value="value.key"
-                :options="[{ label: 'Allow', value: 'Allow' }, { label: 'Block', value: 'Block' }]"
-                placeholder="Select authorization"
+                :options="[
+                  { label: t('tools.htaccess-generator.allow'), value: 'Allow' },
+                  { label: t('tools.htaccess-generator.block'), value: 'Block' },
+                ]"
+                :placeholder="t('tools.htaccess-generator.select_authorization')"
                 style="width: 150px"
                 mr-2
               />
               <n-input
                 v-model:value="value.value"
-                placeholder="IP Address"
+                :placeholder="t('tools.htaccess-generator.ip_address')"
               />
             </div>
           </template>
         </NDynamicInput>
       </c-card>
 
-      <c-card title="Directory Settings">
-        <NFormItem label="Default Directory Page:">
-          <NInput v-model:value="formData.defaultPage" placeholder="Default Directory Page" />
+      <c-card :title="t('tools.htaccess-generator.directory_settings')">
+        <NFormItem :label="t('tools.htaccess-generator.default_directory_page')">
+          <NInput v-model:value="formData.defaultPage" :placeholder="t('tools.htaccess-generator.default_directory_page_placeholder')" />
         </NFormItem>
-        <NFormItem label="Prevent Directory Listing">
+        <NFormItem :label="t('tools.htaccess-generator.prevent_directory_listing')">
           <NSwitch v-model:value="formData.preventDirectoryListing" />
         </NFormItem>
       </c-card>
 
-      <c-card title="Other Settings">
-        <NFormItem label="Block Bots">
+      <c-card :title="t('tools.htaccess-generator.other_settings')">
+        <NFormItem :label="t('tools.htaccess-generator.block_bots')">
           <NSwitch v-model:value="formData.blockBots" />
         </NFormItem>
 
-        <NFormItem label="Prevent viewing of .htaccess file">
+        <NFormItem :label="t('tools.htaccess-generator.prevent_viewing_htaccess_file')">
           <NSwitch v-model:value="formData.preventViewingHtaccess" />
         </NFormItem>
       </c-card>
     </NForm>
 
-    <c-card title="Generated .htaccess file" mt-2>
+    <c-card :title="t('tools.htaccess-generator.generated_htaccess_file')" mt-2>
       <textarea-copyable :value="htaccessContent" />
     </c-card>
   </NCard>

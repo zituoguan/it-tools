@@ -4,10 +4,23 @@ import { convertBase } from '../integer-base-converter/integer-base-converter.mo
 import { calcErrorDueToConversion, convertBinaryToDecimal, convertDecimalToBinary } from './floating-point-number-converter.model';
 import { getErrorMessageIfThrows } from '@/utils/error';
 
+const { t } = useI18n();
+
 const bitCount = ref(32);
 const decimalInput = ref('42.42');
 const binaryOutput = ref();
 const actualValue = ref();
+
+const bitCountOptions = computed(() => [
+  {
+    label: t('tools.floating-point-converter.32-bit'),
+    value: 32,
+  },
+  {
+    label: t('tools.floating-point-converter.64-bit'),
+    value: 64,
+  },
+]);
 
 const binaryInput = ref('01000010001010011010111000010100');
 const decimalPrecision = ref('32');
@@ -30,11 +43,11 @@ const binaryToDecimalError = computed(() =>
 </script>
 
 <template>
-  <c-card title="Decimal to Binary" style="min-width: 650px">
+  <c-card :title="t('tools.floating-point-converter.decimal-to-binary')" style="min-width: 650px">
     <c-input-text
       v-model:value="decimalInput"
-      label="Decimal Number"
-      placeholder="Put your decimal number here (ex: 42.42)"
+      :label="t('tools.floating-point-converter.decimal-number')"
+      :placeholder="t('tools.floating-point-converter.decimal-placeholder')"
       label-position="left"
       label-width="210px"
       label-align="right"
@@ -44,27 +57,18 @@ const binaryToDecimalError = computed(() =>
     <c-select
       v-model:value="bitCount"
       mb-4
-      label="Bit Count"
+      :label="t('tools.floating-point-converter.bit-count')"
       label-position="left"
       label-width="210px"
       label-align="right"
-      :options="[
-        {
-          label: '32-Bit (Single precision)',
-          value: 32,
-        },
-        {
-          label: '64-Bit (Double precision)',
-          value: 64,
-        },
-      ]"
+      :options="bitCountOptions"
     />
 
     <n-divider />
 
     <InputCopyable
-      label="Binary Number"
-      placeholder="Binary Number"
+      :label="t('tools.floating-point-converter.binary-number')"
+      :placeholder="t('tools.floating-point-converter.binary-number')"
       :value="binaryOutput = convertDecimalToBinary({ value: decimalInput, bitCount })"
       readonly
       label-position="left"
@@ -74,8 +78,8 @@ const binaryToDecimalError = computed(() =>
     />
 
     <InputCopyable
-      label="Hexadecimal Representation"
-      placeholder="Hexadecimal Representation"
+      :label="t('tools.floating-point-converter.hexadecimal-representation')"
+      :placeholder="t('tools.floating-point-converter.hexadecimal-representation')"
       :value="convertBase({ value: binaryOutput, fromBase: 2, toBase: 16 })"
       readonly
       label-position="left"
@@ -85,8 +89,8 @@ const binaryToDecimalError = computed(() =>
     />
 
     <InputCopyable
-      label="Actually stored value"
-      placeholder="Actually stored value"
+      :label="t('tools.floating-point-converter.actually-stored-value')"
+      :placeholder="t('tools.floating-point-converter.actually-stored-value')"
       :value="actualValue = errorlessBinaryToDecimalConversion({ value: binaryOutput, decimalPrecision: '32', removeZeroPadding: true })"
       readonly
       label-position="left"
@@ -96,8 +100,8 @@ const binaryToDecimalError = computed(() =>
     />
 
     <InputCopyable
-      label="Error due to conversion"
-      placeholder="Error due to conversion"
+      :label="t('tools.floating-point-converter.error-due-to-conversion')"
+      :placeholder="t('tools.floating-point-converter.error-due-to-conversion')"
       :value="calcErrorDueToConversion({ decimalInput, actualValue })"
       readonly
       label-position="left"
@@ -107,11 +111,11 @@ const binaryToDecimalError = computed(() =>
     />
   </c-card>
 
-  <c-card title="Binary to Decimal" style="min-width: 650px">
+  <c-card :title="t('tools.floating-point-converter.binary-to-decimal')" style="min-width: 650px">
     <c-input-text
       v-model:value="binaryInput"
-      label="Binary Number"
-      placeholder="Put your binary number here (ex: 01000010001010011010111000010100)"
+      :label="t('tools.floating-point-converter.binary-number')"
+      :placeholder="t('tools.floating-point-converter.binary-placeholder')"
       label-position="left"
       label-width="140px"
       label-align="right"
@@ -120,8 +124,8 @@ const binaryToDecimalError = computed(() =>
 
     <c-input-text
       v-model:value="decimalPrecision"
-      label="Decimal Precision"
-      placeholder="Choose the decimal precision (digits after the decimal point)."
+      :label="t('tools.floating-point-converter.decimal-precision')"
+      :placeholder="t('tools.floating-point-converter.decimal-precision-placeholder')"
       label-position="left"
       label-width="140px"
       label-align="right"
@@ -129,7 +133,7 @@ const binaryToDecimalError = computed(() =>
     />
 
     <n-form-item
-      label="Show Trailing Zeros"
+      :label="t('tools.floating-point-converter.show-trailing-zeros')"
       label-placement="left"
       label-width="140px"
       label-align="right"
@@ -146,8 +150,8 @@ const binaryToDecimalError = computed(() =>
     <n-divider />
 
     <InputCopyable
-      label="Decimal Number"
-      placeholder="Decimal Number"
+      :label="t('tools.floating-point-converter.decimal-number')"
+      :placeholder="t('tools.floating-point-converter.decimal-number')"
       :value="errorlessBinaryToDecimalConversion({ value: binaryInput, decimalPrecision, removeZeroPadding: !showTrailingZeros })"
       readonly
       label-position="left"

@@ -9,21 +9,22 @@ const markdown = ref('');
 onMounted(() => {
   subscribe(inputElement.value?.textareaRef as never);
 });
+const { t } = useI18n();
 </script>
 
 <template>
-  <c-card title="Paste in Markdown" class="paste-zone">
+  <c-card :title="t('tools.paste-as-markdown.title')" class="paste-zone">
     <n-ul>
-      <n-li>Paste spreadsheet cells and HTML tables as a Markdown tables.</n-li>
-      <n-li>Paste URLs on selected text as Markdown links.</n-li>
-      <n-li>Paste text containing links as text containing Markdown links.</n-li>
-      <n-li>Paste image URLs as Markdown image links.</n-li>
+      <n-li>{{ t('tools.paste-as-markdown.tip-table') }}</n-li>
+      <n-li>{{ t('tools.paste-as-markdown.tip-link') }}</n-li>
+      <n-li>{{ t('tools.paste-as-markdown.tip-link-text') }}</n-li>
+      <n-li>{{ t('tools.paste-as-markdown.tip-image') }}</n-li>
     </n-ul>
     <CInputText
       ref="inputElement"
       v-model:value="markdown"
       multiline
-      placeholder="Paste your content here..."
+      :placeholder="t('tools.paste-as-markdown.placeholder')"
       rows="10"
       w-full
     />

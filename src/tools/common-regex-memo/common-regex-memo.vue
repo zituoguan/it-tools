@@ -1,13 +1,25 @@
 <script setup lang="ts">
 import { useThemeVars } from 'naive-ui';
-import Memo from './common-regex.md';
+import { computed, defineAsyncComponent } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 const themeVars = useThemeVars();
+const { locale } = useI18n();
+
+const MemoContent = computed(() => {
+  const lang = locale.value;
+  // Try to load the .md file for the specific language
+  // If it fails, fall back to the default .md file
+  return defineAsyncComponent(() =>
+    import(`./common-regex.${lang}.md`)
+      .catch(() => import('./common-regex.md')),
+  );
+});
 </script>
 
 <template>
   <div>
-    <Memo style="overflow-x: auto;" />
+    <component :is="MemoContent" style="overflow-x: auto;" />
   </div>
 </template>
 

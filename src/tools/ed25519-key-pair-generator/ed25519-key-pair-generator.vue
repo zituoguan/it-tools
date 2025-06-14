@@ -5,6 +5,8 @@ import TextareaCopyable from '@/components/TextareaCopyable.vue';
 import { withDefaultOnErrorAsync } from '@/utils/defaults';
 import { computedRefreshableAsync } from '@/composable/computedRefreshable';
 
+const { t } = useI18n();
+
 const password = ref('');
 const comment = ref('');
 const emptyCerts = { publicKey: '', privateKey: '' };
@@ -38,42 +40,42 @@ const [certs, refreshCerts] = computedRefreshableAsync(
       <c-select
         v-model:value="format"
         label-position="left"
-        label="Format:"
+        :label="t('tools.ed25519-key-pair-generator.format-label')"
         :options="formatOptions"
-        placeholder="Select a key format"
+        :placeholder="t('tools.ed25519-key-pair-generator.format-placeholder')"
       />
 
-      <n-form-item v-if="supportsPassphrase" label="Passphrase :" label-placement="left">
+      <n-form-item v-if="supportsPassphrase" :label="t('tools.ed25519-key-pair-generator.passphrase-label')" label-placement="left">
         <n-input
           v-model:value="password"
           type="password"
           show-password-on="mousedown"
-          placeholder="Passphrase"
+          :placeholder="t('tools.ed25519-key-pair-generator.passphrase-placeholder')"
         />
       </n-form-item>
     </n-space>
 
     <n-space mb-2>
-      <n-form-item label="Comment :" label-placement="left">
+      <n-form-item :label="t('tools.ed25519-key-pair-generator.comment-label')" label-placement="left">
         <n-input
           v-model:value="comment"
           type="text"
-          placeholder="Comment"
+          :placeholder="t('tools.ed25519-key-pair-generator.comment-placeholder')"
         />
       </n-form-item>
 
       <c-button @click="refreshCerts">
-        Refresh key-pair
+        {{ t('tools.ed25519-key-pair-generator.refresh-button') }}
       </c-button>
     </n-space>
 
     <div>
-      <h3>Public key</h3>
+      <h3>{{ t('tools.ed25519-key-pair-generator.public-key-title') }}</h3>
       <TextareaCopyable :value="certs.publicKey" :word-wrap="true" />
     </div>
 
     <div>
-      <h3>Private key</h3>
+      <h3>{{ t('tools.ed25519-key-pair-generator.private-key-title') }}</h3>
       <TextareaCopyable :value="certs.privateKey" />
     </div>
   </div>

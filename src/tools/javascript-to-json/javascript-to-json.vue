@@ -4,6 +4,8 @@ import type { UseValidationRule } from '@/composable/validation';
 import { isNotThrowing } from '@/utils/boolean';
 import { withDefaultOnError } from '@/utils/defaults';
 
+const { t } = useI18n();
+
 function parseJSON(value: string) {
   try {
     return JSON5.parse(value);
@@ -19,7 +21,7 @@ const transformer = (value: string) => withDefaultOnError(() => JSON.stringify(p
 const rules: UseValidationRule<string>[] = [
   {
     validator: (value: string) => value === '' || isNotThrowing(() => JSON.stringify(parseJSON(value))),
-    message: 'Provided JS Object is not valid.',
+    message: t('tools.javascript-to-json.validationError'),
   },
 ];
 </script>
@@ -27,16 +29,16 @@ const rules: UseValidationRule<string>[] = [
 <template>
   <div style="flex: 0 0 100%">
     <div style="margin: 0 auto;" flex justify-center gap-3>
-      <n-form-item label="Indent size :" label-placement="left" label-width="100" :show-feedback="false">
+      <n-form-item :label="t('tools.javascript-to-json.indentSize')" label-placement="left" label-width="100" :show-feedback="false">
         <n-input-number v-model:value="indentSize" min="0" max="10" style="width: 100px" />
       </n-form-item>
     </div>
   </div>
 
   <format-transformer
-    input-label="Your JavaScript Object"
-    input-placeholder="Paste your JS Object here..."
-    output-label="JSON from your JavaScript Object"
+    :input-label="t('tools.javascript-to-json.inputLabel')"
+    :input-placeholder="t('tools.javascript-to-json.inputPlaceholder')"
+    :output-label="t('tools.javascript-to-json.outputLabel')"
     output-language="json"
     :input-validation-rules="rules"
     :transformer="transformer"

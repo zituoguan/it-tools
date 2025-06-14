@@ -24,6 +24,8 @@ const { download: downloadX509DER } = useDownloadFileFromBase64(
     extension: 'der',
   });
 
+const { t } = useI18n();
+
 function downloadX509DERFile() {
   if (certificateX509DER.value === '') {
     return;
@@ -60,7 +62,7 @@ const parsedSections = computedAsync<LabelValue[][]>(async () => {
   }
   catch (e: any) {
     return [
-      [{ label: 'Parsing Error', value: e.toString() }],
+      [{ label: t('tools.certificate-key-parser.parsingError'), value: e.toString() }],
     ];
   }
 });
@@ -73,26 +75,26 @@ const parsedSections = computedAsync<LabelValue[][]>(async () => {
         <n-space>
           <n-radio
             value="file"
-            label="File"
+            :label="t('tools.certificate-key-parser.file')"
           />
           <n-radio
             value="content"
-            label="Content"
+            :label="t('tools.certificate-key-parser.content')"
           />
         </n-space>
       </n-radio-group>
 
       <c-file-upload
         v-if="inputType === 'file'"
-        title="Drag and drop a Certificate file here, or click to select a Certificate file"
+        :title="t('tools.certificate-key-parser.dragAndDrop')"
         @file-upload="onUpload"
       />
 
       <c-input-text
         v-if="inputType === 'content'"
         v-model:value="inputKeyOrCertificate"
-        label="Paste your Public Key / Private Key / Signature / Fingerprint / Certificate:"
-        placeholder="Your Public Key / Private Key / Signature / Fingerprint / Certificate..."
+        :label="t('tools.certificate-key-parser.pasteYourKey')"
+        :placeholder="t('tools.certificate-key-parser.yourKeyPlaceholder')"
         multiline
         rows="8"
         data-test-id="input"
@@ -101,8 +103,8 @@ const parsedSections = computedAsync<LabelValue[][]>(async () => {
 
     <c-input-text
       v-model:value="passphrase"
-      label="Passphrase (for encrypted keys):"
-      placeholder="Passphrase (for encrypted keys)..."
+      :label="t('tools.certificate-key-parser.passphraseLabel')"
+      :placeholder="t('tools.certificate-key-parser.passphrasePlaceholder')"
       type="password"
       data-test-id="pass"
     />
@@ -126,13 +128,13 @@ const parsedSections = computedAsync<LabelValue[][]>(async () => {
         autosize mb-2
         :multiline="multiline"
         :value="value"
-        placeholder="Not Set"
+        :placeholder="t('tools.certificate-key-parser.notSet')"
       />
     </c-card>
 
     <div v-if="certificateX509DER !== ''" flex justify-center>
       <c-button @click="downloadX509DERFile()">
-        Download X509 DER certificate
+        {{ t('tools.certificate-key-parser.downloadX509DER') }}
       </c-button>
     </div>
   </div>

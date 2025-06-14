@@ -2,6 +2,8 @@
 import { computed, ref, watch } from 'vue';
 import { IconLock, IconLockOpen2, IconReload } from '@tabler/icons-vue';
 
+const { t } = useI18n();
+
 // State variables
 const imageFile = ref<File | null>(null);
 const imageUrl = ref<string | null>(null);
@@ -21,15 +23,15 @@ const aspectRatioPriority = ref<'width' | 'height'>('width');
 
 // Predefined aspect ratios
 const aspectRatioOptions = [
-  { label: 'Custom', value: 'custom' },
-  { label: 'Original', value: 'original' },
-  { label: '21:9 (Ultrawide)', value: '21:9' },
-  { label: '16:9 (Widescreen)', value: '16:9' },
-  { label: '4:3 (Standard)', value: '4:3' },
-  { label: '3:2 (Photography)', value: '3:2' },
-  { label: '1:1 (Square)', value: '1:1' },
-  { label: '3:4 (Portrait)', value: '3:4' },
-  { label: '9:16 (Portrait)', value: '9:16' },
+  { label: t('tools.image-resizer.custom'), value: 'custom' },
+  { label: t('tools.image-resizer.original'), value: 'original' },
+  { label: t('tools.image-resizer.ultrawide'), value: '21:9' },
+  { label: t('tools.image-resizer.widescreen'), value: '16:9' },
+  { label: t('tools.image-resizer.standard'), value: '4:3' },
+  { label: t('tools.image-resizer.photography'), value: '3:2' },
+  { label: t('tools.image-resizer.square'), value: '1:1' },
+  { label: t('tools.image-resizer.portrait34'), value: '3:4' },
+  { label: t('tools.image-resizer.portrait916'), value: '9:16' },
 ];
 
 const MAX_CANVAS_DIMENSION = 32767; // Maximum pixels per side
@@ -427,24 +429,24 @@ function downloadImage(format: string) {
       <c-file-upload
         mb-2
         accept="image/*"
-        title="Drag and drop an image file here"
+        :title="t('tools.image-resizer.dragAndDropTitle')"
         @file-upload="handleFileUpload"
       />
 
       <!-- Original image dimensions -->
       <div v-if="originalImageWidth && originalImageHeight" display="flex" direction="row" style="align-items: center;">
         <p style="margin: 0; margin-right: 10px;">
-          Original Image Dimensions: {{ originalImageWidth }}x{{ originalImageHeight }}px
+          {{ t('tools.image-resizer.originalImageDimensions') }}: {{ originalImageWidth }}x{{ originalImageHeight }}px
         </p>
         <n-button
           v-if="canReset"
           type="tertiary"
-          title="Reset to Original Dimensions"
+          :title="t('tools.image-resizer.resetToOriginalDimensions')"
           mt-1
           @click="resetToOriginal"
         >
           <n-icon :component="IconReload" size="16" style="margin-right: 5px;" />
-          Reset width and height to image dimensions
+          {{ t('tools.image-resizer.resetWidthAndHeight') }}
         </n-button>
       </div>
 
@@ -452,24 +454,24 @@ function downloadImage(format: string) {
       <div class="compact-controls" style="margin-bottom: 20px; margin-top: 20px;">
         <!-- Left side: Width and Height inputs -->
         <div class="dimensions-section">
-          <h4>Dimensions</h4>
+          <h4>{{ t('tools.image-resizer.dimensions') }}</h4>
           <div class="input-group">
-            <label for="widthInput">Width (px):</label>
+            <label for="widthInput">{{ t('tools.image-resizer.widthPx') }}:</label>
             <n-input-number
               id="widthInput"
               v-model:value="imageWidth"
-              placeholder="Width (px)"
+              :placeholder="t('tools.image-resizer.widthPx')"
               :min="1"
               :max="MAX_CANVAS_DIMENSION"
               @focus="onWidthFocus"
             />
           </div>
           <div class="input-group">
-            <label for="heightInput">Height (px):</label>
+            <label for="heightInput">{{ t('tools.image-resizer.heightPx') }}:</label>
             <n-input-number
               id="heightInput"
               v-model:value="imageHeight"
-              placeholder="Height (px)"
+              :placeholder="t('tools.image-resizer.heightPx')"
               :min="1"
               :max="MAX_CANVAS_DIMENSION"
               @focus="onHeightFocus"
@@ -479,19 +481,19 @@ function downloadImage(format: string) {
           <!-- Validation warnings -->
           <div v-if="imageWidth <= 0 || imageHeight <= 0" class="validation-warning">
             <p style="color: red; font-size: 12px; margin: 5px 0 0 0;">
-              ⚠️ Width and height must be greater than 0
+              ⚠️ {{ t('tools.image-resizer.dimensionsValidationError') }}
             </p>
           </div>
           <div v-else-if="isCanvasTooLarge" class="validation-warning">
             <p style="color: red; font-size: 12px; margin: 5px 0 0 0;">
-              ⚠️ Canvas size exceeds browser limits (max: {{ MAX_CANVAS_DIMENSION.toLocaleString() }}px per side, max area: {{ Math.floor(MAX_CANVAS_AREA / 1000000) }}M pixels)
+              ⚠️ {{ t('tools.image-resizer.canvasSizeExceedsLimits', { maxDimension: MAX_CANVAS_DIMENSION.toLocaleString(), maxArea: Math.floor(MAX_CANVAS_AREA / 1000000) }) }}
             </p>
           </div>
         </div>
 
         <!-- Middle: Current aspect ratio display, lock, and priority -->
         <div class="aspect-ratio-middle">
-          <h4>Aspect Ratio</h4>
+          <h4>{{ t('tools.image-resizer.aspectRatio') }}</h4>
 
           <!-- Current aspect ratio display -->
           <div v-if="displayedAspectRatio" class="current-ratio-display">
@@ -501,7 +503,7 @@ function downloadImage(format: string) {
           <!-- Lock icon -->
           <div
             class="lock-icon flex cursor-pointer items-center justify-center rounded text-gray-500 transition-colors hover:text-blue-600"
-            title="Lock/Unlock Aspect Ratio"
+            :title="t('tools.image-resizer.lockUnlockAspectRatio')"
             @click="toggleAspectRatioLock()"
           >
             <n-icon :component="getLockStateIcon()" size="26" />
@@ -510,7 +512,7 @@ function downloadImage(format: string) {
 
         <!-- Right side: Aspect Ratio presets only -->
         <div class="aspect-ratio-section-compact">
-          <h4>Aspect Ratio Presets</h4>
+          <h4>{{ t('tools.image-resizer.aspectRatioPresets') }}</h4>
 
           <!-- Aspect ratio selector -->
           <div class="aspect-ratio-selector-compact">
@@ -518,12 +520,12 @@ function downloadImage(format: string) {
               id="aspectRatioSelect"
               v-model:value="selectedAspectRatio"
               :options="aspectRatioOptions"
-              placeholder="Choose ratio"
+              :placeholder="t('tools.image-resizer.chooseRatio')"
               size="small"
               style="width: 160px;"
             />
             <n-button type="primary" size="small" @click="applyAspectRatio">
-              Apply
+              {{ t('tools.image-resizer.apply') }}
             </n-button>
           </div>
 
@@ -554,31 +556,31 @@ function downloadImage(format: string) {
       <div v-if="originalImageUrl" class="image-container" style="text-align: center; margin-top: 20px;">
         <!-- Show preview when dimensions are within limits -->
         <div v-if="resizedImageUrl && !isPreviewTooLarge" class="image-wrapper">
-          <img :src="resizedImageUrl" :alt="`Resized Preview (${imageWidth}px x ${imageHeight}px)`" :style="{ width: `${imageWidth}px`, height: `${imageHeight}px` }">
-          <p>Preview: {{ imageWidth }}x{{ imageHeight }}px</p>
+          <img :src="resizedImageUrl" :alt="t('tools.image-resizer.resizedPreviewAlt', { width: imageWidth, height: imageHeight })" :style="{ width: `${imageWidth}px`, height: `${imageHeight}px` }">
+          <p>{{ t('tools.image-resizer.preview') }}: {{ imageWidth }}x{{ imageHeight }}px</p>
         </div>
 
         <!-- Show message when preview is too large -->
         <div v-if="isPreviewTooLarge" class="preview-too-large">
           <p style="color: #666; font-style: italic; margin: 20px 0;">
-            ⚠️ Preview not shown - dimensions too large ({{ imageWidth }}x{{ imageHeight }}px)
+            ⚠️ {{ t('tools.image-resizer.previewNotShown', { width: imageWidth, height: imageHeight }) }}
             <br>
-            Preview is disabled when width or height exceeds 7,680 pixels for performance reasons.
+            {{ t('tools.image-resizer.previewDisabledPerformance') }}
           </p>
         </div>
 
         <!-- Download options (always show when image is loaded) -->
         <div v-if="originalImageUrl">
-          <h3>Download Options:</h3>
+          <h3>{{ t('tools.image-resizer.downloadOptions') }}:</h3>
           <div class="download-grid">
             <n-button :disabled="!canDownload" @click.prevent="downloadImage('jpg')">
-              Download JPG
+              {{ t('tools.image-resizer.downloadJPG') }}
             </n-button>
             <n-button :disabled="!canDownload" @click.prevent="downloadImage('png')">
-              Download PNG
+              {{ t('tools.image-resizer.downloadPNG') }}
             </n-button>
             <n-button :disabled="!canDownload" @click.prevent="downloadImage('webp')">
-              Download WebP
+              {{ t('tools.image-resizer.downloadWebP') }}
             </n-button>
           </div>
         </div>

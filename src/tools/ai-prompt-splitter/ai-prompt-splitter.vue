@@ -2,6 +2,8 @@
 import promptSplitter from 'chatgpt-prompt-splitter';
 import { useValidation } from '@/composable/validation';
 
+const { t } = useI18n();
+
 const prompt = ref('');
 const splitLength = ref(1024);
 
@@ -23,7 +25,7 @@ const promptValidation = useValidation({
   rules: [
     {
       validator: v => v !== '',
-      message: 'Prompt must not be empty',
+      message: t('tools.ai-prompt-splitter.promptNotEmpty'),
     },
   ],
 });
@@ -31,22 +33,22 @@ const promptValidation = useValidation({
 
 <template>
   <div>
-    <c-card title="Prompt and options" mb-2>
+    <c-card :title="t('tools.ai-prompt-splitter.promptAndOptions')" mb-2>
       <c-input-text
         v-model:value="prompt"
-        label="Full Prompt"
+        :label="t('tools.ai-prompt-splitter.fullPrompt')"
         multiline
-        placeholder="Put your full prompt here..."
+        :placeholder="t('tools.ai-prompt-splitter.promptPlaceholder')"
         rows="10"
         :validation="promptValidation"
         mb-2
       />
-      <n-form-item label="Character length for each chunk">
+      <n-form-item :label="t('tools.ai-prompt-splitter.chunkLength')">
         <n-input-number v-model:value="splitLength" :min="1" />
       </n-form-item>
     </c-card>
 
-    <c-card title="Divided prompts">
+    <c-card :title="t('tools.ai-prompt-splitter.dividedPrompts')">
       <div v-for="(splittedPrompt, index) in splittedPrompts" :key="index">
         <TextareaCopyable :value="splittedPrompt" />
       </div>

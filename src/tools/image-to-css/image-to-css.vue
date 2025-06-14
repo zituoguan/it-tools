@@ -3,11 +3,13 @@ import type { Ref } from 'vue';
 import { type CSSType, imageToCSS } from './image-to-css.service';
 import TextareaCopyable from '@/components/TextareaCopyable.vue';
 
+const { t } = useI18n();
+
 const typeOptions = [
-  { label: 'Background', value: 'Background' },
-  { label: 'Border', value: 'Border' },
-  { label: 'ListItem Bullet', value: 'ListItemBullet' },
-  { label: 'CSS Data Url', value: 'Url' },
+  { label: t('tools.image-to-css.background'), value: 'Background' },
+  { label: t('tools.image-to-css.border'), value: 'Border' },
+  { label: t('tools.image-to-css.listItemBullet'), value: 'ListItemBullet' },
+  { label: t('tools.image-to-css.cssDataUrl'), value: 'Url' },
 ];
 
 const inputType = ref<'file' | 'content'>('file');
@@ -47,18 +49,18 @@ watch(svgContent, (_, newValue) => {
       <n-space>
         <n-radio
           value="file"
-          label="File"
+          :label="t('tools.image-to-css.file')"
         />
         <n-radio
           value="content"
-          label="Content"
+          :label="t('tools.image-to-css.content')"
         />
       </n-space>
     </n-radio-group>
 
     <c-file-upload
       v-if="inputType === 'file'"
-      title="Drag and drop an image here, or click to select a file"
+      :title="t('tools.image-to-css.dragAndDropTitle')"
       paste-image
       @file-upload="onUpload"
     />
@@ -68,8 +70,8 @@ watch(svgContent, (_, newValue) => {
       v-model:value="svgContent"
       multiline
       rows="5"
-      label="SVG Content"
-      placeholder="Paste your SVG content here"
+      :label="t('tools.image-to-css.svgContent')"
+      :placeholder="t('tools.image-to-css.svgContentPlaceholder')"
       mb-2
     />
 
@@ -78,15 +80,15 @@ watch(svgContent, (_, newValue) => {
     <c-select
       v-model:value="type"
       label-position="top"
-      label="CSS Type:"
+      :label="t('tools.image-to-css.cssType')"
       :options="typeOptions"
-      placeholder="Select CSS Type"
+      :placeholder="t('tools.image-to-css.selectCssType')"
     />
 
     <div v-if="cssCode !== ''">
       <n-divider />
 
-      <h3>CSS Code</h3>
+      <h3>{{ t('tools.image-to-css.cssCode') }}</h3>
       <TextareaCopyable
         :value="cssCode"
         word-wrap

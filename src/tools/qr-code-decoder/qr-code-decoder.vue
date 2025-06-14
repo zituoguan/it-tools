@@ -4,6 +4,8 @@ import qrcodeParser from 'qrcode-parser';
 import { parseQRData } from './qr-code-decoder.service';
 import TextareaCopyable from '@/components/TextareaCopyable.vue';
 
+const { t } = useI18n();
+
 const fileInput = ref() as Ref<File>;
 const qrCode = computedAsync(async () => {
   try {
@@ -16,7 +18,7 @@ const qrCode = computedAsync(async () => {
 const qrCodeParsed = computed(() => {
   try {
     const parsed = parseQRData(qrCode.value);
-    return `Type: ${parsed.type}\nValue:${JSON.stringify(parsed.value, null, 2)}`;
+    return `${t('tools.qr-code-decoder.type')}: ${parsed.type}\n${t('tools.qr-code-decoder.value')}: ${JSON.stringify(parsed.value, null, 2)}`;
   }
   catch (e: any) {
     return e.toString();
@@ -33,7 +35,7 @@ async function onUpload(file: File) {
 <template>
   <div>
     <c-file-upload
-      title="Drag and drop a QR Code here, or click to select a file"
+      :title="t('tools.qr-code-decoder.uploadTitle')"
       :paste-image="true"
       @file-upload="onUpload"
     />
@@ -41,14 +43,14 @@ async function onUpload(file: File) {
     <n-divider />
 
     <div>
-      <h3>Decoded</h3>
+      <h3>{{ t('tools.qr-code-decoder.decodedTitle') }}</h3>
       <TextareaCopyable
         :value="qrCode"
         :word-wrap="true"
       />
     </div>
     <div>
-      <h3>Parsed</h3>
+      <h3>{{ t('tools.qr-code-decoder.parsedTitle') }}</h3>
       <TextareaCopyable
         :value="qrCodeParsed"
         :word-wrap="true"

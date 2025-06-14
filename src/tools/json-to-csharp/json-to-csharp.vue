@@ -6,6 +6,8 @@ import TextareaCopyable from '@/components/TextareaCopyable.vue';
 import { withDefaultOnError } from '@/utils/defaults';
 import { useQueryParamOrStorage } from '@/composable/queryParams';
 
+const { t } = useI18n();
+
 const defaultValue = `{
   a:"n",
   arr: [1, 2], 
@@ -43,56 +45,56 @@ const csharpOutput = computed(() => withDefaultOnError(
 const rules: UseValidationRule<string>[] = [
   {
     validator: (v: string) => v === '' || JSON5.parse(v),
-    message: 'Provided JSON is not valid.',
+    message: t('tools.json-to-csharp.invalid-json'),
   },
 ];
 </script>
 
 <template>
   <div>
-    <c-card title="JSON to C#">
+    <c-card :title="t('tools.json-to-csharp.card-title')">
       <c-input-text
         v-model:value="jsonInput"
         multiline
-        placeholder="Put your json string here..."
+        :placeholder="t('tools.json-to-csharp.input-placeholder')"
         rows="10"
-        label="JSON to C#"
+        :label="t('tools.json-to-csharp.input-label')"
         :validation-rules="rules"
         raw-text
         mb-5
       />
       <n-space justify="center">
         <n-checkbox v-model:checked="pascalCase">
-          Use Pascal case
+          {{ t('tools.json-to-csharp.use-pascal-case') }}
         </n-checkbox>
         <n-checkbox v-model:checked="useRecordTypes">
-          Use Record types
+          {{ t('tools.json-to-csharp.use-record-types') }}
         </n-checkbox>
         <n-checkbox v-model:checked="generateImmutableClasses">
-          Generate Immutable classes
+          {{ t('tools.json-to-csharp.generate-immutable-classes') }}
         </n-checkbox>
         <n-checkbox v-model:checked="useFields">
-          Use fields
+          {{ t('tools.json-to-csharp.use-fields') }}
         </n-checkbox>
         <n-checkbox v-model:checked="addJsonProperty">
-          Add JsonProperty attributes
+          {{ t('tools.json-to-csharp.add-json-property-attributes') }}
         </n-checkbox>
         <n-checkbox v-model:checked="nullValueHandlingIgnore" :disabled="!addJsonProperty">
-          Use NullValueHandling.Ignore
+          {{ t('tools.json-to-csharp.use-null-value-handling-ignore') }}
         </n-checkbox>
         <n-checkbox v-model:checked="addJsonPropertyName">
-          Add JsonPropertyName attributes
+          {{ t('tools.json-to-csharp.add-json-property-name-attributes') }}
         </n-checkbox>
         <n-checkbox v-model:checked="useNullable">
-          Use nullable types
+          {{ t('tools.json-to-csharp.use-nullable-types') }}
         </n-checkbox>
         <n-checkbox v-model:checked="useReadonlyLists">
-          Use Readonly lists
+          {{ t('tools.json-to-csharp.use-readonly-lists') }}
         </n-checkbox>
       </n-space>
-      <c-input-text v-model:value="rootTypeName" label="Root type name" placeholder="Your root type name..." clearable raw-text mb-5 />
+      <c-input-text v-model:value="rootTypeName" :label="t('tools.json-to-csharp.root-type-name-label')" :placeholder="t('tools.json-to-csharp.root-type-name-placeholder')" clearable raw-text mb-5 />
     </c-card>
-    <c-card title="Your C# code" mt-2>
+    <c-card :title="t('tools.json-to-csharp.output-card-title')" mt-2>
       <TextareaCopyable
         :value="csharpOutput"
         language="csharp"

@@ -4,6 +4,8 @@ import type { Ref } from 'vue';
 import { useCopy } from '@/composable/copy';
 import { useDownloadFileFromBase64 } from '@/composable/downloadBase64';
 
+const { t } = useI18n();
+
 const fileName = ref('');
 const fileExtension = ref('');
 const hexInput = ref('');
@@ -59,7 +61,7 @@ const fileHex = computedAsync(async () => {
 
   return pref + await ReadFileAsHex(file, sep);
 });
-const { copy: copyFileHex } = useCopy({ source: fileHex, text: 'Hex string copied to the clipboard' });
+const { copy: copyFileHex } = useCopy({ source: fileHex, text: t('tools.hex-file-converter.hex_string_copied_to_clipboard') });
 
 function onUpload(file: File) {
   if (file) {
@@ -69,30 +71,30 @@ function onUpload(file: File) {
 </script>
 
 <template>
-  <c-card title="HEX to file">
+  <c-card :title="t('tools.hex-file-converter.hex_to_file')">
     <n-grid cols="3" x-gap="12">
       <n-gi span="2">
         <c-input-text
           v-model:value="fileName"
-          label="File Name"
-          placeholder="Download filename"
+          :label="t('tools.hex-file-converter.file_name')"
+          :placeholder="t('tools.hex-file-converter.download_filename')"
           mb-2
         />
       </n-gi>
       <n-gi>
         <c-input-text
           v-model:value="fileExtension"
-          label="Extension"
-          placeholder="Extension"
+          :label="t('tools.hex-file-converter.extension')"
+          :placeholder="t('tools.hex-file-converter.extension')"
         />
       </n-gi>
     </n-grid>
 
-    <n-form-item label="Content in Hex">
+    <n-form-item :label="t('tools.hex-file-converter.content_in_hex')">
       <c-input-text
         v-model:value="hexInput"
         multiline
-        placeholder="Put your Hex file string here..."
+        :placeholder="t('tools.hex-file-converter.put_your_hex_file_string_here')"
         rows="5"
       />
     </n-form-item>
@@ -101,48 +103,48 @@ function onUpload(file: File) {
 
     <div flex justify-center>
       <c-button :disabled="hexInput === ''" @click="downloadFile()">
-        Download file
+        {{ t('tools.hex-file-converter.download_file') }}
       </c-button>
     </div>
   </c-card>
 
-  <c-card title="File to HEX">
+  <c-card :title="t('tools.hex-file-converter.file_to_hex')">
     <c-file-upload
-      title="Drag and drop a file here, or click to select a file"
+      :title="t('tools.hex-file-converter.drag_and_drop_file')"
       mb-2
       @file-upload="onUpload"
     />
 
     <c-input-text
       v-model:value="separator"
-      label="Separator"
+      :label="t('tools.hex-file-converter.separator')"
       label-position="left"
-      placeholder="Separator"
+      :placeholder="t('tools.hex-file-converter.separator')"
       mb-2
     />
 
     <c-input-text
       v-model:value="prefix"
-      label="Prefix"
+      :label="t('tools.hex-file-converter.prefix')"
       label-position="left"
-      placeholder="Enter a prefix (ie, 0x, &H or empty)"
+      :placeholder="t('tools.hex-file-converter.enter_prefix')"
       mb-2
     />
 
     <n-divider />
 
-    <n-form-item label="File in Hex">
+    <n-form-item :label="t('tools.hex-file-converter.file_in_hex')">
       <c-input-text
         :value="fileHex"
         multiline readonly
-        placeholder="File in hex will be here"
+        :placeholder="t('tools.hex-file-converter.file_in_hex_will_be_here')"
         rows="5" mb-2
       />
     </n-form-item>
 
     <div flex justify-center>
       <c-button @click="copyFileHex()">
-        Copy
+        {{ t('tools.hex-file-converter.copy') }}
       </c-button>
     </div>
   </c-card>

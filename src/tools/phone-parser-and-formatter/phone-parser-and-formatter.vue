@@ -11,6 +11,8 @@ import { booleanToHumanReadable } from '@/utils/boolean';
 import { useValidation } from '@/composable/validation';
 import { useQueryParamOrStorage } from '@/composable/queryParams';
 
+const { t } = useI18n();
+
 const rawPhone = ref('');
 const defaultCountryCode = useQueryParamOrStorage({ name: 'country', storageName: 'phone-parser:country', defaultValue: getDefaultCountryCode() });
 const validation = useValidation({
@@ -18,7 +20,7 @@ const validation = useValidation({
   rules: [
     {
       validator: value => value === '' || /^[0-9 +\-()]+$/.test(value),
-      message: 'Invalid phone number',
+      message: t('tools.phone-parser-and-formatter.invalid-phone'),
     },
   ],
 });
@@ -39,43 +41,43 @@ const parsedDetails = computed(() => {
 
   return [
     {
-      label: 'Country',
+      label: t('tools.phone-parser-and-formatter.country'),
       value: parsed.country,
     },
     {
-      label: 'Country',
+      label: t('tools.phone-parser-and-formatter.country-name'),
       value: getFullCountryName(parsed.country),
     },
     {
-      label: 'Country calling code',
+      label: t('tools.phone-parser-and-formatter.country-calling-code'),
       value: parsed.countryCallingCode,
     },
     {
-      label: 'Is valid?',
+      label: t('tools.phone-parser-and-formatter.is-valid'),
       value: booleanToHumanReadable(parsed.isValid()),
     },
     {
-      label: 'Is possible?',
+      label: t('tools.phone-parser-and-formatter.is-possible'),
       value: booleanToHumanReadable(parsed.isPossible()),
     },
     {
-      label: 'Type',
+      label: t('tools.phone-parser-and-formatter.type'),
       value: formatTypeToHumanReadable(parsed.getType()),
     },
     {
-      label: 'International format',
+      label: t('tools.phone-parser-and-formatter.international-format'),
       value: parsed.formatInternational(),
     },
     {
-      label: 'National format',
+      label: t('tools.phone-parser-and-formatter.national-format'),
       value: parsed.formatNational(),
     },
     {
-      label: 'E.164 format',
+      label: t('tools.phone-parser-and-formatter.e164-format'),
       value: parsed.format('E.164'),
     },
     {
-      label: 'RFC3966 format',
+      label: t('tools.phone-parser-and-formatter.rfc3966-format'),
       value: parsed.format('RFC3966'),
     },
   ];
@@ -110,12 +112,12 @@ const smsLink = computed(() => {
 
 <template>
   <div>
-    <c-select v-model:value="defaultCountryCode" label="Default country code:" :options="countriesOptions" searchable mb-5 />
+    <c-select v-model:value="defaultCountryCode" :label="t('tools.phone-parser-and-formatter.default-country-code')" :options="countriesOptions" searchable mb-5 />
 
     <c-input-text
       v-model:value="rawPhone"
-      placeholder="Enter a phone number"
-      label="Phone number:"
+      :placeholder="t('tools.phone-parser-and-formatter.input-placeholder')"
+      :label="t('tools.phone-parser-and-formatter.phone-number')"
       :validation="validation"
       mb-5
     />
@@ -129,7 +131,7 @@ const smsLink = computed(() => {
           <td>
             <span-copyable v-if="value" :value="value" />
             <span v-else op-70>
-              Unknown
+              {{ t('tools.phone-parser-and-formatter.unknown') }}
             </span>
           </td>
         </tr>
@@ -142,25 +144,25 @@ const smsLink = computed(() => {
       v-model:value="messageToSend"
       multiline
       rows="4"
-      placeholder="Enter a message to send"
-      label="Message to send:"
+      :placeholder="t('tools.phone-parser-and-formatter.message-placeholder')"
+      :label="t('tools.phone-parser-and-formatter.message-label')"
       mb-2
     />
 
-    <c-card v-if="whatsAppLink" title="WhatsApp Send link" mb-2>
+    <c-card v-if="whatsAppLink" :title="t('tools.phone-parser-and-formatter.whatsapp-link')" mb-2>
       <input-copyable :value="whatsAppLink" mb-2 />
       <div flex justify-center>
         <!-- //NOSONAR --><c-button :href="whatsAppLink" target="_blank">
-          Send via WhatsApp
+          {{ t('tools.phone-parser-and-formatter.send-whatsapp') }}
         </c-button>
       </div>
     </c-card>
 
-    <c-card v-if="smsLink" title="SMS Send link">
+    <c-card v-if="smsLink" :title="t('tools.phone-parser-and-formatter.sms-link')">
       <input-copyable :value="smsLink" mb-2 />
       <div flex justify-center>
         <!-- //NOSONAR --><c-button :href="smsLink" target="_blank">
-          Send via SMS
+          {{ t('tools.phone-parser-and-formatter.send-sms') }}
         </c-button>
       </div>
     </c-card>

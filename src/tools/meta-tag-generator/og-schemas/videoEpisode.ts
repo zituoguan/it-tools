@@ -1,10 +1,11 @@
 import type { OGSchemaType } from '../OGSchemaType.type';
 import { videoMovie } from './videoMovie';
+import { translate } from '@/plugins/i18n.plugin';
 
 export const videoEpisode: OGSchemaType = {
-  name: 'Video episode details',
+  name: translate('tools.meta-tag-generator.video-episode-details'),
   elements: [
     ...videoMovie.elements,
-    { type: 'input', label: 'Series', key: 'video:series', placeholder: 'Which series this episode belongs to...' },
+    { type: 'input', label: translate('tools.meta-tag-generator.series'), key: 'video:series', placeholder: translate('tools.meta-tag-generator.which-series-this-episode-belongs-to') },
   ],
 };

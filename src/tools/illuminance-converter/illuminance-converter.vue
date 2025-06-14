@@ -2,6 +2,8 @@
 import _ from 'lodash';
 import { convertFlameToLux, convertFootCandlesToLux, convertLuxToFlame, convertLuxToFootCandles, convertLuxToNox, convertLuxToPhot, convertNoxToLux, convertPhotToLux } from './illuminance-converter.service';
 
+const { t } = useI18n();
+
 type IlluminanceScale = 'lux' | 'footcandles' | 'nox' | 'phot' | 'flame';
 
 const units = reactive<
@@ -11,35 +13,35 @@ const units = reactive<
   >
       >({
         lux: {
-          title: 'Lux',
+          title: t('tools.illuminance-converter.lux'),
           unit: 'lx',
           ref: 20000,
           toLux: _.identity,
           fromLux: _.identity,
         },
         footcandles: {
-          title: 'Foot-Candles',
+          title: t('tools.illuminance-converter.footCandles'),
           unit: 'ft*c, fc',
           ref: 0,
           toLux: convertFootCandlesToLux,
           fromLux: convertLuxToFootCandles,
         },
         nox: {
-          title: 'Nox',
+          title: t('tools.illuminance-converter.nox'),
           unit: 'nox',
           ref: 0,
           toLux: convertNoxToLux,
           fromLux: convertLuxToNox,
         },
         phot: {
-          title: 'Phot',
+          title: t('tools.illuminance-converter.phot'),
           unit: 'ph',
           ref: 0,
           toLux: convertPhotToLux,
           fromLux: convertLuxToPhot,
         },
         flame: {
-          title: 'Flame',
+          title: t('tools.illuminance-converter.flame'),
           unit: 'flame',
           ref: 0,
           toLux: convertFlameToLux,

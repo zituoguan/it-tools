@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { useQueryParam } from '@/composable/queryParams';
 
+const { t } = useI18n();
 const cookieHeader = useQueryParam({ name: 'cookies', defaultValue: '' });
 
 const parsedCookies = computed(() => {
@@ -12,17 +13,13 @@ const parsedCookies = computed(() => {
 </script>
 
 <template>
-  <n-card title="Cookie Parser">
+  <n-card :title="t('tools.cookies-parser.title')">
     <n-space vertical>
-      <n-input v-model:value="cookieHeader" placeholder="Enter cookie header" type="text" />
+      <n-input v-model:value="cookieHeader" :placeholder="t('tools.cookies-parser.placeholder')" type="text" />
     </n-space>
-    <n-p>
-      Tip: Navigate to a website to test, open F12 Console and run <n-tag :bordered="false">
-        <code>window.copy(document.cookie)</code>
-      </n-tag>. This will copy the cookie string to your clipboard. Note: This will only copy cookies available to javascript (HTTP only and secure cookies will be omitted).
-    </n-p>
+    <n-p v-html="t('tools.cookies-parser.tip')" />
     <n-table v-if="parsedCookies.length">
-      <thead><tr><th>Name</th><th>Value</th></tr></thead>
+      <thead><tr><th>{{ t('tools.cookies-parser.name') }}</th><th>{{ t('tools.cookies-parser.value') }}</th></tr></thead>
       <tbody>
         <tr v-for="cookie in parsedCookies" :key="cookie.name">
           <td>
@@ -35,7 +32,7 @@ const parsedCookies = computed(() => {
       </tbody>
     </n-table>
     <n-alert v-else type="warning">
-      No cookies found
+      {{ t('tools.cookies-parser.noCookiesFound') }}
     </n-alert>
   </n-card>
 </template>

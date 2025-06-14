@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { mergeIcals } from './ical-merger.service';
 
+const { t } = useI18n();
+
 const fileInputs = ref<Array<File>>([]);
 const mergedOutput = ref('');
 const calendarName = ref('');
@@ -43,32 +45,32 @@ function readFileAsString(file: File) {
 <template>
   <div>
     <c-file-upload
-      title="Drag and drop iCal file here, or click to select a file"
+      :title="t('tools.ical-merger.uploadTitle')"
       multiple
       mb-2
       @files-upload="onUploads"
     />
 
-    <n-form-item label="Title:" label-placement="left">
-      <n-input v-model:value="calendarName" placeholder="Please input merge calendar title..." />
+    <n-form-item :label="t('tools.ical-merger.icalTitle')" label-placement="left">
+      <n-input v-model:value="calendarName" :placeholder="t('tools.ical-merger.titlePlaceholder')" />
     </n-form-item>
 
-    <n-form-item label="Description:">
-      <n-input v-model:value="calendarDescription" placeholder="Please input merged calendar description..." />
+    <n-form-item :label="t('tools.ical-merger.icalDescription')">
+      <n-input v-model:value="calendarDescription" :placeholder="t('tools.ical-merger.descriptionPlaceholder')" />
     </n-form-item>
 
     <ul>
       <li v-for="(file, index) in fileInputs" :key="index" mb-1>
         <n-button mr-2 @click="deleteFile(index)">
-          Delete
+          {{ t('tools.ical-merger.delete') }}
         </n-button>
-        File to merge: {{ file.name }}
+        {{ t('tools.ical-merger.fileToMerge') }}: {{ file.name }}
       </li>
     </ul>
 
     <div flex justify-center>
       <n-button @click="mergeFiles">
-        Merge iCal files
+        {{ t('tools.ical-merger.mergeFiles') }}
       </n-button>
     </div>
 
@@ -82,8 +84,8 @@ function readFileAsString(file: File) {
       v-if="mergedOutput"
       v-model:value="mergedOutput"
       download-file-name="merge.ics"
-      download-button-text="Download merged iCal"
-      label="Merged ICAL"
+      :download-button-text="t('tools.ical-merger.downloadMerged')"
+      :label="t('tools.ical-merger.mergedICAL')"
       mb-2
     />
   </div>

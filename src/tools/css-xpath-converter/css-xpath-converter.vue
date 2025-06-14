@@ -3,6 +3,8 @@ import xPathToCss from 'xpath-to-css';
 import cssToXpath from 'csstoxpath';
 import TextareaCopyable from '@/components/TextareaCopyable.vue';
 
+const { t } = useI18n();
+
 const cssInput = ref('');
 const xpathOutput = computed(
   () => {
@@ -30,46 +32,46 @@ const cssOutput = computed(
 
 <template>
   <div max-w-600>
-    <c-card title="CSS to XPath">
+    <c-card :title="t('tools.css-xpath-converter.cssToXpath')">
       <c-input-text
         v-model:value="cssInput"
-        placeholder="Put your CSS selector here..."
-        label="CSS selector to convert"
+        :placeholder="t('tools.css-xpath-converter.cssPlaceholder')"
+        :label="t('tools.css-xpath-converter.cssLabel')"
         raw-text
         mb-5
       />
 
       <router-link target="_blank" to="/css-selectors-memo" mb-1 mt-1>
-        See CSS Selectors Cheatsheet
+        {{ t('tools.css-xpath-converter.cssCheatsheet') }}
       </router-link>
 
       <n-divider />
 
       <TextareaCopyable
-        label="XPath expression"
+        :label="t('tools.css-xpath-converter.xpathExpression')"
         :value="xpathOutput"
         readonly
         mb-5
       />
     </c-card>
 
-    <c-card title="XPath to CSS" mt-5>
+    <c-card :title="t('tools.css-xpath-converter.xpathToCss')" mt-5>
       <c-input-text
         v-model:value="xpathInput"
-        placeholder="Put your XPath expression here..."
-        label="XPath expression to convert"
+        :placeholder="t('tools.css-xpath-converter.xpathPlaceholder')"
+        :label="t('tools.css-xpath-converter.xpathLabel')"
         raw-text
         mb-5
       />
 
       <router-link target="_blank" to="/xpath-memo" mb-1 mt-1>
-        See XPath Cheatsheet
+        {{ t('tools.css-xpath-converter.xpathCheatsheet') }}
       </router-link>
 
       <n-divider />
 
       <TextareaCopyable
-        label="CSS Selector"
+        :label="t('tools.css-xpath-converter.cssSelector')"
         :value="cssOutput"
         readonly
         mb-5

@@ -79,28 +79,31 @@ const [certs, refreshCerts] = computedRefreshableAsync(
     }
   }, { privateKey: '', publicKey: '', revocationCertificate: '' },
 );
+
+const { t } = useI18n();
 </script>
 
 <template>
   <div>
     <div mb-4>
       <c-alert v-if="!isWindowSecureContext()" mb-2>
-        Your browser is not in <n-a href="https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts" target="_blank">
+        {{ t('tools.pgp-keygen.not-secure') }}
+        <n-a href="https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts" target="_blank">
           "Secure Context" (HTTPS)
-        </n-a>. This tool may not work correctly and require HTTPS to work fully.
+        </n-a>. {{ t('tools.pgp-keygen.secure-required') }}
       </c-alert>
       <div style="flex: 0 0 100%">
         <div item-style="flex: 1 1 0" style="max-width: 600px" mx-auto flex gap-3>
           <c-select
             v-model:value="format"
             label-position="left"
-            label="Format:"
+            :label="t('tools.pgp-keygen.format')"
             :options="formats"
-            placeholder="Select a key format"
+            :placeholder="t('tools.pgp-keygen.format-placeholder')"
             style="min-width: 150px"
           />
 
-          <n-form-item v-if="format === 'rsa'" label="RSA Bits :" v-bind="bitsValidationAttrs as any" label-placement="left">
+          <n-form-item v-if="format === 'rsa'" :label="t('tools.pgp-keygen.rsa-bits')" v-bind="bitsValidationAttrs as any" label-placement="left">
             <n-input-number v-model:value="bits" min="256" max="16384" step="8" />
           </n-form-item>
         </div>
@@ -108,49 +111,49 @@ const [certs, refreshCerts] = computedRefreshableAsync(
     </div>
 
     <div>
-      <n-form-item label="User Name :" label-placement="left">
+      <n-form-item :label="t('tools.pgp-keygen.user-name')" label-placement="left">
         <n-input
           v-model:value="username"
           type="text"
-          placeholder="User Name"
+          :placeholder="t('tools.pgp-keygen.user-name-placeholder')"
         />
       </n-form-item>
-      <n-form-item label="User Email :" label-placement="left">
+      <n-form-item :label="t('tools.pgp-keygen.user-email')" label-placement="left">
         <n-input
           v-model:value="useremail"
           :input-props="{ type: 'email' }"
-          placeholder="User Email"
+          :placeholder="t('tools.pgp-keygen.user-email-placeholder')"
         />
       </n-form-item>
 
-      <n-form-item label="Passphrase :" label-placement="left">
+      <n-form-item :label="t('tools.pgp-keygen.passphrase')" label-placement="left">
         <n-input
           v-model:value="password"
           type="password"
           show-password-on="mousedown"
-          placeholder="Passphrase"
+          :placeholder="t('tools.pgp-keygen.passphrase-placeholder')"
         />
       </n-form-item>
 
       <div text-center>
         <c-button @click="refreshCerts">
-          Refresh key-pair
+          {{ t('tools.pgp-keygen.refresh-btn') }}
         </c-button>
       </div>
     </div>
 
     <div>
-      <h3>Public key</h3>
+      <h3>{{ t('tools.pgp-keygen.public-key') }}</h3>
       <TextareaCopyable :value="certs?.publicKey || ''" :word-wrap="true" />
     </div>
 
     <div>
-      <h3>Private key</h3>
+      <h3>{{ t('tools.pgp-keygen.private-key') }}</h3>
       <TextareaCopyable :value="certs?.privateKey || ''" :word-wrap="true" />
     </div>
 
     <div>
-      <h3>Revocation Certificate</h3>
+      <h3>{{ t('tools.pgp-keygen.revocation-cert') }}</h3>
       <TextareaCopyable :value="certs?.revocationCertificate || ''" :word-wrap="true" />
     </div>
   </div>

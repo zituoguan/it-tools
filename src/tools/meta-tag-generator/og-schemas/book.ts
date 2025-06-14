@@ -1,16 +1,17 @@
 import type { OGSchemaType } from '../OGSchemaType.type';
+import { translate } from '@/plugins/i18n.plugin';
 
 export const book: OGSchemaType = {
-  name: 'Book',
+  name: translate('tools.meta-tag-generator.book'),
   elements: [
-    { type: 'input', label: 'Author', key: 'book:author', placeholder: 'Who wrote this book...' },
-    { type: 'input', label: 'ISBN', key: 'book:isbn', placeholder: 'The International Standard Book Number...' },
+    { type: 'input', label: translate('tools.meta-tag-generator.author'), key: 'book:author', placeholder: translate('tools.meta-tag-generator.who-wrote-this-book') },
+    { type: 'input', label: translate('tools.meta-tag-generator.isbn'), key: 'book:isbn', placeholder: translate('tools.meta-tag-generator.international-standard-book-number') },
     {
       type: 'input',
-      label: 'Release date',
+      label: translate('tools.meta-tag-generator.release-date'),
       key: 'book:release_date',
-      placeholder: 'The date the book was released...',
+      placeholder: translate('tools.meta-tag-generator.date-the-book-was-released'),
     },
-    { type: 'input', label: 'Tag', key: 'book:tag', placeholder: 'Tag words associated with this book...' },
+    { type: 'input', label: translate('tools.meta-tag-generator.tag'), key: 'book:tag', placeholder: translate('tools.meta-tag-generator.tag-words-associated-with-book') },
   ],
 };

@@ -16,6 +16,8 @@ import {
 } from 'curlconverter';
 import TextareaCopyable from '@/components/TextareaCopyable.vue';
 
+const { t } = useI18n();
+
 const translate = {
   'ansible': [toAnsible, toAnsibleWarn],
   'cfml': [toCFML, toCFMLWarn],
@@ -110,23 +112,23 @@ const inlang = computed(() => {
     <c-input-text
       v-model:value="curl"
       size="large"
-      placeholder="Your curl command"
+      :placeholder="t('tools.curl-converter.input.placeholder')"
       mb-3
     />
 
     <c-select
       v-model:value="language"
       searchable
-      label="Language:"
+      :label="t('tools.curl-converter.language.label')"
       :options="Object.keys(translate)"
     />
 
     <n-divider />
 
-    <n-form-item label="Curl language equivalent:">
+    <n-form-item :label="t('tools.curl-converter.output.equivalent-label')">
       <TextareaCopyable :value="inlang.translated as string" />
     </n-form-item>
-    <n-form-item label="Warnings:">
+    <n-form-item :label="t('tools.curl-converter.output.warnings-label')">
       <TextareaCopyable style="color: red" :value="(inlang.warnings as Warnings || []).map(w => w[1]).join('\n')" />
     </n-form-item>
   </div>

@@ -11,6 +11,7 @@ import {
 import { codesByCategories } from './http-status-codes.constants';
 import { useFlexSearch } from '@/composable/flexSearch';
 
+const { t } = useI18n();
 const search = ref('');
 
 const { searchResult } = useFlexSearch({
@@ -26,7 +27,7 @@ const codesByCategoryFiltered = computed(() => {
     return codesByCategories;
   }
 
-  return [{ category: 'Search results', codes: searchResult.value }];
+  return [{ category: t('tools.http-status-codes.searchResults'), codes: searchResult.value }];
 });
 
 function getCategoryIcon(category: string) {
@@ -60,7 +61,7 @@ function openMdnDocs(code: number) {
   <div>
     <c-input-text
       v-model:value="search"
-      placeholder="Search http status..."
+      :placeholder="t('tools.http-status-codes.searchPlaceholder')"
       autofocus raw-text mb-10
     />
 
@@ -75,14 +76,14 @@ function openMdnDocs(code: number) {
           {{ code }} {{ name }}
           <div
             class="flex cursor-pointer items-center justify-center rounded text-gray-500 transition-colors hover:text-blue-600"
-            title="View MDN documentation"
+            :title="t('tools.http-status-codes.viewDocumentation')"
             @click="openMdnDocs(code)"
           >
             <n-icon :component="IconExternalLink" size="18" />
           </div>
         </div>
         <div op-70>
-          {{ description }} {{ type !== 'HTTP' ? `For ${type}.` : '' }}
+          {{ description }} {{ type !== 'HTTP' ? t('tools.http-status-codes.forType', { type }) : '' }}
         </div>
       </c-card>
     </div>

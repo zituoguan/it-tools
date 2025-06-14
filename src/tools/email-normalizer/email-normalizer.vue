@@ -3,6 +3,8 @@ import { normalizeEmail } from 'email-normalizer';
 import { withDefaultOnError } from '@/utils/defaults';
 import { useCopy } from '@/composable/copy';
 
+const { t } = useI18n();
+
 const emails = ref('');
 const normalizedEmails = computed(() => {
   if (!emails.value) {
@@ -12,22 +14,22 @@ const normalizedEmails = computed(() => {
   return emails.value
     .split('\n')
     .map((email) => {
-      return withDefaultOnError(() => normalizeEmail({ email }), `Unable to parse email: ${email}`);
+      return withDefaultOnError(() => normalizeEmail({ email }), t('tools.email-normalizer.parse-error', { email }));
     })
     .join('\n');
 });
 
-const { copy } = useCopy({ source: normalizedEmails, text: 'Normalized emails copied to the clipboard', createToast: true });
+const { copy } = useCopy({ source: normalizedEmails, text: t('tools.email-normalizer.copy-success'), createToast: true });
 </script>
 
 <template>
   <div>
     <div class="mb-2">
-      Raw emails to normalize:
+      {{ t('tools.email-normalizer.input-label') }}
     </div>
     <c-input-text
       v-model:value="emails"
-      placeholder="Put your emails here (one per line)..."
+      :placeholder="t('tools.email-normalizer.input-placeholder')"
       rows="3"
       multiline
       autocomplete="off"
@@ -39,11 +41,11 @@ const { copy } = useCopy({ source: normalizedEmails, text: 'Normalized emails co
     />
 
     <div class="mb-2 mt-4">
-      Normalized emails:
+      {{ t('tools.email-normalizer.output-label') }}
     </div>
     <c-input-text
       :value="normalizedEmails"
-      placeholder="Normalized emails will appear here..."
+      :placeholder="t('tools.email-normalizer.output-placeholder')"
       rows="3"
       autocomplete="off"
       autocorrect="off"
@@ -55,10 +57,10 @@ const { copy } = useCopy({ source: normalizedEmails, text: 'Normalized emails co
     />
     <div class="mt-4 flex justify-center gap-2">
       <c-button @click="emails = ''">
-        Clear emails
+        {{ t('tools.email-normalizer.clear-button') }}
       </c-button>
       <c-button :disabled="!normalizedEmails" @click="copy()">
-        Copy normalized emails
+        {{ t('tools.email-normalizer.copy-button') }}
       </c-button>
     </div>
   </div>

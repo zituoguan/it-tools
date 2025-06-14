@@ -2,6 +2,7 @@
 import { computed, ref } from 'vue';
 import { countBy, orderBy } from 'lodash';
 
+const { t } = useI18n();
 const inputText = ref('');
 const sortedWordCounts = computed(() => {
   // Remove punctuation, extract words, count occurrences
@@ -15,13 +16,13 @@ const sortedWordCounts = computed(() => {
 
 <template>
   <div>
-    <c-input-text v-model:value="inputText" multiline rows="10" label="Text:" placeholder="Enter text..." mb-1 />
-    <c-card title="Distinct words">
+    <c-input-text v-model:value="inputText" multiline rows="10" :label="t('tools.distinct-words.text-label')" :placeholder="t('tools.distinct-words.text-placeholder')" mb-1 />
+    <c-card :title="t('tools.distinct-words.card-title')">
       <n-table>
         <thead>
           <tr>
-            <th>Word</th>
-            <th>Count</th>
+            <th>{{ t('tools.distinct-words.word-column') }}</th>
+            <th>{{ t('tools.distinct-words.count-column') }}</th>
           </tr>
         </thead>
         <tbody>

@@ -1,27 +1,28 @@
 import type { OGSchemaType } from '../OGSchemaType.type';
+import { translate } from '@/plugins/i18n.plugin';
 
 export const musicAlbum: OGSchemaType = {
-  name: 'Album details',
+  name: translate('tools.meta-tag-generator.album-details'),
   elements: [
-    { type: 'input', label: 'Song', key: 'music:song', placeholder: 'The song on this album...' },
+    { type: 'input', label: translate('tools.meta-tag-generator.song'), key: 'music:song', placeholder: translate('tools.meta-tag-generator.song-on-this-album') },
     {
       type: 'input',
-      label: 'Disc',
+      label: translate('tools.meta-tag-generator.disc'),
       key: 'music:song:disc',
-      placeholder: 'The same as music:album:disc but in reverse...',
+      placeholder: translate('tools.meta-tag-generator.same-as-music-album-disc-but-in-reverse'),
     },
     {
       type: 'input',
-      label: 'Track',
+      label: translate('tools.meta-tag-generator.track'),
       key: 'music:song:track',
-      placeholder: 'The same as music:album:track but in reverse...',
+      placeholder: translate('tools.meta-tag-generator.same-as-music-album-track-but-in-reverse'),
     },
-    { type: 'input', label: 'Musician', key: 'music:musician', placeholder: 'The musician that made this song...' },
+    { type: 'input', label: translate('tools.meta-tag-generator.musician'), key: 'music:musician', placeholder: translate('tools.meta-tag-generator.musician-that-made-this-song') },
     {
       type: 'input',
-      label: 'Release date',
+      label: translate('tools.meta-tag-generator.release-date'),
       key: 'music:release_date',
-      placeholder: 'The date the album was released...',
+      placeholder: translate('tools.meta-tag-generator.date-the-album-was-released'),
     },
   ],
 };

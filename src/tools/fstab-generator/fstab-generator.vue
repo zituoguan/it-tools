@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { NForm, NFormItem, NInput, NSelect } from 'naive-ui';
+import TextareaCopyable from '@/components/TextareaCopyable.vue';
+
+const { t } = useI18n();
 
 const device = ref('');
 const mountPoint = ref('');
@@ -16,55 +19,55 @@ const fileSystems = [
   'swap',
 ];
 
-const defaultOptions = [
-  { value: 'defaults', description: 'Standard mount options (rw, suid, dev, exec, auto, nouser, async).' },
-  { value: 'noatime', description: 'Prevents access time updates for better performance.' },
-  { value: 'nodiratime', description: 'Prevents directory access time updates.' },
-  { value: 'relatime', description: 'Updates access time only when modified or accessed after reboot.' },
-  { value: 'ro', description: 'Mount filesystem as read-only.' },
-  { value: 'rw', description: 'Mount filesystem as read/write.' },
-  { value: 'sync', description: 'Writes synchronously for better integrity.' },
-  { value: 'async', description: 'Writes asynchronously for better performance.' },
-  { value: 'user', description: 'Allow normal users to mount the filesystem.' },
-  { value: 'nouser', description: 'Only root can mount.' },
-  { value: 'exec', description: 'Allows execution of binaries.' },
-  { value: 'noexec', description: 'Disables execution of binaries (security measure).' },
-  { value: 'errors=remount-ro', description: 'Remount as read-only upon errors.' },
-  { value: 'auto', description: 'Mount automatically at boot.' },
-  { value: 'noauto', description: 'Requires manual mount.' },
-  { value: 'dev', description: 'Interpret character or block special devices on the file system.' },
-  { value: 'nodev', description: 'Do not interpret character or block special devices on the file system.' },
-  { value: 'suid', description: 'Permit the operation of suid, and sgid bits.' },
-  { value: 'nosuid', description: 'Block the operation of suid, and sgid bits.' },
-]; ;
+const defaultOptions = computed(() => [
+  { value: 'defaults', description: t('tools.fstab-generator.options.defaults') },
+  { value: 'noatime', description: t('tools.fstab-generator.options.noatime') },
+  { value: 'nodiratime', description: t('tools.fstab-generator.options.nodiratime') },
+  { value: 'relatime', description: t('tools.fstab-generator.options.relatime') },
+  { value: 'ro', description: t('tools.fstab-generator.options.ro') },
+  { value: 'rw', description: t('tools.fstab-generator.options.rw') },
+  { value: 'sync', description: t('tools.fstab-generator.options.sync') },
+  { value: 'async', description: t('tools.fstab-generator.options.async') },
+  { value: 'user', description: t('tools.fstab-generator.options.user') },
+  { value: 'nouser', description: t('tools.fstab-generator.options.nouser') },
+  { value: 'exec', description: t('tools.fstab-generator.options.exec') },
+  { value: 'noexec', description: t('tools.fstab-generator.options.noexec') },
+  { value: 'errors=remount-ro', description: t('tools.fstab-generator.options.errorsRemountRo') },
+  { value: 'auto', description: t('tools.fstab-generator.options.auto') },
+  { value: 'noauto', description: t('tools.fstab-generator.options.noauto') },
+  { value: 'dev', description: t('tools.fstab-generator.options.dev') },
+  { value: 'nodev', description: t('tools.fstab-generator.options.nodev') },
+  { value: 'suid', description: t('tools.fstab-generator.options.suid') },
+  { value: 'nosuid', description: t('tools.fstab-generator.options.nosuid') },
+]);
 
-const nfsOptions = [
-  { value: 'vers=3', description: 'Use NFS protocol version 3.' },
-  { value: 'soft', description: 'Fail after timeout if server is unreachable.' },
-  { value: 'hard', description: 'Retry indefinitely if server is unreachable.' },
-  { value: 'rsize=8192,wsize=8192', description: 'Tunable read/write buffer sizes.' },
-];
+const nfsOptions = computed(() => [
+  { value: 'vers=3', description: t('tools.fstab-generator.nfsOptions.vers3') },
+  { value: 'soft', description: t('tools.fstab-generator.nfsOptions.soft') },
+  { value: 'hard', description: t('tools.fstab-generator.nfsOptions.hard') },
+  { value: 'rsize=8192,wsize=8192', description: t('tools.fstab-generator.nfsOptions.rsizeWsize') },
+]);
 
-const cifsOptions = [
-  { value: 'sec=ntlm', description: 'Use NTLM security protocol.' },
-];
+const cifsOptions = computed(() => [
+  { value: 'sec=ntlm', description: t('tools.fstab-generator.cifsOptions.secNtlm') },
+]);
 
-const tmpfsOptions = [
-  { value: 'size=512M', description: 'Define tmpfs size limit.' },
-  { value: 'mode=1777', description: 'Set permissions on tmpfs mount.' },
-];
+const tmpfsOptions = computed(() => [
+  { value: 'size=512M', description: t('tools.fstab-generator.tmpfsOptions.size') },
+  { value: 'mode=1777', description: t('tools.fstab-generator.tmpfsOptions.mode') },
+]);
 
 const filesystemOptions = computed(() => {
   if (fsType.value === 'nfs') {
-    return [...defaultOptions, ...nfsOptions];
+    return [...defaultOptions.value, ...nfsOptions.value];
   }
   if (fsType.value === 'cifs') {
-    return [...defaultOptions, ...cifsOptions];
+    return [...defaultOptions.value, ...cifsOptions.value];
   }
   if (fsType.value === 'tmpfs') {
-    return [...defaultOptions, ...tmpfsOptions];
+    return [...defaultOptions.value, ...tmpfsOptions.value];
   }
-  return defaultOptions;
+  return defaultOptions.value;
 });
 
 const fstabLine = computed(
@@ -88,41 +91,41 @@ const fstabLine = computed(
 
 <template>
   <NForm>
-    <NFormItem label="Device:" label-placement="left" label-width="140px">
-      <NInput v-model:value="device" placeholder="/dev/sda1 or UUID=... or server:/path" />
+    <NFormItem :label="t('tools.fstab-generator.device')" label-placement="left" label-width="140px">
+      <NInput v-model:value="device" :placeholder="t('tools.fstab-generator.devicePlaceholder')" />
     </NFormItem>
 
-    <NFormItem label="Mount Point:" label-placement="left" label-width="140px">
-      <NInput v-model:value="mountPoint" placeholder="/mnt/data or /home" />
+    <NFormItem :label="t('tools.fstab-generator.mountPoint')" label-placement="left" label-width="140px">
+      <NInput v-model:value="mountPoint" :placeholder="t('tools.fstab-generator.mountPointPlaceholder')" />
     </NFormItem>
 
-    <NFormItem label="Filesystem Type:" label-placement="left" label-width="140px">
+    <NFormItem :label="t('tools.fstab-generator.filesystemType')" label-placement="left" label-width="140px">
       <NSelect v-model:value="fsType" :options="fileSystems.map(fs => ({ label: fs, value: fs }))" />
     </NFormItem>
 
-    <NFormItem label="Filesystem options:">
+    <NFormItem :label="t('tools.fstab-generator.filesystemOptions')">
       <NSelect
-        v-model:value="options" placeholder="By default: Standard mount options (rw, suid, dev, exec, auto, nouser, async)"
+        v-model:value="options" :placeholder="t('tools.fstab-generator.optionsPlaceholder')"
         multiple
         :options="filesystemOptions.map(o => ({ value: o.value, label: `${o.description} (${o.value})` }))"
       />
     </NFormItem>
 
-    <NFormItem label="Dump (Determines whether the 'dump' utility should back up this filesystem):">
-      <NSelect v-model:value="dump" :options="[{ label: 'Do not include in backups', value: '0' }, { label: 'Include in backups', value: '1' }]" />
+    <NFormItem :label="t('tools.fstab-generator.dumpLabel')">
+      <NSelect v-model:value="dump" :options="[{ label: t('tools.fstab-generator.dumpNo'), value: '0' }, { label: t('tools.fstab-generator.dumpYes'), value: '1' }]" />
     </NFormItem>
 
-    <NFormItem label="Pass (Controls the order for filesystem checks at boot):">
+    <NFormItem :label="t('tools.fstab-generator.passLabel')">
       <NSelect
         v-model:value="pass"
-        :options="[{ label: 'No check', value: '0' }, { label: 'Root filesystem first', value: '1' }, { label: 'Other filesystems after root', value: '2' }]"
+        :options="[{ label: t('tools.fstab-generator.passNo'), value: '0' }, { label: t('tools.fstab-generator.passRoot'), value: '1' }, { label: t('tools.fstab-generator.passOther'), value: '2' }]"
       />
     </NFormItem>
 
     <c-input-text
       v-model:value="username"
-      placeholder="Username"
-      label="Username:"
+      :placeholder="t('tools.fstab-generator.usernamePlaceholder')"
+      :label="t('tools.fstab-generator.username')"
       label-position="left"
       label-width="140px"
       label-align="right"
@@ -133,8 +136,8 @@ const fstabLine = computed(
 
     <c-input-text
       v-model:value="password"
-      placeholder="Password"
-      label="Password:"
+      :placeholder="t('tools.fstab-generator.passwordPlaceholder')"
+      :label="t('tools.fstab-generator.password')"
       label-position="left"
       label-width="140px"
       label-align="right"
@@ -142,8 +145,8 @@ const fstabLine = computed(
       flex-1
     />
 
-    <c-card title="Generated /etc/fstab line" mt-5>
-      <textarea-copyable :value="fstabLine" />
+    <c-card :title="t('tools.fstab-generator.generatedLine')" mt-5>
+      <TextareaCopyable :value="fstabLine" />
     </c-card>
   </NForm>
 </template>

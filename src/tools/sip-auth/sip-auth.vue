@@ -23,15 +23,15 @@ function transformer(value: string) {
     <c-input-text
       v-model:value="password"
       type="password"
-      :placeholder="$t('tools.sip-auth.password-tips')"
+      :placeholder="t('tools.sip-auth.password-tips')"
       autofocus
       raw-text
-      :label="$t('tools.sip-auth.password')"
+      :label="t('tools.sip-auth.password')"
     />
     <format-transformer
-      :input-label="$t('tools.sip-auth.message')"
-      :input-placeholder="$t('tools.sip-auth.message-tips')"
-      :output-label="$t('tools.sip-auth.result')"
+      :input-label="t('tools.sip-auth.message')"
+      :input-placeholder="t('tools.sip-auth.message-tips')"
+      :output-label="t('tools.sip-auth.result')"
       :transformer="transformer"
       autosize
     />

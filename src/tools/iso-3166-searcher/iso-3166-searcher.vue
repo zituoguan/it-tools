@@ -5,7 +5,8 @@ import ISO6391 from 'iso-639-1';
 import useDebouncedRef from '@/composable/debouncedref';
 import { useFlexSearch } from '@/composable/flexSearch';
 
-const searchQuery = useDebouncedRef('', 250);
+const { t } = useI18n();
+const searchQuery = useDebouncedRef('CN', 250);
 const countriesSearchData = Object.values(CountriesDB.getAllCountries());
 const limit = ref(20);
 const { searchResult } = useFlexSearch({
@@ -89,30 +90,30 @@ onUnmounted(() => {
 <template>
   <div mx-auto max-w-2400px important:flex-1>
     <div mx-auto max-w-600px flex justify-center gap-3>
-      <c-input-text v-model:value="searchQuery" placeholder="Search Countries by name, iso2, iso3...">
+      <c-input-text v-model:value="searchQuery" :placeholder="t('tools.iso-3166-searcher.searchPlaceholder')">
         <template #prefix>
           <icon-mdi-search mr-6px color-black op-70 dark:color-white />
         </template>
       </c-input-text>
-      <n-form-item label="Max results:" label-placement="left">
+      <n-form-item :label="t('tools.iso-3166-searcher.maxResults')" label-placement="left">
         <n-input-number v-model:value="limit" :min="1" />
       </n-form-item>
     </div>
 
     <div v-if="searchQuery.trim().length > 0">
       <div v-if="searchResult.length === 0" mt-4 text-20px font-bold>
-        No results
+        {{ t('tools.iso-3166-searcher.noResults') }}
       </div>
 
       <div v-else>
         <div mt-4 text-20px font-bold>
-          Search result
+          {{ t('tools.iso-3166-searcher.searchResult') }}
         </div>
 
         <n-table>
           <thead>
-            <th>Iso2/Iso3</th>
-            <th>Name and Info</th>
+            <th>{{ t('tools.iso-3166-searcher.iso2Iso3') }}</th>
+            <th>{{ t('tools.iso-3166-searcher.nameAndInfo') }}</th>
           </thead>
           <tbody>
             <tr v-for="(result, ix) in visibleSearchResults" :key="ix">
@@ -121,19 +122,19 @@ onUnmounted(() => {
                 <input-copyable :value="result.iso3" :readonly="true" />
               </td>
               <td>
-                <input-copyable label-width="150px" label="Name" label-position="left" :value="result.name" :readonly="true" mb-1 />
+                <input-copyable label-width="150px" :label="t('tools.iso-3166-searcher.name')" label-position="left" :value="result.name" :readonly="true" mb-1 />
                 <input-copyable
                   label-width="150px"
-                  label="Official Name"
+                  :label="t('tools.iso-3166-searcher.officialName')"
                   label-position="left"
                   :value="result.officialName"
                   :readonly="true"
                   mb-1
                 />
-                <input-copyable label-width="150px" label="Domain" label-position="left" :value="result.domain" :readonly="true" mb-1 />
+                <input-copyable label-width="150px" :label="t('tools.iso-3166-searcher.domain')" label-position="left" :value="result.domain" :readonly="true" mb-1 />
                 <input-copyable
                   label-width="150px"
-                  label="Emoji"
+                  :label="t('tools.iso-3166-searcher.emoji')"
                   label-position="left"
                   :value="`${result.emoji}`"
                   :readonly="true"
@@ -141,7 +142,7 @@ onUnmounted(() => {
                 />
                 <input-copyable
                   label-width="150px"
-                  label="ISO Num"
+                  :label="t('tools.iso-3166-searcher.isoNum')"
                   label-position="left"
                   :value="result.isoNumeric"
                   :readonly="true"
@@ -149,7 +150,7 @@ onUnmounted(() => {
                 />
                 <input-copyable
                   label-width="150px"
-                  label="Continent"
+                  :label="t('tools.iso-3166-searcher.continent')"
                   label-position="left"
                   :value="result.continentId"
                   :readonly="true"
@@ -157,7 +158,7 @@ onUnmounted(() => {
                 />
                 <input-copyable
                   label-width="150px"
-                  label="Elevation (m)"
+                  :label="t('tools.iso-3166-searcher.elevation')"
                   label-position="left"
                   :value="result.elevation"
                   :readonly="true"
@@ -165,7 +166,7 @@ onUnmounted(() => {
                 />
                 <input-copyable
                   label-width="150px"
-                  label="Population"
+                  :label="t('tools.iso-3166-searcher.population')"
                   label-position="left"
                   :value="result.population"
                   :readonly="true"
@@ -173,7 +174,7 @@ onUnmounted(() => {
                 />
                 <input-copyable
                   label-width="150px"
-                  label="Area (km²)"
+                  :label="t('tools.iso-3166-searcher.area')"
                   label-position="left"
                   :value="result.areaSqKm"
                   :readonly="true"
@@ -181,7 +182,7 @@ onUnmounted(() => {
                 />
                 <input-copyable
                   label-width="150px"
-                  label="Timezones"
+                  :label="t('tools.iso-3166-searcher.timezones')"
                   label-position="left"
                   :value="result.timezones.join('\n')"
                   :readonly="true"
@@ -189,7 +190,7 @@ onUnmounted(() => {
                 />
                 <input-copyable
                   label-width="150px"
-                  label="Currency"
+                  :label="t('tools.iso-3166-searcher.currency')"
                   label-position="left"
                   :value="`${result.currencyCode} / ${result.currencyName}`"
                   :readonly="true"
@@ -197,7 +198,7 @@ onUnmounted(() => {
                 />
                 <input-copyable
                   label-width="150px"
-                  label="Postal Code"
+                  :label="t('tools.iso-3166-searcher.postalCode')"
                   label-position="left"
                   :value="`${result.postalCodeFormat} / ${result.postalCodeRegex}`"
                   :readonly="true"
@@ -205,7 +206,7 @@ onUnmounted(() => {
                 />
                 <input-copyable
                   label-width="150px"
-                  label="Phone Code"
+                  :label="t('tools.iso-3166-searcher.phoneCode')"
                   label-position="left"
                   :value="result.phoneCode"
                   :readonly="true"
@@ -213,20 +214,20 @@ onUnmounted(() => {
                 />
                 <input-copyable
                   label-width="150px"
-                  label="Neighbor Countries"
+                  :label="t('tools.iso-3166-searcher.neighborCountries')"
                   label-position="left"
                   :value="
                     result.neighborCountryIds
                       .map((id) => CountriesDB.getCountry(id, 'name')?.toString() || id)
                       .join(', ')
-                      || 'None'
+                      || t('tools.iso-3166-searcher.none')
                   "
                   :readonly="true"
                   mb-1
                 />
                 <input-copyable
                   label-width="150px"
-                  label="Languages"
+                  :label="t('tools.iso-3166-searcher.languages')"
                   label-position="left"
                   :value="result.languages.map(langToName).join(', ')"
                   :readonly="true"
@@ -234,7 +235,7 @@ onUnmounted(() => {
                 />
                 <input-copyable
                   label-width="150px"
-                  label="Locales"
+                  :label="t('tools.iso-3166-searcher.locales')"
                   label-position="left"
                   :value="result.locales.map(langToName).join(', ')"
                   :readonly="true"
@@ -244,7 +245,7 @@ onUnmounted(() => {
                   :href="`https://www.openstreetmap.org/#map=5/${result.coordinates.latitude}/${result.coordinates.longitude}`"
                   target="_blank"
                 >
-                  &gt; See on OpenStreetMap
+                  {{ t('tools.iso-3166-searcher.seeOnOpenStreetMap') }}
                 </n-a>
               </td>
             </tr>
@@ -254,7 +255,7 @@ onUnmounted(() => {
         <!-- Loading indicator when more results are coming -->
         <div v-if="visibleResultsCount < searchResult.length" mt-6 text-center>
           <div text-14px op-70>
-            Loading more results... ({{ visibleSearchResults.length }}/{{ searchResult.length }})
+            {{ t('tools.iso-3166-searcher.loadingMore', { visible: visibleSearchResults.length, total: searchResult.length }) }}
           </div>
         </div>
       </div>

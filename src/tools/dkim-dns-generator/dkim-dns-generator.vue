@@ -4,15 +4,16 @@ import { generateKeyPair } from '../rsa-key-pair-generator/rsa-key-pair-generato
 import { withDefaultOnErrorAsync } from '@/utils/defaults';
 import { computedRefreshableAsync } from '@/composable/computedRefreshable';
 
+const { t } = useI18n();
 const domain = ref('');
 const selector = ref('default');
 const keySize = ref('2048');
 const password = ref('');
 
 const keySizes = [
-  { label: '1024-bit (Less secure, but faster)', value: '1024' },
-  { label: '2048-bit (Recommended for security)', value: '2048' },
-  { label: '4096-bit (Stronger security, but slower)', value: '4096' },
+  { label: t('tools.dkim-dns-generator.key-sizes.1024-bit'), value: '1024' },
+  { label: t('tools.dkim-dns-generator.key-sizes.2048-bit'), value: '2048' },
+  { label: t('tools.dkim-dns-generator.key-sizes.4096-bit'), value: '4096' },
 ];
 
 const emptyCerts = { publicKey: '', privateKey: '' };
@@ -44,42 +45,42 @@ const dKIMRecord = computed(() => {
 
 <template>
   <NForm label-placement="top">
-    <NFormItem label="Domain Name:">
-      <NInput v-model:value="domain" placeholder="Enter domain (e.g., example.com)" />
+    <NFormItem :label="t('tools.dkim-dns-generator.domain-label')">
+      <NInput v-model:value="domain" :placeholder="t('tools.dkim-dns-generator.domain-placeholder')" />
     </NFormItem>
 
-    <NFormItem label="Selector (Unique name used to distinguish DKIM records for the same domain):">
-      <NInput v-model:value="selector" placeholder="Enter selector (e.g., default)" />
+    <NFormItem :label="t('tools.dkim-dns-generator.selector-label')">
+      <NInput v-model:value="selector" :placeholder="t('tools.dkim-dns-generator.selector-placeholder')" />
     </NFormItem>
 
-    <NFormItem label="Key Size (of the RSA key used for signing emails):">
-      <NSelect v-model:value="keySize" :options="keySizes" placeholder="Select key size" />
+    <NFormItem :label="t('tools.dkim-dns-generator.key-size-label')">
+      <NSelect v-model:value="keySize" :options="keySizes" :placeholder="t('tools.dkim-dns-generator.key-size-placeholder')" />
     </NFormItem>
 
-    <NFormItem label="Passphrase (of private key):">
+    <NFormItem :label="t('tools.dkim-dns-generator.passphrase-label')">
       <NInput
         v-model:value="password"
         type="password"
         show-password-on="mousedown"
-        placeholder="Passphrase"
+        :placeholder="t('tools.dkim-dns-generator.passphrase-placeholder')"
       />
     </NFormItem>
 
     <div mb-2 flex justify-center>
       <n-button @click="refreshCerts()">
-        Refresh Certificate
+        {{ t('tools.dkim-dns-generator.refresh-button') }}
       </n-button>
     </div>
 
-    <c-card title="Generate DKIM Record" mb-1>
+    <c-card :title="t('tools.dkim-dns-generator.dkim-record-title')" mb-1>
       <textarea-copyable :value="dKIMRecord" />
     </c-card>
 
-    <c-card v-if="dKIMRecord" title="RSA Public Key" mb-1>
+    <c-card v-if="dKIMRecord" :title="t('tools.dkim-dns-generator.public-key-title')" mb-1>
       <textarea-copyable :value="certs.publicKey" />
     </c-card>
 
-    <c-card v-if="dKIMRecord" title="PEM RSA Private key">
+    <c-card v-if="dKIMRecord" :title="t('tools.dkim-dns-generator.private-key-title')">
       <textarea-copyable :value="certs.privateKey" />
     </c-card>
   </NForm>

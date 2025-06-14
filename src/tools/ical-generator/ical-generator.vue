@@ -4,6 +4,8 @@ import ical, { ICalCalendarMethod } from 'ical-generator';
 import { Base64 } from 'js-base64';
 import { useDownloadFileFromBase64 } from '@/composable/downloadBase64';
 
+const { t } = useI18n();
+
 interface Event {
   startend: [number, number]
   summary?: string
@@ -14,7 +16,7 @@ interface Event {
 
 const events = ref<Array<Event>>([{
   startend: [Date.now(), Date.now()],
-  summary: 'An event',
+  summary: t('tools.ical-generator.defaultEventSummary'),
 }]);
 function deleteEvent(index: number) {
   if (events.value.length === 1) {
@@ -26,7 +28,7 @@ function addEvent() {
   const now = Date.now();
   events.value.push({
     startend: [now, now + 3600 * 1000],
-    summary: 'An event',
+    summary: t('tools.ical-generator.defaultEventSummary'),
   });
 }
 
@@ -76,13 +78,13 @@ const { download } = useDownloadFileFromBase64(
     <div mb-2 flex items-baseline gap-2>
       <c-input-text
         v-model:value="outputFileName"
-        placeholder="Generated if empty"
-        label="Output filename:"
+        :placeholder="t('tools.ical-generator.filenamePlaceholder')"
+        :label="t('tools.ical-generator.outputFilename')"
         label-position="left"
         mb-2
       />
       <c-button v-if="output.ical" @click="download">
-        Download ICS
+        {{ t('tools.ical-generator.downloadICS') }}
       </c-button>
     </div>
 
@@ -91,36 +93,36 @@ const { download } = useDownloadFileFromBase64(
     </c-alert>
 
     <c-card v-for="(event, index) in events" :key="index" mb-2>
-      <n-form-item label="Title:" label-placement="left">
+      <n-form-item :label="t('tools.ical-generator.icalTitle')" label-placement="left">
         <n-input v-model:value="event.summary" :allow-input="(value:string) => !!value" />
       </n-form-item>
-      <n-form-item label="Dates and hours:" label-placement="left">
+      <n-form-item :label="t('tools.ical-generator.datesAndHours')" label-placement="left">
         <n-date-picker v-model:value="event.startend" type="datetimerange" />
       </n-form-item>
       <c-input-text
         v-model:value="event.description"
-        label="Description"
-        placeholder="Put a description here"
+        :label="t('tools.ical-generator.icalDescription')"
+        :placeholder="t('tools.ical-generator.descriptionPlaceholder')"
         multiline
         rows="2"
         mb-2
       />
       <c-input-text
         v-model:value="event.url"
-        label="Url:"
+        :label="t('tools.ical-generator.url')"
         label-position="left"
-        placeholder="Put an url here"
+        :placeholder="t('tools.ical-generator.urlPlaceholder')"
         mb-2
       />
       <div flex justify-center>
         <c-button @click="deleteEvent(index)">
-          Delete
+          {{ t('tools.ical-generator.delete') }}
         </c-button>
       </div>
     </c-card>
     <div mt-2 flex justify-center>
       <c-button @click="addEvent">
-        Add Event
+        {{ t('tools.ical-generator.addEvent') }}
       </c-button>
     </div>
   </div>

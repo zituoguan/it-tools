@@ -5,12 +5,14 @@ import { withDefaultOnErrorAsync } from '@/utils/defaults';
 import { computedRefreshableAsync } from '@/composable/computedRefreshable';
 import { useValidation } from '@/composable/validation';
 
+const { t } = useI18n();
+
 const commonName = ref('test.com');
 const commonNameValidation = useValidation({
   source: commonName,
   rules: [
     {
-      message: 'Common Name/Domain Name must not be empty',
+      message: t('tools.csr-generator.commonNameRequired'),
       validator: value => value?.trim() !== '',
     },
   ],
@@ -52,98 +54,98 @@ const [certs, refreshCerts] = computedRefreshableAsync(
   <div>
     <div mb-2>
       <n-form-item
-        label="Common Name/Domain Name:"
+        :label="t('tools.csr-generator.commonName')"
         label-placement="top"
         :feedback="commonNameValidation.message"
         :validation-status="commonNameValidation.status"
       >
         <n-input
           v-model:value="commonName"
-          placeholder="Common/Domain Name"
+          :placeholder="t('tools.csr-generator.commonNamePlaceholder')"
         />
       </n-form-item>
     </div>
 
     <div>
       <n-form-item
-        label="Organization Name:"
+        :label="t('tools.csr-generator.organizationName')"
         label-placement="left" label-width="100"
       >
         <n-input
           v-model:value="organizationName"
-          placeholder="Organization Name"
+          :placeholder="t('tools.csr-generator.organizationNamePlaceholder')"
         />
       </n-form-item>
     </div>
 
     <div>
       <n-form-item
-        label="Organization Unit:"
+        :label="t('tools.csr-generator.organizationUnit')"
         label-placement="left" label-width="100"
       >
         <n-input
           v-model:value="organizationalUnit"
-          placeholder="Organization Unit"
+          :placeholder="t('tools.csr-generator.organizationUnitPlaceholder')"
         />
       </n-form-item>
     </div>
 
     <div>
       <n-form-item
-        label="State:"
+        :label="t('tools.csr-generator.state')"
         label-placement="left" label-width="100"
       >
         <n-input
           v-model:value="state"
-          placeholder="State"
+          :placeholder="t('tools.csr-generator.statePlaceholder')"
         />
       </n-form-item>
     </div>
 
     <div>
       <n-form-item
-        label="City:"
+        :label="t('tools.csr-generator.city')"
         label-placement="left" label-width="100"
       >
         <n-input
           v-model:value="city"
-          placeholder="City"
+          :placeholder="t('tools.csr-generator.cityPlaceholder')"
         />
       </n-form-item>
     </div>
 
     <div>
       <n-form-item
-        label="Country:"
+        :label="t('tools.csr-generator.country')"
         label-placement="left" label-width="100"
       >
         <n-input
           v-model:value="country"
-          placeholder="Country"
+          :placeholder="t('tools.csr-generator.countryPlaceholder')"
         />
       </n-form-item>
     </div>
 
     <div>
       <n-form-item
-        label="Contact Email:"
+        :label="t('tools.csr-generator.contactEmail')"
         label-placement="left" label-width="100"
       >
         <n-input
           v-model:value="contactEmail"
-          placeholder="Contact Email"
+          :placeholder="t('tools.csr-generator.contactEmailPlaceholder')"
         />
       </n-form-item>
     </div>
 
     <div>
       <n-form-item
-        label="Subject Alternative Names:"
+        :label="t('tools.csr-generator.subjectAlternativeNames')"
         label-placement="top"
       >
         <n-input
           v-model:value="subjectAlternativeNames"
-          placeholder="DNS Names, emails, IP, URI..."
+          :placeholder="t('tools.csr-generator.subjectAlternativeNamesPlaceholder')"
           type="textarea"
         />
       </n-form-item>
@@ -151,21 +153,21 @@ const [certs, refreshCerts] = computedRefreshableAsync(
 
     <div>
       <n-form-item
-        label="Private Key passphrase:"
+        :label="t('tools.csr-generator.privateKeyPassphrase')"
         label-placement="top"
       >
         <n-input
           v-model:value="password"
           type="password"
           show-password-on="mousedown"
-          placeholder="Passphrase"
+          :placeholder="t('tools.csr-generator.passphrasePlaceholder')"
         />
       </n-form-item>
     </div>
 
     <div flex justify-center>
       <c-button @click="refreshCerts">
-        Refresh CSR
+        {{ t('tools.csr-generator.refreshCSR') }}
       </c-button>
     </div>
 
@@ -173,17 +175,17 @@ const [certs, refreshCerts] = computedRefreshableAsync(
 
     <div v-if="commonNameValidation.isValid">
       <div>
-        <h3>Certificate Signing Request</h3>
+        <h3>{{ t('tools.csr-generator.certificateSigningRequest') }}</h3>
         <TextareaCopyable :value="certs.csrPem" :download-file-name="`${organizationName}.csr`" />
       </div>
 
       <div>
-        <h3>Public key</h3>
+        <h3>{{ t('tools.csr-generator.publicKey') }}</h3>
         <TextareaCopyable :value="certs.publicKeyPem" word-wrap :download-file-name="`${organizationName}.pem`" />
       </div>
 
       <div>
-        <h3>Private key</h3>
+        <h3>{{ t('tools.csr-generator.privateKey') }}</h3>
         <TextareaCopyable :value="certs.privateKeyPem" :download-file-name="`${organizationName}.key`" />
       </div>
     </div>

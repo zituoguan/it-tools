@@ -1,11 +1,15 @@
+<script setup>
+const { t } = useI18n();
+</script>
+
 <template>
   <header>
     <h1 @click="$router.push('/')">
       <div class="icon-container">
         <div class="circle" />
-        <img src="/stopwatch.png" alt="Picture of a stopwatch">
+        <img src="/stopwatch.png" :alt="t('tools.pomodoro-timer.components.header.stopwatchAlt')">
       </div>
-      Pomodoro Timer
+      {{ t('tools.pomodoro-timer.components.header.title') }}
     </h1>
   </header>
 </template>

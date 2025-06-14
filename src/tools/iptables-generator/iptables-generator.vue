@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const { t } = useI18n();
+
 const actionOptions = [
   { label: 'ACCEPT', value: 'ACCEPT' },
   { label: 'DROP', value: 'DROP' },
@@ -54,33 +56,33 @@ const command = computed(() => {
 
 <template>
   <NForm label-placement="left" label-width="140px">
-    <NFormItem label="Action:">
+    <NFormItem :label="t('tools.iptables-generator.action')">
       <NSelect v-model:value="action" :options="actionOptions" />
     </NFormItem>
-    <NFormItem label="Protocol:">
+    <NFormItem :label="t('tools.iptables-generator.protocol')">
       <NSelect v-model:value="protocol" :options="protocolOptions" />
     </NFormItem>
-    <NFormItem label="Source IP:">
+    <NFormItem :label="t('tools.iptables-generator.sourceIP')">
       <NInput v-model:value="sourceIP" />
     </NFormItem>
-    <NFormItem label="Destination IP:">
+    <NFormItem :label="t('tools.iptables-generator.destinationIP')">
       <NInput v-model:value="destinationIP" />
     </NFormItem>
-    <NFormItem label="Source Port:">
+    <NFormItem :label="t('tools.iptables-generator.sourcePort')">
       <NInputNumber v-model:value="sourcePort" />
     </NFormItem>
-    <NFormItem label="Destination Port:">
+    <NFormItem :label="t('tools.iptables-generator.destinationPort')">
       <NInputNumber v-model:value="destinationPort" />
     </NFormItem>
-    <NFormItem label="Chain:">
+    <NFormItem :label="t('tools.iptables-generator.chain')">
       <NSelect v-model:value="chain" :options="chainOptions" />
     </NFormItem>
-    <NFormItem label="Rule Order:">
+    <NFormItem :label="t('tools.iptables-generator.ruleOrder')">
       <NInputNumber v-model:value="ruleOrder" />
     </NFormItem>
   </NForm>
 
-  <c-card title="Generated iptables command">
+  <c-card :title="t('tools.iptables-generator.generatedCommand')">
     <textarea-copyable :value="command" />
   </c-card>
 
@@ -89,46 +91,46 @@ const command = computed(() => {
   <table border="1" class="w-full border-collapse text-left text-sm text-gray-500 dark:text-gray-400">
     <thead>
       <tr>
-        <td><strong>Expression</strong></td>
-        <td><strong>Meaning</strong></td>
+        <td><strong>{{ t('tools.iptables-generator.expression') }}</strong></td>
+        <td><strong>{{ t('tools.iptables-generator.meaning') }}</strong></td>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td>iptables -L</td>
-        <td>List all rules in the selected chain</td>
+        <td>{{ t('tools.iptables-generator.listAllRules') }}</td>
       </tr>
       <tr>
         <td>iptables -t nat -n -L</td>
-        <td>List all NAT rules</td>
+        <td>{{ t('tools.iptables-generator.listNATRules') }}</td>
       </tr>
       <tr>
         <td>iptables -L -n --line-numbers</td>
-        <td>List all rules including their line number</td>
+        <td>{{ t('tools.iptables-generator.listRulesWithNumbers') }}</td>
       </tr>
       <tr>
         <td>iptables -F</td>
-        <td>Delete existing rules</td>
+        <td>{{ t('tools.iptables-generator.deleteExistingRules') }}</td>
       </tr>
       <tr>
         <td>iptables -D INPUT 2</td>
-        <td>Delete the second rule in the INPUT chain</td>
+        <td>{{ t('tools.iptables-generator.deleteSecondRule') }}</td>
       </tr>
       <tr>
         <td>iptables -t nat -D PREROUTING 2</td>
-        <td>Delete the second rule in the NAT table</td>
+        <td>{{ t('tools.iptables-generator.deleteSecondNATRule') }}</td>
       </tr>
       <tr>
         <td>iptables -A INPUT -s "&lt;ip address&gt;" -j DROP</td>
-        <td>Block a specific IP address</td>
+        <td>{{ t('tools.iptables-generator.blockSpecificIP') }}</td>
       </tr>
       <tr>
         <td>iptables -A INPUT -p tcp --dport 80 -m limit --limit 25/minute --limit-burst 100 -j ACCEPT</td>
-        <td>Limit connections to 25 per minute on port 80, after 100 connections have been reached</td>
+        <td>{{ t('tools.iptables-generator.limitConnections') }}</td>
       </tr>
       <tr>
         <td>iptables -N MYCHAIN</td>
-        <td>Create a new chain called "MYCHAIN"</td>
+        <td>{{ t('tools.iptables-generator.createNewChain') }}</td>
       </tr>
     </tbody>
   </table>

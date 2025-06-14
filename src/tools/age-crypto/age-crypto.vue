@@ -42,6 +42,8 @@ const go = new Go();
 const result = await WebAssembly.instantiateStreaming(fetch(ageWasmUrl), go.importObject);
 go.run(result.instance);
 
+const { t } = useI18n();
+
 const privKey = ref('');
 const pubKey = ref('');
 const recipients = ref('');
@@ -164,42 +166,42 @@ function onDecryptFilesUploaded(uploadedFiles: File[]) {
 <template>
   <n-tabs type="card">
     <!-- Generate Keys -->
-    <n-tab-pane name="keys" tab="Generate Keys">
-      <n-card title="Private Key" mb-1>
-        <textarea-copyable v-model:value="privKey" rows="3" multiline placeholder="Your private key will be generated here." />
+    <n-tab-pane name="keys" :tab="t('tools.age-crypto.tabGenerateKeys')">
+      <n-card :title="t('tools.age-crypto.generateKeys_cardTitle_privateKey')" mb-1>
+        <textarea-copyable v-model:value="privKey" rows="3" multiline :placeholder="t('tools.age-crypto.generateKeys_placeholder_privateKey')" />
       </n-card>
-      <n-card title="Public Key" mb-1>
-        <textarea-copyable v-model:value="pubKey" rows="3" multiline placeholder="Your public key will be generated here." />
+      <n-card :title="t('tools.age-crypto.generateKeys_cardTitle_publicKey')" mb-1>
+        <textarea-copyable v-model:value="pubKey" rows="3" multiline :placeholder="t('tools.age-crypto.generateKeys_placeholder_publicKey')" />
       </n-card>
       <n-button type="primary" @click="generateKeys">
-        Generate Keys
+        {{ t('tools.age-crypto.generateKeys_button_generate') }}
       </n-button>
     </n-tab-pane>
 
     <!-- Encrypt Text -->
-    <n-tab-pane name="encrypt" tab="Encrypt">
-      <n-card title="Public Keys" mb-1>
-        <n-input v-model:value="recipients" type="textarea" placeholder="Recipient key or keys one per line" required />
+    <n-tab-pane name="encrypt" :tab="t('tools.age-crypto.tabEncrypt')">
+      <n-card :title="t('tools.age-crypto.encryptText_cardTitle_publicKeys')" mb-1>
+        <n-input v-model:value="recipients" type="textarea" :placeholder="t('tools.age-crypto.encryptText_placeholder_recipients')" required />
       </n-card>
-      <n-card title="Message" mb-1>
-        <n-input v-model:value="message" type="textarea" placeholder="Message to encrypt" required />
+      <n-card :title="t('tools.age-crypto.encryptText_cardTitle_message')" mb-1>
+        <n-input v-model:value="message" type="textarea" :placeholder="t('tools.age-crypto.encryptText_placeholder_message')" required />
       </n-card>
-      <n-card title="Output" mb-1>
-        <textarea-copyable v-model:value="encryptedOutput" rows="3" multiline placeholder="Encrypted output will be generated here." />
+      <n-card :title="t('tools.age-crypto.encryptText_cardTitle_output')" mb-1>
+        <textarea-copyable v-model:value="encryptedOutput" rows="3" multiline :placeholder="t('tools.age-crypto.encryptText_placeholder_output')" />
       </n-card>
       <n-button type="primary" @click="encrypt">
-        Encrypt
+        {{ t('tools.age-crypto.encryptText_button_encrypt') }}
       </n-button>
     </n-tab-pane>
 
     <!-- Encrypt Binary -->
-    <n-tab-pane name="encryptBinary" tab="Encrypt Binary">
-      <n-card title="Public Keys" mb-1>
-        <n-input v-model:value="recipientsBinary" type="textarea" placeholder="Recipient key or keys one per line" required />
+    <n-tab-pane name="encryptBinary" :tab="t('tools.age-crypto.tabEncryptBinary')">
+      <n-card :title="t('tools.age-crypto.encryptBinary_cardTitle_publicKeys')" mb-1>
+        <n-input v-model:value="recipientsBinary" type="textarea" :placeholder="t('tools.age-crypto.encryptBinary_placeholder_recipients')" required />
       </n-card>
-      <n-card title="Files" mb-1>
+      <n-card :title="t('tools.age-crypto.encryptBinary_cardTitle_files')" mb-1>
         <c-file-upload
-          title="Drag and drop files here, or click to select some files"
+          :title="t('tools.age-crypto.encryptBinary_fileUpload_title')"
           multiple
           @files-upload="onEncryptFilesUploaded"
         />
@@ -209,38 +211,38 @@ function onDecryptFilesUploaded(uploadedFiles: File[]) {
           </li>
         </ul>
       </n-card>
-      <n-card title="Output" mb-1>
-        <p>The encrypted files will be downloaded.</p>
+      <n-card :title="t('tools.age-crypto.encryptBinary_cardTitle_output')" mb-1>
+        <p>{{ t('tools.age-crypto.encryptBinary_outputText_download') }}</p>
       </n-card>
       <n-button type="primary" @click="encryptBinary">
-        Encrypt Binary
+        {{ t('tools.age-crypto.encryptBinary_button_encrypt') }}
       </n-button>
     </n-tab-pane>
 
     <!-- Decrypt Text -->
-    <n-tab-pane name="decrypt" tab="Decrypt">
-      <n-card title="Private Keys" mb-1>
-        <n-input v-model:value="identities" type="textarea" placeholder="Identity key or keys one per line" required />
+    <n-tab-pane name="decrypt" :tab="t('tools.age-crypto.tabDecrypt')">
+      <n-card :title="t('tools.age-crypto.decryptText_cardTitle_privateKeys')" mb-1>
+        <n-input v-model:value="identities" type="textarea" :placeholder="t('tools.age-crypto.decryptText_placeholder_identities')" required />
       </n-card>
-      <n-card title="Encrypted Text" mb-1>
-        <n-input v-model:value="encryptedText" type="textarea" placeholder="Paste here encrypted text" required />
+      <n-card :title="t('tools.age-crypto.decryptText_cardTitle_encryptedText')" mb-1>
+        <n-input v-model:value="encryptedText" type="textarea" :placeholder="t('tools.age-crypto.decryptText_placeholder_encryptedText')" required />
       </n-card>
-      <n-card title="Output" mb-1>
-        <textarea-copyable v-model:value="decryptedOutput" rows="3" multiline placeholder="Decrypted output will be generated here." />
+      <n-card :title="t('tools.age-crypto.decryptText_cardTitle_output')" mb-1>
+        <textarea-copyable v-model:value="decryptedOutput" rows="3" multiline :placeholder="t('tools.age-crypto.decryptText_placeholder_output')" />
       </n-card>
       <n-button type="primary" @click="decrypt">
-        Decrypt
+        {{ t('tools.age-crypto.decryptText_button_decrypt') }}
       </n-button>
     </n-tab-pane>
 
     <!-- Decrypt Binary -->
-    <n-tab-pane name="decryptBinary" tab="Decrypt Binary">
-      <n-card title="Private Keys" mb-1>
-        <n-input v-model:value="identitiesBinary" type="textarea" placeholder="Identity key or keys one per line" required />
+    <n-tab-pane name="decryptBinary" :tab="t('tools.age-crypto.tabDecryptBinary')">
+      <n-card :title="t('tools.age-crypto.decryptBinary_cardTitle_privateKeys')" mb-1>
+        <n-input v-model:value="identitiesBinary" type="textarea" :placeholder="t('tools.age-crypto.decryptBinary_placeholder_identities')" required />
       </n-card>
-      <n-card title="Encrypted Files" mb-1>
+      <n-card :title="t('tools.age-crypto.decryptBinary_cardTitle_encryptedFiles')" mb-1>
         <c-file-upload
-          title="Drag and drop files here, or click to select some files"
+          :title="t('tools.age-crypto.decryptBinary_fileUpload_title')"
           multiple
           @files-upload="onDecryptFilesUploaded"
         />
@@ -250,11 +252,11 @@ function onDecryptFilesUploaded(uploadedFiles: File[]) {
           </li>
         </ul>
       </n-card>
-      <n-card title="Output" mb-1>
-        <p>The decrypted files will be downloaded.</p>
+      <n-card :title="t('tools.age-crypto.decryptBinary_cardTitle_output')" mb-1>
+        <p>{{ t('tools.age-crypto.decryptBinary_outputText_download') }}</p>
       </n-card>
       <n-button type="primary" @click="decryptBinary">
-        Decrypt Binary
+        {{ t('tools.age-crypto.decryptBinary_button_decrypt') }}
       </n-button>
     </n-tab-pane>
   </n-tabs>

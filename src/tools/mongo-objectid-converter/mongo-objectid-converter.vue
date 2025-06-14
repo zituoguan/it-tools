@@ -2,24 +2,26 @@
 import { dateFromObjectId, generateMongoFilter, objectIdFromDate, objectIdSyntaxFromDate } from './mongo-objectid-converter.service';
 import { withDefaultOnError } from '@/utils/defaults';
 
+const { t } = useI18n();
+
 const currentTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
 const objectIdInput = ref(objectIdFromDate(new Date()));
 const dateOutput = computed(() =>
-  withDefaultOnError(() => dateFromObjectId(objectIdInput.value), 'Invalid ObjectId'),
+  withDefaultOnError(() => dateFromObjectId(objectIdInput.value), t('tools.mongo-objectid-converter.invalid-objectid')),
 );
 
 const dateInput = ref(Date.now());
 const dateValue = computed(() => new Date(dateInput.value));
 const tableName = ref('tbl');
 const objectIdOutput = computed(() =>
-  withDefaultOnError(() => objectIdFromDate(dateValue.value), 'Invalid Date'),
+  withDefaultOnError(() => objectIdFromDate(dateValue.value), t('tools.mongo-objectid-converter.invalid-date')),
 );
 const objectIdSyntaxOutput = computed(() =>
-  withDefaultOnError(() => objectIdSyntaxFromDate(dateValue.value), 'Invalid Date'),
+  withDefaultOnError(() => objectIdSyntaxFromDate(dateValue.value), t('tools.mongo-objectid-converter.invalid-date')),
 );
 const objectIdQueryOutput = computed(() =>
-  withDefaultOnError(() => generateMongoFilter({ date: dateValue.value, tableName: tableName.value }), 'Invalid Date'),
+  withDefaultOnError(() => generateMongoFilter({ date: dateValue.value, tableName: tableName.value }), t('tools.mongo-objectid-converter.invalid-date')),
 );
 const objectIdUTCDate = computed(() =>
   dateValue.value.toISOString(),
@@ -27,11 +29,11 @@ const objectIdUTCDate = computed(() =>
 </script>
 
 <template>
-  <c-card :title="`ObjectId to Date (${currentTimeZone})`">
+  <c-card :title="t('tools.mongo-objectid-converter.objectid-to-date', { timeZone: currentTimeZone })">
     <c-input-text
       v-model:value="objectIdInput"
-      placeholder="Put your ObjectId here..."
-      label="ObjectId to encode"
+      :placeholder="t('tools.mongo-objectid-converter.put-your-objectid-here')"
+      :label="t('tools.mongo-objectid-converter.objectid-to-encode')"
       raw-text
       mb-5
     />
@@ -46,15 +48,15 @@ const objectIdUTCDate = computed(() =>
     />
   </c-card>
 
-  <c-card :title="`Date to ObjectId (${currentTimeZone})`">
-    <n-form-item label="Date and time" label-placement="left" mb-2 flex-1>
+  <c-card :title="t('tools.mongo-objectid-converter.date-to-objectid', { timeZone: currentTimeZone })">
+    <n-form-item :label="t('tools.mongo-objectid-converter.date-and-time')" label-placement="left" mb-2 flex-1>
       <n-date-picker v-model:value="dateInput" type="datetime" />
     </n-form-item>
 
     <c-input-text
       v-model:value="tableName"
-      placeholder="Put your Table Name here..."
-      label="Table Name"
+      :placeholder="t('tools.mongo-objectid-converter.put-your-table-name-here')"
+      :label="t('tools.mongo-objectid-converter.table-name')"
       label-position="left"
       raw-text
       mb-5

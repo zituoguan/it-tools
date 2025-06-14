@@ -3,6 +3,8 @@ import { convertCsvToArray } from '../csv-to-json/csv-to-json.service';
 import { objectArrayToData } from '@/utils/objectarray.export';
 import type { ExportFormat } from '@/utils/objectarray.export';
 
+const { t } = useI18n();
+
 const inputType = ref<'file' | 'content'>('file');
 const csvContent = ref('');
 const fileInput = ref() as Ref<File | null>;
@@ -18,9 +20,9 @@ const formats = [
   { label: 'JSON', value: 'json' },
   { label: 'YAML', value: 'yaml' },
   { label: 'SQL INSERT', value: 'sql' },
-  { label: 'CSV (comma)', value: 'csv' },
-  { label: 'CSV (semicolon)', value: 'csv_semicolon' },
-  { label: 'CSV (tab)', value: 'tsv' },
+  { label: t('tools.csv-to-data.formats.csv-comma'), value: 'csv' },
+  { label: t('tools.csv-to-data.formats.csv-semicolon'), value: 'csv_semicolon' },
+  { label: t('tools.csv-to-data.formats.csv-tab'), value: 'tsv' },
   { label: 'Markdown', value: 'markdown' },
   { label: 'XML', value: 'xml' },
 ];
@@ -65,17 +67,17 @@ async function convertFile() {
 </script>
 
 <template>
-  <NCard title="CSV Converter">
+  <NCard :title="t('tools.csv-to-data.title')">
     <c-card>
       <n-radio-group v-model:value="inputType" name="radiogroup" mb-2 flex justify-center>
         <n-space>
           <n-radio
             value="file"
-            label="File"
+            :label="t('tools.csv-to-data.input-type.file')"
           />
           <n-radio
             value="content"
-            label="Content"
+            :label="t('tools.csv-to-data.input-type.content')"
           />
         </n-space>
       </n-radio-group>
@@ -83,15 +85,15 @@ async function convertFile() {
       <c-file-upload
         v-if="inputType === 'file'"
         accept=".csv,.tsv"
-        title="Drag and drop a CSV file here, or click to select a file"
+        :title="t('tools.csv-to-data.file-upload.title')"
         @file-upload="handleFileUpload"
       />
 
       <c-input-text
         v-if="inputType === 'content'"
         v-model:value="csvContent"
-        label="Paste your CSV Content:"
-        placeholder="Your CSV..."
+        :label="t('tools.csv-to-data.input-content.label')"
+        :placeholder="t('tools.csv-to-data.input-content.placeholder')"
         multiline
         rows="8"
         data-test-id="input"
@@ -99,23 +101,23 @@ async function convertFile() {
     </c-card>
 
     <n-space justify="center">
-      <n-form-item label="Typed Values" label-placement="left">
+      <n-form-item :label="t('tools.csv-to-data.options.typed-values')" label-placement="left">
         <n-checkbox v-model:checked="typedValues" />
       </n-form-item>
-      <n-form-item label="Nestify ('a.b.c' to nested objects)" label-placement="left">
+      <n-form-item :label="t('tools.csv-to-data.options.nestify')" label-placement="left">
         <n-checkbox v-model:checked="nestify" />
       </n-form-item>
     </n-space>
 
-    <NFormItem label="Select output format:" label-placement="left">
-      <NSelect v-model:value="selectedFormat" :options="formats" placeholder="Select format" />
+    <NFormItem :label="t('tools.csv-to-data.select-format.label')" label-placement="left">
+      <NSelect v-model:value="selectedFormat" :options="formats" :placeholder="t('tools.csv-to-data.select-format.placeholder')" />
     </NFormItem>
 
-    <c-input-text v-if="selectedFormat === 'sql'" v-model:value="tableName" label="Table Name:" label-placement="left" />
+    <c-input-text v-if="selectedFormat === 'sql'" v-model:value="tableName" :label="t('tools.csv-to-data.table-name.label')" label-placement="left" />
 
     <div mt-3 flex justify-center>
       <NButton :disabled="!((inputType === 'file' && fileInput) || csvContent)" @click="convertFile">
-        Convert
+        {{ t('tools.csv-to-data.convert-button') }}
       </NButton>
     </div>
 
@@ -123,7 +125,7 @@ async function convertFile() {
       {{ error }}
     </c-alert>
 
-    <c-card v-if="convertedData" title="Converted data">
+    <c-card v-if="convertedData" :title="t('tools.csv-to-data.converted-data.title')">
       <textarea-copyable :value="convertedData" :language="selectedFormat" />
     </c-card>
   </NCard>

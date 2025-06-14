@@ -1,20 +1,22 @@
 <script setup>
 import { useStore } from 'vuex';
+import { useI18n } from 'vue-i18n';
 
+const { t } = useI18n();
 const store = useStore('pomodoro-store');
 </script>
 
 <template>
   <div class="dropup">
     <button class="dropup-btn" @click="store.commit('toggleResetDropup')">
-      RESET
+      {{ t('tools.pomodoro-timer.components.resetDropup.reset') }}
     </button>
     <div v-if="store.state.isResetDropupVisible" class="dropup-content">
       <button class="reset-btns" @click="store.commit('timerResetAll')">
-        Reset All
+        {{ t('tools.pomodoro-timer.components.resetDropup.resetAll') }}
       </button>
       <button class="reset-btns" @click="store.commit('timerResetCurrent')">
-        Reset Current
+        {{ t('tools.pomodoro-timer.components.resetDropup.resetCurrent') }}
       </button>
     </div>
   </div>

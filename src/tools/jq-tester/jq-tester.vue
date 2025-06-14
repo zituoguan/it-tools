@@ -5,16 +5,18 @@ import jq from 'jq-wasm';
 import TextareaCopyable from '@/components/TextareaCopyable.vue';
 import { useValidation } from '@/composable/validation';
 
+const { t } = useI18n();
+
 type JQType = 'jq' | 'jsonpath';
 const indent = 2;
 
 const jqOrJsonPath = ref('');
 const json = ref('');
 const jqtype = ref<JQType>('jq');
-const jqtypes = [
+const jqtypes = computed(() => [
   { value: 'jq', label: 'jq' },
   { value: 'jsonpath', label: 'JSONPath' },
-];
+]);
 
 const result = computedAsync(async () => {
   const jqOrJsonPathString = jqOrJsonPath.value;
@@ -38,7 +40,7 @@ const jsonValidation = useValidation({
   rules: [
     {
       validator: v => JSON5.parse(v),
-      message: 'Provided JSON is not valid.',
+      message: t('tools.jq-tester.validationError'),
     },
   ],
 });
@@ -46,11 +48,11 @@ const jsonValidation = useValidation({
 
 <template>
   <div>
-    <c-card title="Input" mb-2>
+    <c-card :title="t('tools.jq-tester.input')" mb-2>
       <c-input-text
         v-model:value="jqOrJsonPath"
-        label="jq or JSONPath"
-        placeholder="Put your jq or JSONPath here..."
+        :label="t('tools.jq-tester.jqOrJsonPathLabel')"
+        :placeholder="t('tools.jq-tester.jqOrJsonPathPlaceholder')"
         mb-2
       />
 
@@ -69,25 +71,25 @@ const jsonValidation = useValidation({
 
       <div mb-2 flex justify-center>
         <router-link v-if="jqtype === 'jq'" target="_blank" to="/jq-memo" mb-1 mt-1>
-          See <code>jq</code> Cheatsheet
+          {{ t('tools.jq-tester.seeJqCheatsheet') }}
         </router-link>
         <router-link v-if="jqtype === 'jsonpath'" target="_blank" to="/jsonpath-memo" mb-1 mt-1>
-          See JSONPath Cheatsheet
+          {{ t('tools.jq-tester.seeJsonPathCheatsheet') }}
         </router-link>
       </div>
 
       <c-input-text
         v-model:value="json"
-        label="JSON"
+        :label="t('tools.jq-tester.jsonLabel')"
         multiline
-        placeholder="Put your JSON here..."
+        :placeholder="t('tools.jq-tester.jsonPlaceholder')"
         rows="5"
         :validation="jsonValidation"
         mb-2
       />
     </c-card>
 
-    <c-card title="Result">
+    <c-card :title="t('tools.jq-tester.result')">
       <TextareaCopyable :value="result" language="json" />
     </c-card>
   </div>

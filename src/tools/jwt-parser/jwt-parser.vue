@@ -6,6 +6,8 @@ import { useValidation } from '@/composable/validation';
 import { isNotThrowing } from '@/utils/boolean';
 import { withDefaultOnError } from '@/utils/defaults';
 
+const { t } = useI18n();
+
 const rawJwt = ref(
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c',
 );
@@ -15,8 +17,8 @@ const decodedJWT = computed(() =>
 );
 
 const sections = [
-  { key: 'header', title: 'Header' },
-  { key: 'payload', title: 'Payload' },
+  { key: 'header', title: t('tools.jwt-parser.header') },
+  { key: 'payload', title: t('tools.jwt-parser.payload') },
 ] as const;
 
 const validation = useValidation({
@@ -24,7 +26,7 @@ const validation = useValidation({
   rules: [
     {
       validator: value => value.length > 0 && isNotThrowing(() => decodeJwt({ jwt: rawJwt.value })),
-      message: 'Invalid JWT',
+      message: t('tools.jwt-parser.invalid-jwt'),
     },
   ],
 });
@@ -33,11 +35,11 @@ const secretOrPublicKey = ref('');
 const signatureVerification = computedAsync(async () => {
   const secretOrPublicKeyValue = secretOrPublicKey.value?.trim();
   if (!secretOrPublicKeyValue) {
-    return { error: 'No secret or key provided' };
+    return { error: t('tools.jwt-parser.no-secret-provided') };
   }
   const jwt = rawJwt.value?.trim();
   if (!jwt) {
-    return { error: 'No JWT token provided' };
+    return { error: t('tools.jwt-parser.no-jwt-provided') };
   }
   try {
     const alg = getJwtAlgorithm({ jwt }) || 'unk';
@@ -60,14 +62,14 @@ const signatureVerification = computedAsync(async () => {
     return { error: '' };
   }
   catch (e: any) {
-    return { error: `Key or secret or verification error: ${e.toString()}` };
+    return { error: `${t('tools.jwt-parser.verification-error')}: ${e.toString()}` };
   }
 });
 </script>
 
 <template>
   <c-card>
-    <c-input-text v-model:value="rawJwt" label="JWT to decode" :validation="validation" placeholder="Put your token here..." rows="5" multiline raw-text autofocus mb-3 />
+    <c-input-text v-model:value="rawJwt" :label="t('tools.jwt-parser.jwt-to-decode')" :validation="validation" :placeholder="t('tools.jwt-parser.token-placeholder')" rows="5" multiline raw-text autofocus mb-3 />
 
     <n-table v-if="validation.isValid">
       <tbody>
@@ -95,10 +97,10 @@ const signatureVerification = computedAsync(async () => {
       </tbody>
     </n-table>
 
-    <c-card title="Signature Validation">
+    <c-card :title="t('tools.jwt-parser.signature-validation')">
       <c-input-text
-        v-model:value="secretOrPublicKey" label="Secret or Public Key (SPKI or JWK)"
-        placeholder="Put your secret or Public key here..." rows="5" multiline raw-text autofocus mb-3
+        v-model:value="secretOrPublicKey" :label="t('tools.jwt-parser.secret-or-public-key')"
+        :placeholder="t('tools.jwt-parser.key-placeholder')" rows="5" multiline raw-text autofocus mb-3
       />
 
       <c-alert v-if="signatureVerification?.error">
@@ -106,7 +108,7 @@ const signatureVerification = computedAsync(async () => {
       </c-alert>
 
       <n-alert v-if="!signatureVerification?.error" type="success">
-        Signature verified
+        {{ t('tools.jwt-parser.signature-verified') }}
       </n-alert>
     </c-card>
   </c-card>

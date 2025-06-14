@@ -2,6 +2,8 @@
 import { ref } from 'vue';
 import { NCard, NForm, NFormItem, NInput } from 'naive-ui';
 
+const { t } = useI18n();
+
 const bimiData = ref({
   domain: '',
   logoUrl: '',
@@ -26,20 +28,20 @@ const bimiRecord = computed(() => {
 </script>
 
 <template>
-  <NCard title="BIMI DNS Record Generator">
+  <NCard :title="t('tools.bimi-dns-generator.titleText')">
     <NForm :model="bimiData" label-placement="left" label-width="150px">
-      <NFormItem label="Domain:">
-        <NInput v-model:value="bimiData.domain" placeholder="example.com" />
+      <NFormItem :label="t('tools.bimi-dns-generator.domainLabel')">
+        <NInput v-model:value="bimiData.domain" :placeholder="t('tools.bimi-dns-generator.domainPlaceholder')" />
       </NFormItem>
-      <NFormItem label="Logo URL:">
-        <NInput v-model:value="bimiData.logoUrl" placeholder="https://example.com/logo.svg" />
+      <NFormItem :label="t('tools.bimi-dns-generator.logoUrlLabel')">
+        <NInput v-model:value="bimiData.logoUrl" :placeholder="t('tools.bimi-dns-generator.logoUrlPlaceholder')" />
       </NFormItem>
-      <NFormItem label="VMC Certificate URL:">
-        <NInput v-model:value="bimiData.vmcUrl" placeholder="https://example.com/vmc.pem" />
+      <NFormItem :label="t('tools.bimi-dns-generator.vmcUrlLabel')">
+        <NInput v-model:value="bimiData.vmcUrl" :placeholder="t('tools.bimi-dns-generator.vmcUrlPlaceholder')" />
       </NFormItem>
     </NForm>
 
-    <c-card title="Generated BIMI record">
+    <c-card :title="t('tools.bimi-dns-generator.generatedBimiRecordTitle')">
       <textarea-copyable :value="bimiRecord" />
     </c-card>
   </NCard>

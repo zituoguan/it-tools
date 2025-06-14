@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import linter from 'jsonlint-mod';
 
+const { t } = useI18n();
 const jsonContent = ref(
-  `{ 
-    a: True; 
-    b=5 
-  }`,
+  `{
+  "a": true,
+  "b": 5
+}`,
 );
 
 const conversionError = computed(() => {
@@ -27,7 +28,7 @@ const MONACO_EDITOR_OPTIONS = {
 
 <template>
   <div>
-    <c-label label="Paste your JSON file content:">
+    <c-label :label="t('tools.json-linter.pasteJsonContent')">
       <div relative w-full>
         <c-monaco-editor
           v-model:value="jsonContent"
@@ -40,7 +41,7 @@ const MONACO_EDITOR_OPTIONS = {
     </c-label>
 
     <div v-if="conversionError">
-      <n-alert title="The following errors occured" type="error" mt-5>
+      <n-alert :title="t('tools.json-linter.errorsOccurred')" type="error" mt-5>
         <pre>
         {{ conversionError }}
         </pre>
@@ -48,7 +49,7 @@ const MONACO_EDITOR_OPTIONS = {
     </div>
     <div v-else>
       <n-alert type="success" mt-5>
-        Validation successful!
+        {{ t('tools.json-linter.validationSuccessful') }}
       </n-alert>
     </div>
   </div>

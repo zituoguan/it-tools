@@ -3,6 +3,8 @@ import _ from 'lodash';
 import { type Unit, convertMany } from 'convert';
 import allUnits from './allunits.json';
 
+const { t } = useI18n();
+
 const allUnitsSorted = _.uniq(allUnits).sort();
 
 const inputExpression = ref('');
@@ -37,25 +39,25 @@ const result = computed(() => {
   <div>
     <c-input-text
       v-model:value="inputExpression"
-      label="Units expression"
-      placeholder="Please enter an unit expression, ie '1d 2m'"
+      :label="t('tools.many-units-converter.unitsExpression')"
+      :placeholder="t('tools.many-units-converter.placeholder')"
       mb-2
     />
     <c-select
       v-model:value="outputUnit"
       label-position="left"
       label-width="100px"
-      label="Target Unit:"
+      :label="t('tools.many-units-converter.targetUnit')"
       :options="allUnitsSorted"
-      placeholder="Select the target unit"
+      :placeholder="t('tools.many-units-converter.selectTargetUnit')"
       searchable
     />
 
     <n-divider />
 
-    <c-card v-if="result.best" title="Result" mb-2>
-      <input-copyable label="Best Target Unit" :value="result.best" mb-1 />
-      <input-copyable v-if="result.selected" :label="`Selected Target Unit (${outputUnit})`" :value="result.selected" />
+    <c-card v-if="result.best" :title="t('tools.many-units-converter.result')" mb-2>
+      <input-copyable :label="t('tools.many-units-converter.bestTargetUnit')" :value="result.best" mb-1 />
+      <input-copyable v-if="result.selected" :label="t('tools.many-units-converter.selectedTargetUnit', { unit: outputUnit })" :value="result.selected" />
     </c-card>
     <c-alert v-if="result.error && inputExpression">
       {{ result.error }}

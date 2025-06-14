@@ -4,6 +4,8 @@ import JSON5 from 'json5';
 import type { UseValidationRule } from '@/composable/validation';
 import { withDefaultOnError } from '@/utils/defaults';
 
+const { t } = useI18n();
+
 const defaultValue = `{
   a:"b", 
   arr: [1, "2"], 
@@ -19,17 +21,17 @@ function transformer(value: string) {
 const rules: UseValidationRule<string>[] = [
   {
     validator: (v: string) => JSON5.parse(v),
-    message: 'Provided JSON is not valid.',
+    message: t('tools.json-to-php-array.invalid-json'),
   },
 ];
 </script>
 
 <template>
   <format-transformer
-    input-label="Your JSON"
+    :input-label="t('tools.json-to-php-array.input-label')"
     :input-default="defaultValue"
-    input-placeholder="Paste your JSON here..."
-    output-label="PHP Array version"
+    :input-placeholder="t('tools.json-to-php-array.input-placeholder')"
+    :output-label="t('tools.json-to-php-array.output-label')"
     :input-validation-rules="rules"
     :transformer="transformer"
   />

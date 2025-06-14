@@ -8,6 +8,8 @@ import { convertHexToBin } from '../hash-text/hash-text.service';
 import { useQueryParamOrStorage } from '@/composable/queryParams';
 import { withDefaultOnError } from '@/utils/defaults';
 
+const { t } = useI18n();
+
 const status = ref<'idle' | 'done' | 'error' | 'processing'>('idle');
 const text = ref('');
 const file = ref<File | null>(null);
@@ -104,17 +106,17 @@ watch(text,
   <div>
     <c-card>
       <c-file-upload
-        title="Drag and drop a file here, or click to select a file"
+        :title="t('tools.crc-calculator.fileUploadTitle')"
         @file-upload="onUpload"
       />
 
-      <p>OR</p>
+      <p>{{ t('tools.crc-calculator.or') }}</p>
 
       <c-input-text
         v-model:value="text"
         multiline raw-text
-        placeholder="Paste string to CRC..." rows="3"
-        autosize autofocus label="Your text to CRC:"
+        :placeholder="t('tools.crc-calculator.textPlaceholder')" rows="3"
+        autosize autofocus :label="t('tools.crc-calculator.textLabel')"
       />
 
       <n-divider />
@@ -122,22 +124,22 @@ watch(text,
       <c-select
         v-model:value="encoding"
         mb-4
-        label="Digest encoding"
+        :label="t('tools.crc-calculator.digestEncoding')"
         :options="[
           {
-            label: 'Binary (base 2)',
+            label: t('tools.crc-calculator.binary'),
             value: 'Bin',
           },
           {
-            label: 'Hexadecimal (base 16)',
+            label: t('tools.crc-calculator.hexadecimal'),
             value: 'Hex',
           },
           {
-            label: 'Base64 (base 64)',
+            label: t('tools.crc-calculator.base64'),
             value: 'Base64',
           },
           {
-            label: 'Base64url (base 64 with url safe chars)',
+            label: t('tools.crc-calculator.base64url'),
             value: 'Base64url',
           },
         ]"
@@ -146,7 +148,7 @@ watch(text,
 
     <div mt-3 flex justify-center>
       <c-alert v-if="status === 'error'" type="error">
-        An error occured hashing file.
+        {{ t('tools.crc-calculator.errorMessage') }}
       </c-alert>
       <n-spin
         v-if="status === 'processing'"
@@ -154,7 +156,7 @@ watch(text,
       />
     </div>
 
-    <c-card v-if="status === 'done'" :title="file === null ? 'CRC of text' : `CRC of ${file?.name}`">
+    <c-card v-if="status === 'done'" :title="file === null ? t('tools.crc-calculator.crcOfText') : t('tools.crc-calculator.crcOfFile', { filename: file?.name })">
       <div v-for="algo in algoWasmNames" :key="algo" style="margin: 5px 0">
         <n-input-group>
           <n-input-group-label style="flex: 0 0 120px">

@@ -2,9 +2,18 @@
 import { combineTXT, query, wellknown } from 'dns-query';
 import types from './dns.records.types.json';
 
+const { t } = useI18n();
 const type = ref('A');
 const name = ref('google.com');
 const answers = ref<string[]>([]);
+
+// Create translated DNS record type options
+const dnsTypeOptions = computed(() => {
+  return Object.values(types).map(kv => ({
+    value: kv.value,
+    label: `${kv.value}: ${t(`tools.dns-queries.record-types.${kv.value.toLowerCase()}`, kv.label)}`,
+  }));
+});
 
 async function queryDNS() {
   const endpoints = await wellknown.endpoints('doh');
@@ -31,17 +40,17 @@ async function queryDNS() {
   <div>
     <c-input-text
       v-model:value="name"
-      label="Name"
+      :label="t('tools.dns-queries.name-label')"
       label-position="left"
-      placeholder="Name to query"
+      :placeholder="t('tools.dns-queries.name-placeholder')"
       mb-2
     />
     <c-select
       v-model:value="type"
       searchable
-      label="DNS record type:"
+      :label="t('tools.dns-queries.record-type-label')"
       label-position="left"
-      :options="Object.values(types).map(kv => ({ value: kv.value, label: `${kv.value}: ${kv.label}` }))"
+      :options="dnsTypeOptions"
       mb-2
     />
 
@@ -49,13 +58,13 @@ async function queryDNS() {
       <c-button
         @click="queryDNS"
       >
-        Send DNS query
+        {{ t('tools.dns-queries.send-query-button') }}
       </c-button>
     </div>
 
     <n-divider />
 
-    <c-card title="Query results">
+    <c-card :title="t('tools.dns-queries.results-title')">
       <textarea-copyable
         v-for="(answer, index) in answers"
         :key="index"

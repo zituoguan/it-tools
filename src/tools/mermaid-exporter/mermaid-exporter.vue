@@ -2,6 +2,8 @@
 import { nextTick, onMounted, ref, watch } from 'vue';
 import mermaid from 'mermaid';
 
+const { t } = useI18n();
+
 mermaid.initialize({ startOnLoad: false });
 
 const mermaidCode = ref<string>(`graph TD
@@ -21,7 +23,7 @@ async function renderMermaid(): Promise<void> {
       mermaidContainer.value.innerHTML = svg;
     }
     catch (error: unknown) {
-      mermaidContainer.value.innerHTML = '<p class="error">Invalid Mermaid syntax</p>';
+      mermaidContainer.value.innerHTML = `<p class="error">${t('tools.mermaid-exporter.invalid-syntax')}</p>`;
       console.error('Mermaid error:', error);
     }
   }
@@ -127,19 +129,19 @@ function exportAs(format: 'svg' | 'png' | 'jpg'): void {
 <template>
   <div>
     <div flex flex-col gap-2 md:flex-row>
-      <c-card title="Input Mermaid" mb-2 flex-1>
+      <c-card :title="t('tools.mermaid-exporter.input-mermaid')" mb-2 flex-1>
         <c-input-text
           v-model:value="mermaidCode"
           class=""
           multiline raw-text
-          placeholder="Write your Mermaid code here..."
+          :placeholder="t('tools.mermaid-exporter.input-placeholder')"
           rows="8"
           autofocus
-          label="Your Mermaid to convert:"
+          :label="t('tools.mermaid-exporter.input-label')"
         />
       </c-card>
 
-      <c-card title="Preview" mb-2 flex-1>
+      <c-card :title="t('tools.mermaid-exporter.preview')" mb-2 flex-1>
         <div flex justify-center class="diagram-container">
           <div ref="mermaidContainer" />
         </div>
@@ -147,13 +149,13 @@ function exportAs(format: 'svg' | 'png' | 'jpg'): void {
     </div>
     <div flex justify-center class="buttons">
       <n-button @click="exportAs('png')">
-        Export as PNG
+        {{ t('tools.mermaid-exporter.export-png') }}
       </n-button>
       <n-button @click="exportAs('jpg')">
-        Export as JPG
+        {{ t('tools.mermaid-exporter.export-jpg') }}
       </n-button>
       <n-button @click="exportAs('svg')">
-        Export as SVG
+        {{ t('tools.mermaid-exporter.export-svg') }}
       </n-button>
     </div>
   </div>

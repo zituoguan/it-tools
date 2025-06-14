@@ -3,6 +3,8 @@ import yaml from 'yaml';
 import properties from 'properties';
 import { flatten } from 'flatten-anything';
 
+const { t } = useI18n();
+
 const defaultPropertiesValue = `app_name App
 
 [web]
@@ -39,22 +41,22 @@ function toProperties(value: string) {
 </script>
 
 <template>
-  <c-card title=".properties to YAML">
+  <c-card :title="t('tools.properties-converter.toYamlTitle')">
     <format-transformer
-      input-label="Your .properties content:"
+      :input-label="t('tools.properties-converter.inputLabelProperties')"
       :input-default="defaultPropertiesValue"
-      input-placeholder="Paste your .properties content here..."
-      output-label="YAML version:"
+      :input-placeholder="t('tools.properties-converter.inputPlaceholderProperties')"
+      :output-label="t('tools.properties-converter.outputLabelYaml')"
       output-language="yaml"
       :transformer="fromProperties"
     />
   </c-card>
-  <c-card title="YAML to .properties">
+  <c-card :title="t('tools.properties-converter.toPropertiesTitle')">
     <format-transformer
-      input-label="Your YAML content:"
+      :input-label="t('tools.properties-converter.inputLabelYaml')"
       :input-default="defaultYamlValue"
-      input-placeholder="Paste your YAML content here..."
-      output-label=".properties version:"
+      :input-placeholder="t('tools.properties-converter.inputPlaceholderYaml')"
+      :output-label="t('tools.properties-converter.outputLabelProperties')"
       output-language="ini"
       :transformer="toProperties"
     />

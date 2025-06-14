@@ -4,6 +4,7 @@ import { type AfterSelection, type InsideSelection, type JSONEditorSelection, ty
 import 'vanilla-jsoneditor/themes/jse-theme-dark.css';
 import { useStyleStore } from '@/stores/style.store';
 
+const { t } = useI18n();
 const styleStore = useStyleStore();
 
 const jsonText = ref('{ "a": { "array": [1, 2, 3] } }');
@@ -26,7 +27,7 @@ function updateJsonPath(selection: JSONEditorSelection) {
     jsonPath.value = `$.${stringifyJSONPath((selection as MultiSelection).focusPath)}`;
   }
   else {
-    jsonPath.value = 'No available in this mode';
+    jsonPath.value = t('tools.json-editor.noAvailableInThisMode');
   }
 }
 </script>
@@ -41,13 +42,13 @@ function updateJsonPath(selection: JSONEditorSelection) {
       mb-2
     />
 
-    <n-form-item label="Current Selected Node JSONPath:">
+    <n-form-item :label="t('tools.json-editor.currentSelectedNodeJsonPath')">
       <textarea-copyable :value="jsonPath" />
     </n-form-item>
 
     <n-divider />
 
-    <n-form-item label="Your edited JSON:">
+    <n-form-item :label="t('tools.json-editor.yourEditedJson')">
       <textarea-copyable :value="jsonText" language="json" />
     </n-form-item>
   </div>

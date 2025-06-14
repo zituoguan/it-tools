@@ -1,12 +1,14 @@
 <script setup lang="ts">
+const { t } = useI18n();
+
 const units = ref('metric');
 const weight = ref<number | null>(null);
 const height = ref<number | null>(null);
 
-const options = [
-  { label: 'Metric (kg, m)', value: 'metric' },
-  { label: 'US (lbs, in)', value: 'us' },
-];
+const options = computed(() => [
+  { label: t('tools.bmi-calculator.options.metric'), value: 'metric' },
+  { label: t('tools.bmi-calculator.options.us'), value: 'us' },
+]);
 
 const bmi = computed(() => {
   if (!weight.value || !height.value) {
@@ -29,38 +31,38 @@ const bmiCategory = computed(() => {
   }
   const value = Number.parseFloat(bmi.value);
   if (value < 18.5) {
-    return 'Underweight';
+    return t('tools.bmi-calculator.category.underweight');
   }
   if (value < 24.999) {
-    return 'Normal weight';
+    return t('tools.bmi-calculator.category.normal');
   }
   if (value < 29.999) {
-    return 'Overweight';
+    return t('tools.bmi-calculator.category.overweight');
   }
   if (value < 34.999) {
-    return 'Class 1 Obesity';
+    return t('tools.bmi-calculator.category.obesity1');
   }
   if (value < 39.999) {
-    return 'Class 2 Obesity';
+    return t('tools.bmi-calculator.category.obesity2');
   }
-  return 'Severe Obesity (Class 3 Obesity)';
+  return t('tools.bmi-calculator.category.obesity3');
 });
 </script>
 
 <template>
-  <c-card title="BMI Calculator" max-w-800px>
-    <c-select v-model:value="units" label="Select Units:" :options="options" mb-2 label-position="left" />
+  <c-card :title="t('tools.bmi-calculator.cardTitle')" max-w-800px>
+    <c-select v-model:value="units" :label="t('tools.bmi-calculator.selectUnits')" :options="options" mb-2 label-position="left" />
     <n-space justify="space-evenly">
-      <n-form-item :label="`Weight (${(units === 'metric' ? 'kg' : 'lbs')}):`" label-placement="left" mb-2>
-        <n-input-number v-model:value="weight" placeholder="Enter weight" />
+      <n-form-item :label="`${t('tools.bmi-calculator.weightLabel')} (${(units === 'metric' ? 'kg' : 'lbs')}):`" label-placement="left" mb-2>
+        <n-input-number v-model:value="weight" :placeholder="t('tools.bmi-calculator.enterWeight')" />
       </n-form-item>
-      <n-form-item :label="`Height (${(units === 'metric' ? 'm' : 'in')}):`" label-placement="left" mb-2>
-        <n-input-number v-model:value="height" placeholder="Enter height" />
+      <n-form-item :label="`${t('tools.bmi-calculator.heightLabel')} (${(units === 'metric' ? 'm' : 'in')}):`" label-placement="left" mb-2>
+        <n-input-number v-model:value="height" :placeholder="t('tools.bmi-calculator.enterHeight')" />
       </n-form-item>
     </n-space>
-    <c-card v-if="bmi" title="Result">
-      <input-copyable label="BMI:" label-position="left" label-width="100px" :value="bmi" mb-1 />
-      <input-copyable label="Category:" label-position="left" label-width="100px" :value="bmiCategory" />
+    <c-card v-if="bmi" :title="t('tools.bmi-calculator.resultCardTitle')">
+      <input-copyable :label="t('tools.bmi-calculator.bmiLabel')" label-position="left" label-width="100px" :value="bmi" mb-1 />
+      <input-copyable :label="t('tools.bmi-calculator.categoryLabel')" label-position="left" label-width="100px" :value="bmiCategory" />
     </c-card>
   </c-card>
 </template>

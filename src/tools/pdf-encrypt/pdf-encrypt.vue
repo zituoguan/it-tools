@@ -3,6 +3,8 @@ import { Base64 } from 'js-base64';
 import createQPDFModule from 'qpdf-wasm-esm-embedded';
 import { useDownloadFileFromBase64Refs } from '@/composable/downloadBase64';
 
+const { t } = useI18n();
+
 const status = ref<'idle' | 'done' | 'error' | 'processing'>('idle');
 const file = ref<File | null>(null);
 
@@ -114,80 +116,80 @@ const modificationRestrictionOptions = [
     <div style="flex: 0 0 100%">
       <div mx-auto max-w-600px>
         <c-file-upload
-          title="Drag and drop a PDF file here, or click to select a file"
+          :title="t('tools.pdf-encrypt.upload-title')"
           accept=".pdf"
           @file-upload="onFileUploaded"
         />
         <div mt-2 text-center>
-          <strong>Output file:</strong> {{ fileName }}
+          <strong>{{ t('tools.pdf-encrypt.output-file') }}</strong> {{ fileName }}
         </div>
       </div>
     </div>
 
-    <c-card title="Permissions" mb-3 mt-3>
+    <c-card :title="t('tools.pdf-encrypt.permissions')" mb-3 mt-3>
       <n-space>
         <n-checkbox v-model:checked="restrictAccessibility">
-          Restrict accessibility (usually ignored)
+          {{ t('tools.pdf-encrypt.restrict-accessibility') }}
         </n-checkbox>
         <n-checkbox v-model:checked="restrictAnnotate">
-          Restrict commenting/filling form fields
+          {{ t('tools.pdf-encrypt.restrict-annotate') }}
         </n-checkbox>
         <n-checkbox v-model:checked="restrictAssemble">
-          Restrict document assembly
+          {{ t('tools.pdf-encrypt.restrict-assemble') }}
         </n-checkbox>
         <n-checkbox v-model:checked="restrictExtract">
-          Restrict text/graphic extraction
+          {{ t('tools.pdf-encrypt.restrict-extract') }}
         </n-checkbox>
         <n-checkbox v-model:checked="restrictForm">
-          Restrict filling form fields
+          {{ t('tools.pdf-encrypt.restrict-form') }}
         </n-checkbox>
         <n-checkbox v-model:checked="restrictModifyOther">
-          Restrict other modifications
+          {{ t('tools.pdf-encrypt.restrict-modify-other') }}
         </n-checkbox>
         <n-checkbox v-model:checked="clearTextMetadata">
-          Prevent encryption of metadata
+          {{ t('tools.pdf-encrypt.cleartext-metadata') }}
         </n-checkbox>
       </n-space>
       <c-select
         v-model:value="restrictModify"
         :options="modificationRestrictionOptions"
-        label="Control modify access by level"
+        :label="t('tools.pdf-encrypt.modify-label')"
         mt-3
       />
       <c-select
         v-model:value="restrictPrint"
         :options="printRestrictionOptions"
-        label="Control printing access"
+        :label="t('tools.pdf-encrypt.print-label')"
         mt-3
       />
     </c-card>
     <n-form-item
-      label="Owner password:"
+      :label="t('tools.pdf-encrypt.owner-password')"
       label-placement="left"
       mb-1
     >
       <n-input
         :value="ownerPassword"
         type="password"
-        placeholder="Owner password (optional)"
+        :placeholder="t('tools.pdf-encrypt.owner-password-placeholder')"
       />
     </n-form-item>
 
     <n-form-item
-      label="User password:"
+      :label="t('tools.pdf-encrypt.user-password')"
       label-placement="left"
       mb-1
     >
       <n-input
         :value="userPassword"
         type="password"
-        placeholder="User password (optional)"
+        :placeholder="t('tools.pdf-encrypt.user-password-placeholder')"
       />
     </n-form-item>
 
     <div mt-3 flex justify-center>
       <c-button :disabled="!file" @click="onProcessClicked()">
-        Encrypt PDF
+        {{ t('tools.pdf-encrypt.encrypt-btn') }}
       </c-button>
     </div>
 
@@ -195,7 +197,7 @@ const modificationRestrictionOptions = [
 
     <div mt-3 flex justify-center>
       <c-alert v-if="status === 'error'" type="error">
-        An error occured processing {{ fileName }}
+        {{ t('tools.pdf-encrypt.error', { file: fileName }) }}
       </c-alert>
       <n-spin
         v-if="status === 'processing'"
@@ -203,7 +205,7 @@ const modificationRestrictionOptions = [
       />
     </div>
 
-    <c-card title="Logs">
+    <c-card :title="t('tools.pdf-encrypt.logs')">
       <input-copyable label="qpdf" :value="qpdfCommand" mb-1 />
       <pre>{{ logs.join('\n') }}</pre>
     </c-card>

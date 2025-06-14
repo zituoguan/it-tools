@@ -4,6 +4,8 @@ import GenerateSchema from 'generate-schema';
 import { withDefaultOnError } from '../../utils/defaults';
 import type { UseValidationRule } from '@/composable/validation';
 
+const { t } = useI18n();
+
 const tableName = ref('TableName');
 
 function convertJsonToDDL(value: string) {
@@ -15,7 +17,7 @@ const transformer = (value: string) => value.trim() === '' ? '' : withDefaultOnE
 const rules: UseValidationRule<string>[] = [
   {
     validator: (v: string) => v === '' || JSON5.parse(v),
-    message: 'Provided JSON is not valid.',
+    message: t('tools.json-to-sql-ddl.invalid-json'),
   },
 ];
 </script>
@@ -24,16 +26,16 @@ const rules: UseValidationRule<string>[] = [
   <div>
     <c-input-text
       v-model:value="tableName"
-      label="Table Name"
-      placeholder="Table Name"
+      :label="t('tools.json-to-sql-ddl.table-name-label')"
+      :placeholder="t('tools.json-to-sql-ddl.table-name-placeholder')"
       mb-2
     />
     <n-divider />
 
     <format-transformer
-      input-label="Your JSON"
-      input-placeholder="Paste your JSON here..."
-      output-label="Your SQL DDL"
+      :input-label="t('tools.json-to-sql-ddl.input-label')"
+      :input-placeholder="t('tools.json-to-sql-ddl.input-placeholder')"
+      :output-label="t('tools.json-to-sql-ddl.output-label')"
       output-language="sql"
       :input-validation-rules="rules"
       :transformer="transformer"

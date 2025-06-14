@@ -2,6 +2,9 @@
 import { generateTree } from './lib/generate-tree';
 import { parseInput } from './lib/parse-input';
 import { withDefaultOnError } from '@/utils/defaults';
+import TextareaCopyable from '@/components/TextareaCopyable.vue';
+
+const { t } = useI18n();
 
 const inputStructure = ref([
   'my-app',
@@ -31,19 +34,19 @@ const MONACO_EDITOR_OPTIONS = {
 
 <template>
   <div>
-    <c-card title="Your indented structure" w-full>
+    <c-card :title="t('tools.folder-structure-diagram.inputTitle')" w-full>
       <c-monaco-editor
         v-model:value="inputStructure"
         theme="vs-dark"
         height="250px"
-        placeholder="Paste your indented structure here..."
+        :placeholder="t('tools.folder-structure-diagram.placeholder')"
         :options="MONACO_EDITOR_OPTIONS"
       />
     </c-card>
 
     <n-divider />
 
-    <n-form-item label="Your tree-like structure:">
+    <n-form-item :label="t('tools.folder-structure-diagram.outputLabel')">
       <TextareaCopyable :value="outputTree" />
     </n-form-item>
   </div>

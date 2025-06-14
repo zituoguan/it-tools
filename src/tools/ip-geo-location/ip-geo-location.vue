@@ -1,19 +1,21 @@
 <script setup lang="ts">
 import type { CKeyValueListItems } from '@/ui/c-key-value-list/c-key-value-list.types';
 
+const { t } = useI18n();
+
 const ip = ref('8.8.8.8');
 const errorMessage = ref('');
 
 const fields: Array<{ field: string; name: string }> = [
-  { field: 'ip', name: 'IP' },
-  { field: 'hostname', name: 'Host Name' },
-  { field: 'country', name: 'Country Code' },
-  { field: 'region', name: 'Region/state Code' },
-  { field: 'city', name: 'City' },
-  { field: 'postal', name: 'Postal Code' },
-  { field: 'loc', name: 'Latitude/Longitude' },
-  { field: 'timezone', name: 'Timezone' },
-  { field: 'org', name: 'Organization Name' },
+  { field: 'ip', name: t('tools.ip-geo-location.ip') },
+  { field: 'hostname', name: t('tools.ip-geo-location.hostName') },
+  { field: 'country', name: t('tools.ip-geo-location.countryCode') },
+  { field: 'region', name: t('tools.ip-geo-location.regionStateCode') },
+  { field: 'city', name: t('tools.ip-geo-location.city') },
+  { field: 'postal', name: t('tools.ip-geo-location.postalCode') },
+  { field: 'loc', name: t('tools.ip-geo-location.latitudeLongitude') },
+  { field: 'timezone', name: t('tools.ip-geo-location.timezone') },
+  { field: 'org', name: t('tools.ip-geo-location.organizationName') },
 ];
 
 const geoInfos = ref<CKeyValueListItems>([]);
@@ -71,24 +73,24 @@ async function onGetInfos() {
     <div flex items-center gap-2>
       <c-input-text
         v-model:value="ip"
-        placeholder="Enter an IPv4/6"
+        :placeholder="t('tools.ip-geo-location.enterIPv4v6')"
         @update:value="() => { status = 'pending' }"
       />
       <c-button align-center @click="onGetInfos">
-        Get GEO Location Infos
+        {{ t('tools.ip-geo-location.getGeoLocationInfos') }}
       </c-button>
     </div>
 
     <details mt-2>
-      <summary>Optional ipinfo.io token</summary>
+      <summary>{{ t('tools.ip-geo-location.optionalToken') }}</summary>
       <c-input-text
         v-model:value="token"
-        placeholder="Optional ipinfo.io token"
+        :placeholder="t('tools.ip-geo-location.optionalTokenPlaceholder')"
         @update:value="() => { status = 'pending' }"
       />
       <n-p>
         <n-a href="https://ipinfo.io/">
-          Signup for a free token
+          {{ t('tools.ip-geo-location.signupFreeToken') }}
         </n-a>
       </n-p>
     </details>
@@ -96,12 +98,12 @@ async function onGetInfos() {
     <n-divider />
 
     <c-card v-if="status === 'pending'" mt-5>
-      Click on button above to get latest infos
+      {{ t('tools.ip-geo-location.clickButtonMessage') }}
     </c-card>
 
     <c-card v-if="status === 'success' && openStreetMapUrl" mt-4>
       <c-button :href="openStreetMapUrl" target="_blank">
-        Localize on Open Street Map
+        {{ t('tools.ip-geo-location.localizeOnMap') }}
       </c-button>
     </c-card>
 
@@ -109,7 +111,7 @@ async function onGetInfos() {
       <c-key-value-list :items="geoInfos" />
     </c-card>
 
-    <n-alert v-if="status === 'error'" title="Errors occured" type="error" mt-5>
+    <n-alert v-if="status === 'error'" :title="t('tools.ip-geo-location.errorsOccurred')" type="error" mt-5>
       {{ errorMessage }}
     </n-alert>
   </div>

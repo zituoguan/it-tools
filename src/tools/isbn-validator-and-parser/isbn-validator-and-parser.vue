@@ -2,6 +2,7 @@
 import ISBN3 from 'isbn3';
 import type { CKeyValueListItems } from '@/ui/c-key-value-list/c-key-value-list.types';
 
+const { t } = useI18n();
 const rawIsbn = ref('9782021304534');
 
 const isbnInfos = computed<CKeyValueListItems>(() => {
@@ -13,27 +14,27 @@ const isbnInfos = computed<CKeyValueListItems>(() => {
 
   return [
     {
-      label: 'Is ISBN valid ?',
+      label: t('tools.isbn-validator-and-parser.isValid'),
       value: isbn.isValid,
     },
     {
-      label: 'Country',
+      label: t('tools.isbn-validator-and-parser.country'),
       value: isbn.groupname,
     },
     {
-      label: 'ISBN 13',
+      label: t('tools.isbn-validator-and-parser.isbn13'),
       value: isbn.isbn13,
     },
     {
-      label: 'ISBN 13 Formatted',
+      label: t('tools.isbn-validator-and-parser.isbn13Formatted'),
       value: isbn.isbn13h,
     },
     {
-      label: 'ISBN 10',
+      label: t('tools.isbn-validator-and-parser.isbn10'),
       value: isbn.isbn10,
     },
     {
-      label: 'ISBN 10 Formatted',
+      label: t('tools.isbn-validator-and-parser.isbn10Formatted'),
       value: isbn.isbn10h,
     },
   ];
@@ -85,16 +86,16 @@ const isbnAuditInfos = computed<{ isValid: boolean; clues: CKeyValueListItems }>
 
 <template>
   <div>
-    <c-input-text v-model:value="rawIsbn" placeholder="Enter an ISBN to check for validity..." test-id="isbn-input" />
+    <c-input-text v-model:value="rawIsbn" :placeholder="t('tools.isbn-validator-and-parser.placeholder')" test-id="isbn-input" />
     <n-alert v-if="!isbnAuditInfos.isValid" type="error">
-      Invalid ISBN.
-      <input-copyable v-if="normalizedISBN" label="Probably correct" label-position="left" :value="normalizedISBN" disabled="true" />
+      {{ t('tools.isbn-validator-and-parser.invalidIsbn') }}
+      <input-copyable v-if="normalizedISBN" :label="t('tools.isbn-validator-and-parser.probablyCorrect')" label-position="left" :value="normalizedISBN" disabled="true" />
     </n-alert>
 
-    <c-card v-if="isbnInfos.length > 0" mt-5 title="ISBN Infos">
+    <c-card v-if="isbnInfos.length > 0" mt-5 :title="t('tools.isbn-validator-and-parser.isbnInfos')">
       <c-key-value-list :items="isbnInfos" data-test-id="isbn-info" />
     </c-card>
-    <c-card v-if="isbnAuditInfos.clues.length > 0" mt-5 title="ISBN Audit Infos">
+    <c-card v-if="isbnAuditInfos.clues.length > 0" mt-5 :title="t('tools.isbn-validator-and-parser.isbnAuditInfos')">
       <c-key-value-list :items="isbnAuditInfos" data-test-id="isbn-info" />
     </c-card>
   </div>

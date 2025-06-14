@@ -4,6 +4,8 @@ import type { Data, ImgParams } from 'vue3-fortune-wheel';
 import { useQueryParamOrStorage } from '@/composable/queryParams';
 import { computedRefreshable } from '@/composable/computedRefreshable';
 
+const { t } = useI18n();
+
 const base = import.meta.env.BASE_URL;
 
 const choices = useQueryParamOrStorage({ name: 'choices', storageName: 'fortune-wheel:chs', defaultValue: '' });
@@ -52,14 +54,14 @@ function restart() {
 
 <template>
   <div>
-    <n-form-item label="Spin Duration (seconds):" label-placement="left">
+    <n-form-item :label="t('tools.fortune-wheel.spinDuration')" label-placement="left">
       <n-input-number v-model:value="spinDuration" :min="1" />
     </n-form-item>
 
     <c-input-text
       v-model:value="choices"
-      label="Wheel choices (one per line):"
-      placeholder="Wheel choices (one per line)"
+      :label="t('tools.fortune-wheel.choicesLabel')"
+      :placeholder="t('tools.fortune-wheel.choicesPlaceholder')"
       multiline
       rows="5"
     />
@@ -78,7 +80,7 @@ function restart() {
 
     <div flex justify-center>
       <c-button @click="restart()">
-        Spin!
+        {{ t('tools.fortune-wheel.spin') }}
       </c-button>
     </div>
   </div>

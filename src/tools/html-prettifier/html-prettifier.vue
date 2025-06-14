@@ -2,6 +2,8 @@
 import beautify from 'js-beautify';
 import TextareaCopyable from '@/components/TextareaCopyable.vue';
 
+const { t } = useI18n();
+
 const inputHtml = ref('');
 const outputHtml = computed(() => {
   return beautify.html(inputHtml.value, {
@@ -19,16 +21,16 @@ const outputHtml = computed(() => {
     <c-input-text
       v-model:value="inputHtml"
       multiline raw-text
-      placeholder="Your HTML content..."
+      :placeholder="t('tools.html-prettifier.inputPlaceholder')"
       rows="8"
       autofocus
-      label="Your HTML to format (can paste from clipboard):"
+      :label="t('tools.html-prettifier.inputLabel')"
       paste-html
     />
 
     <n-divider />
 
-    <n-form-item label="Output prettified HTML:">
+    <n-form-item :label="t('tools.html-prettifier.outputLabel')">
       <TextareaCopyable
         :value="outputHtml"
         multiline

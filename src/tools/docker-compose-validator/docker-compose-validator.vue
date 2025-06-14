@@ -3,6 +3,7 @@ import {
   validateDockerComposeToCommonSpec,
 } from 'composeverter';
 
+const { t } = useI18n();
 const dockerCompose = ref(
   `version: '3.3'
 services:
@@ -38,7 +39,7 @@ const MONACO_EDITOR_OPTIONS = {
 
 <template>
   <div>
-    <c-label label="Paste your Docker Compose file content:">
+    <c-label :label="t('tools.docker-compose-validator.paste-label')">
       <div relative w-full>
         <c-monaco-editor
           v-model:value="dockerCompose"
@@ -51,11 +52,11 @@ const MONACO_EDITOR_OPTIONS = {
     </c-label>
 
     <div v-if="errors.length > 0">
-      <n-alert title="The following errors occured" type="error" mt-5>
+      <n-alert :title="t('tools.docker-compose-validator.errors-title')" type="error" mt-5>
         <ul>
           <li v-for="(message, index) of errors" :key="index">
             {{ message.message }} (<n-a v-if="message.helpLink" target="_blank" rel="noreferer noopener">
-              See Docker Compose help
+              {{ t('tools.docker-compose-validator.help-link-text') }}
             </n-a>)
           </li>
         </ul>
@@ -63,7 +64,7 @@ const MONACO_EDITOR_OPTIONS = {
     </div>
     <div v-else>
       <n-alert type="success" mt-5>
-        Validation successful!
+        {{ t('tools.docker-compose-validator.validation-success') }}
       </n-alert>
     </div>
   </div>

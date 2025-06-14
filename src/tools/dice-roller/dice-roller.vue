@@ -4,6 +4,7 @@ import { computedRefreshable } from '@/composable/computedRefreshable';
 import { useCopy } from '@/composable/copy';
 import { useQueryParamOrStorage } from '@/composable/queryParams';
 
+const { t } = useI18n();
 const dicesNotations = useQueryParamOrStorage({ name: 'dices', storageName: 'dice-roll:dices', defaultValue: '3d6' });
 const [diceRollResult, refreshDiceRollResult] = computedRefreshable(() => {
   try {
@@ -22,20 +23,20 @@ const [diceRollResult, refreshDiceRollResult] = computedRefreshable(() => {
 
 const diceRollString = computed(() => diceRollResult.value.roll?.output || '');
 
-const { copy } = useCopy({ source: diceRollString, text: 'Dice Roll copied to the clipboard' });
+const { copy } = useCopy({ source: diceRollString, text: t('tools.dice-roller.copy-success-message') });
 </script>
 
 <template>
   <c-card>
     <c-input-text
       v-model:value="dicesNotations"
-      label="Dice Roll Notations:" label-position="left"
-      placeholder="Dice configuration"
+      :label="t('tools.dice-roller.dice-notations-label')" label-position="left"
+      :placeholder="t('tools.dice-roller.dice-config-placeholder')"
       mb-2
     />
     <n-p mb-2>
-      For more information about Dice Notation, see <n-a href="https://dice-roller.github.io/documentation/guide/notation/" target="_blank">
-        here
+      {{ t('tools.dice-roller.notation-info-text') }} <n-a href="https://dice-roller.github.io/documentation/guide/notation/" target="_blank">
+        {{ t('tools.dice-roller.notation-link-text') }}
       </n-a>
     </n-p>
 
@@ -43,24 +44,24 @@ const { copy } = useCopy({ source: diceRollString, text: 'Dice Roll copied to th
       {{ diceRollResult.error }}
     </c-alert>
 
-    <c-card v-if="!diceRollResult.error" title="Roll Result" mb-2>
+    <c-card v-if="!diceRollResult.error" :title="t('tools.dice-roller.roll-result-title')" mb-2>
       <input-copyable :value="diceRollResult.roll?.output" readonly mb-1 />
-      <input-copyable :value="diceRollResult.roll?.total" label="Total" readonly placeholder="Dice Roll total:" label-position="left" mb-1 />
+      <input-copyable :value="diceRollResult.roll?.total" :label="t('tools.dice-roller.total-label')" readonly :placeholder="t('tools.dice-roller.total-placeholder')" label-position="left" mb-1 />
     </c-card>
 
     <div mb-2 flex justify-center gap-3>
       <c-button @click="copy()">
-        Copy roll result
+        {{ t('tools.dice-roller.copy-button') }}
       </c-button>
       <c-button @click="refreshDiceRollResult">
-        Refresh roll
+        {{ t('tools.dice-roller.refresh-button') }}
       </c-button>
     </div>
 
-    <c-card v-if="!diceRollResult.error" title="Dice Notation Stats" mb-2>
-      <input-copyable :value="diceRollResult.roll?.minTotal" readonly label="Min Total:" label-position="left" mb-1 />
-      <input-copyable :value="diceRollResult.roll?.maxTotal" readonly label="Max Total:" label-position="left" mb-1 />
-      <input-copyable :value="diceRollResult.roll?.averageTotal" readonly label="Avg Total:" label-position="left" mb-1 />
+    <c-card v-if="!diceRollResult.error" :title="t('tools.dice-roller.stats-title')" mb-2>
+      <input-copyable :value="diceRollResult.roll?.minTotal" readonly :label="t('tools.dice-roller.min-total-label')" label-position="left" mb-1 />
+      <input-copyable :value="diceRollResult.roll?.maxTotal" readonly :label="t('tools.dice-roller.max-total-label')" label-position="left" mb-1 />
+      <input-copyable :value="diceRollResult.roll?.averageTotal" readonly :label="t('tools.dice-roller.avg-total-label')" label-position="left" mb-1 />
     </c-card>
   </c-card>
 </template>

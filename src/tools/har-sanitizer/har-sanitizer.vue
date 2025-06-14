@@ -2,6 +2,8 @@
 import { downloadFile } from './lib/downloadFile';
 import { defaultScrubItems, getHarInfo, sanitize } from './lib/har_sanitize';
 
+const { t } = useI18n();
+
 type ScrubState = Record<ScrubType, Record<string, boolean>>;
 type ScrubType =
  | 'cookies'
@@ -10,13 +12,13 @@ type ScrubType =
  | 'postParams'
  | 'mimeTypes';
 
-const typeMap: Record<ScrubType, string> = {
-  cookies: 'Cookies',
-  mimeTypes: 'Mime Types',
-  headers: 'Headers',
-  postParams: 'Post Body Params',
-  queryArgs: 'Query String Parameters',
-};
+const typeMap = computed(() => ({
+  cookies: t('tools.har-sanitizer.cookies'),
+  mimeTypes: t('tools.har-sanitizer.mimeTypes'),
+  headers: t('tools.har-sanitizer.headers'),
+  postParams: t('tools.har-sanitizer.postParams'),
+  queryArgs: t('tools.har-sanitizer.queryArgs'),
+}));
 
 const defaulScrubState: ScrubState = {
   cookies: {},
@@ -118,20 +120,20 @@ function processHar() {
     <div style="flex: 0 0 100%" mb-3>
       <div mx-auto max-w-600px>
         <c-file-upload
-          title="Drag and drop a HAR file here, or click to select a file"
+          :title="t('tools.har-sanitizer.fileUploadTitle')"
           accept=".har" @file-upload="onFileUploaded"
         />
       </div>
     </div>
 
-    <c-alert v-if="error" title="Error">
+    <c-alert v-if="error" :title="t('tools.har-sanitizer.error')">
       {{ error }}
     </c-alert>
 
     <div v-for="(title, key) in typeMap" :key="key" mb-1>
       <c-card v-if="Object.keys(scrubItemsToClean[key]).length" :title="title">
         <n-checkbox font-size-5 @update:checked="(allChecked: boolean) => Object.keys(scrubItemsToClean[key]).forEach((name) => scrubItemsToClean[key][name] = allChecked)">
-          All {{ title }}
+          {{ t('tools.har-sanitizer.allItems', { type: title }) }}
         </n-checkbox>
         <n-space size="large">
           <n-checkbox v-for="(checked, name) in scrubItemsToClean[key]" :key="name" v-model:checked="scrubItemsToClean[key][name]" style="width: 150px">
@@ -143,7 +145,7 @@ function processHar() {
 
     <div v-if="!error" mt-3 flex justify-center>
       <c-button @click="processHar()">
-        Sanitize and download
+        {{ t('tools.har-sanitizer.sanitizeAndDownload') }}
       </c-button>
     </div>
   </div>

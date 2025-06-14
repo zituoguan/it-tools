@@ -5,6 +5,8 @@ import { objectArrayToData } from '@/utils/objectarray.export';
 import type { UseValidationRule } from '@/composable/validation';
 import TextareaCopyable from '@/components/TextareaCopyable.vue';
 
+const { t } = useI18n();
+
 const defaultValue = `{
   a:"n",
   arr: [1, 2], 
@@ -32,25 +34,25 @@ const sqlOutput = computed(() => {
 const rules: UseValidationRule<string>[] = [
   {
     validator: (v: string) => v === '' || JSON5.parse(v),
-    message: 'Provided JSON is not valid.',
+    message: t('tools.json-to-sql-insert.invalid-json'),
   },
 ];
 </script>
 
 <template>
-  <c-card title="JSON to SQL INSERT">
-    <c-input-text v-model:value="tableName" label="Table Name:" label-placement="left" mb-1 />
+  <c-card :title="t('tools.json-to-sql-insert.card-title')">
+    <c-input-text v-model:value="tableName" :label="t('tools.json-to-sql-insert.table-name-label')" label-placement="left" mb-1 />
     <c-input-text
       v-model:value="jsonInput"
       multiline
-      placeholder="Put your json string here..."
+      :placeholder="t('tools.json-to-sql-insert.input-placeholder')"
       rows="20"
-      label="JSON:"
+      :label="t('tools.json-to-sql-insert.input-label')"
       :validation-rules="rules"
       raw-text
     />
   </c-card>
-  <c-card title="Your SQL INSERT code">
+  <c-card :title="t('tools.json-to-sql-insert.output-card-title')">
     <TextareaCopyable
       :value="sqlOutput"
       language="sql"

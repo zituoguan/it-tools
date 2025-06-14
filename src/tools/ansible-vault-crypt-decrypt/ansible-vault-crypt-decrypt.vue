@@ -2,6 +2,8 @@
 import { Vault } from 'ansible-vault';
 import TextareaCopyable from '@/components/TextareaCopyable.vue';
 
+const { t } = useI18n();
+
 const decryptedInput = ref('');
 const encryptPassword = ref('');
 const encryptId = ref('');
@@ -34,11 +36,11 @@ const decryptedOutput = computedAsync(
 </script>
 
 <template>
-  <c-card title="Encrypt Ansible Vault Secret">
+  <c-card :title="t('tools.ansible-vault-crypt-decrypt.encryptTitle')">
     <c-input-text
       v-model:value="decryptedInput"
-      placeholder="Put your string to encrypt..."
-      label="String to encrypt"
+      :placeholder="t('tools.ansible-vault-crypt-decrypt.encryptPlaceholder')"
+      :label="t('tools.ansible-vault-crypt-decrypt.stringToEncryptLabel')"
       raw-text
       mb-5
     />
@@ -46,15 +48,15 @@ const decryptedOutput = computedAsync(
     <n-space>
       <c-input-text
         v-model:value="encryptPassword"
-        placeholder="Encryption password"
-        label="Encryption password"
+        :placeholder="t('tools.ansible-vault-crypt-decrypt.encryptionPasswordPlaceholder')"
+        :label="t('tools.ansible-vault-crypt-decrypt.encryptionPasswordLabel')"
         raw-text
         mb-5
       />
       <c-input-text
         v-model:value="encryptId"
-        placeholder="Encryption Id"
-        label="Encryption Id"
+        :placeholder="t('tools.ansible-vault-crypt-decrypt.encryptionIdPlaceholder')"
+        :label="t('tools.ansible-vault-crypt-decrypt.encryptionIdLabel')"
         raw-text
         mb-5
       />
@@ -63,7 +65,7 @@ const decryptedOutput = computedAsync(
     <n-divider />
 
     <TextareaCopyable
-      label="Encrypted string"
+      :label="t('tools.ansible-vault-crypt-decrypt.encryptedStringLabel')"
       :value="cryptedOutput"
       multiline
       readonly
@@ -72,19 +74,19 @@ const decryptedOutput = computedAsync(
     />
   </c-card>
 
-  <c-card title="Decrypt Ansible Vault Secret">
+  <c-card :title="t('tools.ansible-vault-crypt-decrypt.decryptTitle')">
     <c-input-text
       v-model:value="cryptedInput"
-      placeholder="Put your encrypted string here..."
-      label="String to decrypt"
+      :placeholder="t('tools.ansible-vault-crypt-decrypt.decryptPlaceholder')"
+      :label="t('tools.ansible-vault-crypt-decrypt.stringToDecryptLabel')"
       raw-text multiline mb-5
       rows="5"
     />
 
     <c-input-text
       v-model:value="decryptPassword"
-      placeholder="Decryption password"
-      label="Decryption password"
+      :placeholder="t('tools.ansible-vault-crypt-decrypt.decryptionPasswordPlaceholder')"
+      :label="t('tools.ansible-vault-crypt-decrypt.decryptionPasswordLabel')"
       raw-text
       mb-5
     />
@@ -92,7 +94,7 @@ const decryptedOutput = computedAsync(
     <n-divider />
 
     <TextareaCopyable
-      label="Decrypted string"
+      :label="t('tools.ansible-vault-crypt-decrypt.decryptedStringLabel')"
       :value="decryptedOutput"
       multiline
       readonly

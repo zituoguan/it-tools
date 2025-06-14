@@ -3,22 +3,23 @@ import { getPasswordCrackTimeEstimation } from './password-strength-analyser.ser
 
 const password = ref('');
 const crackTimeEstimation = computed(() => getPasswordCrackTimeEstimation({ password: password.value }));
+const { t } = useI18n();
 
 const details = computed(() => [
   {
-    label: 'Password length:',
+    label: t('tools.password-strength-analyser.length'),
     value: crackTimeEstimation.value.passwordLength,
   },
   {
-    label: 'Entropy:',
+    label: t('tools.password-strength-analyser.entropy'),
     value: Math.round(crackTimeEstimation.value.entropy * 100) / 100,
   },
   {
-    label: 'Character set size:',
+    label: t('tools.password-strength-analyser.charset'),
     value: crackTimeEstimation.value.charsetLength,
   },
   {
-    label: 'Score:',
+    label: t('tools.password-strength-analyser.score'),
     value: `${Math.round(crackTimeEstimation.value.score * 100)} / 100`,
   },
 ]);
@@ -29,7 +30,7 @@ const details = computed(() => [
     <c-input-text
       v-model:value="password"
       type="password"
-      placeholder="Enter a password..."
+      :placeholder="t('tools.password-strength-analyser.input-placeholder')"
       clearable
       autofocus
       raw-text
@@ -38,7 +39,7 @@ const details = computed(() => [
 
     <c-card text-center>
       <div op-60>
-        Duration to crack this password with brute force
+        {{ t('tools.password-strength-analyser.duration-label') }}
       </div>
       <div text-2xl data-test-id="crack-duration">
         {{ crackTimeEstimation.crackDurationFormatted }}
@@ -55,8 +56,8 @@ const details = computed(() => [
       </div>
     </c-card>
     <div op-70>
-      <span font-bold>Note: </span>
-      The computed strength is based on the time it would take to crack the password using a brute force approach, it does not take into account the possibility of a dictionary attack.
+      <span font-bold>{{ t('tools.password-strength-analyser.note') }}</span>
+      {{ t('tools.password-strength-analyser.note-desc') }}
     </div>
   </div>
 </template>

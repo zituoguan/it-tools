@@ -1,13 +1,24 @@
 <script setup lang="ts">
 import { useThemeVars } from 'naive-ui';
-import Memo from './git-sem.memo.md';
+import { computed, defineAsyncComponent } from 'vue';
 
 const themeVars = useThemeVars();
+const { locale } = useI18n();
+
+const MemoContent = computed(() => {
+  const lang = locale.value;
+  // 尝试加载特定语言的 .md 文件
+  // 如果失败，则回退到原始的 .md 文件 (如果存在)
+  return defineAsyncComponent(() =>
+    import(`./git-sem.memo.${lang}.md`)
+      .catch(() => import('./git-sem.memo.md')), // 最后的备选方案
+  );
+});
 </script>
 
 <template>
   <div>
-    <Memo />
+    <component :is="MemoContent" />
   </div>
 </template>
 
